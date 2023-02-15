@@ -114,12 +114,15 @@ find ${INGESTdir} -type f -mtime +${PSURGEPURGEdays} | xargs rm -f
 
 #-----------------------------------------
 # THIS  TEST 1
-#YYYYMMDD="20121029"
-#PSurge_latest="${COMpsurge}/psurge.${YYYYMMDD}"
+#YYYYMMDD="20200824"
+#export COMINpsurge=/lfs/h1/mdl/marine/noscrub/arthur.taylor/psurge-stable/dev/work/2020-08-24/com/psurge/v3.0
 #PSurge_latest="${COMINpsurge}"
-#ls -lt ${PSurge_latest}/psurge.${YYYYMMDD}/psurge.t*_e10_inc_agl*.grib2
-#cp ${PSurge_latest}/psurge.20121029/psurge.t*_e10_inc_agl*.grib2 ${RUNdir} 
 #------------------------------------------------------------
+#THIS  TEST 2
+#YYYYMMDD="20170906"
+#export COMINpsurge=/lfs/h1/mdl/marine/noscrub/arthur.taylor/psurge-stable/dev/work/2017-Irma-Adv29/com/psurge/v3.0
+#PSurge_latest="${COMINpsurge}"
+#-----------------------------------------
 # Production?
 workdir=$(echo `pwd`)
 PSurge_latest=${COMINpsurge}
@@ -128,7 +131,9 @@ PSurge_latest=${COMINpsurge}
 #NewestDir=$(echo "${NewD%?}")
 #cd ${NewestDir}
 #NewestPsurge=$(basename `ls -t ${PSurge_latest}/*e??_inc_dat.h102.conus_625m.grib2 | head -1`)
-NewestPsurge=$(basename `ls -t ${PSurge_latest}/*e[1-5]?_inc_dat.h102.conus_625m.grib2 | head -1`)
+#NewestPsurge=$(basename `ls -t ${PSurge_latest}/*e[1-5]?_inc_dat.h102.conus_625m.grib2 | head -1`)
+# psurge update v3.0 to find the first prioritized CONUS storm from the *.go file
+NewestPsurge=$(awk '/CONUS/ {print $1}' ${PSurge_latest}/psurge.${YYYYMMDD}/*.go | head -1)
 
 if [ "${NewestPsurge}" == "" ]
     then 
@@ -141,7 +146,9 @@ split=(${NewestPsurge//_/ })
 for part in ${split[@]} ; do echo $part; done
 #split[0] must be something like:  psurge.t2004091418z.al822004
 #cp ${PSurge_latest}/${split[0]}_e??_inc_dat.h102.conus_625m.grib2 ${RUNdir} 
-cp ${PSurge_latest}/${split[0]}_e[1-5]?_inc_dat.h102.conus_625m.grib2 ${RUNdir} 
+#cp ${PSurge_latest}/${split[0]}_e[1-5]?_inc_dat.h102.conus_625m.grib2 ${RUNdir} 
+# psurge update v3.0 
+cp ${PSurge_latest}/psurge.${YYYYMMDD}/*.${NewestPsurge}_e[1-5]?_inc_dat.h102.conus_625m.grib2 ${RUNdir}
 cd $workdir
 #--------------------------------------------------------------
 
