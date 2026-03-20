@@ -35,10 +35,56 @@ export CONFIG_SITE=/tmp/dummy
 source ../versions/build.ver
 
 # moved from build.ver
-export optFlag="-O3"
+#export optFlag="-O3"
+#export COMP=ftn
+#export COMPC=cc
+#export C_COMP=cc
+
 export COMP=ftn
 export COMPC=cc
 export C_COMP=cc
+
+# -----------------------------------------------------------
+# Optional Fortran runtime checking
+# Usage:
+#   ./make_NWPS.sh        -> normal build
+#   ./make_NWPS.sh check  -> build with runtime checks
+# -----------------------------------------------------------
+CHECK_ALL=NO
+if [[ "${1:-}" == "check" ]]; then
+  CHECK_ALL=YES
+fi
+
+if [[ "${CHECK_ALL}" == "YES" ]]; then
+  echo "================================================"
+  echo "  NWPS build with optional Fortran runtime checking"
+  echo "================================================"
+
+  export NWPS_CHECK_ALL=YES
+  # General components
+  export optFlag="-O0 -g -check all -traceback -fpe0"
+  export FFLAGS="-O0 -g -check all -traceback -fpe0"
+  export FCFLAGS="-O0 -g -check all -traceback -fpe0"
+
+  # SWAN / PUNSWAN controls
+  export FLAGS_OPT="-O0 -check all -fpe0"
+  export FLAGS_MSC="-g -traceback"
+else
+  echo "================================================"
+  echo "  NWPS normal build"
+  echo "================================================"
+
+  export NWPS_CHECK_ALL=NO
+  # General components
+  export optFlag="-O3"
+  export FFLAGS=""
+  export FCFLAGS=""
+
+  # SWAN / PUNSWAN controls
+  export FLAGS_OPT="-O2"
+  export FLAGS_MSC="-g -traceback"
+fi
+
 
 #module purge
 module reset
