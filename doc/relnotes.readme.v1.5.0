@@ -313,7 +313,7 @@ Make the home directory for the model in $NWROOT:
 > cd nwps
 
 Clone the NWPS code from the following Github repo, and checkout the release tag:
-> git clone --branch main https://github.com/sbanihash/nwps.git
+> git clone --branch prod/v1.5 git@github.com:NOAA-EMC/nwps.git
 
 II) Building the executables
 
