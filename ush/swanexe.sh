@@ -152,6 +152,10 @@ then
       then
          NTASKS=144
          PROCPERNODE=72
+      elif [ "${siteid}" == "lox" ]
+      then
+         NTASKS=36
+         PROCPERNODE=36
       elif [ "${siteid}" == "alu" ]
       then
          NTASKS=84
@@ -162,7 +166,7 @@ then
          PROCPERNODE=60
       elif [ "${siteid}" == "sju" ] || [ "${siteid}" == "gum" ] || [ "${siteid}" == "jax" ] \
          || [ "${siteid}" == "hfo" ] || [ "${siteid}" == "mhx" ] || [ "${siteid}" == "gyx" ] \
-         || [ "${siteid}" == "lox" ] || [ "${siteid}" == "mtr" ] || [ "${siteid}" == "eka" ] \
+         || [ "${siteid}" == "mtr" ] || [ "${siteid}" == "eka" ] \
          || [ "${siteid}" == "mfr" ] || [ "${siteid}" == "pqr" ] \
          || [ "${siteid}" == "ajk" ] || [ "${siteid}" == "aer" ] || [ "${siteid}" == "afg" ] \
          || [ "${siteid}" == "bro" ] || [ "${siteid}" == "crp" ] || [ "${siteid}" == "lch" ] \
