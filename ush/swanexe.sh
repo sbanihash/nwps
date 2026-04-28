@@ -200,7 +200,7 @@ then
 
       for ((i=0; i<NTASKS; i++)); do
          i4=$(printf '%04d' "${i}")
-         cp ${RUNdir}/INPUT ${RUNdir}/PE000${i}/
+         cp ${RUNdir}/INPUT ${RUNdir}/PE${i4}/
       done
 
       echo "Starting PuNSWAN executable for "${siteid}
