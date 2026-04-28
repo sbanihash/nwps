@@ -1,13 +1,13 @@
 release Notes:  nwps v1.5.0 - released to NCO on April 27, 2026
 
 Where is the release tag on subversion/git/vlab?
-https://github.com/sbanihash/nwps.git branch prod/v1.5
+https://github.com/NOAA-EMC/nwps/tree/prod/v1.5
 
 List of external software used (anything outside of your vertical structure), 
 including compilers and version numbers for everything. Software used must be 
 a minimal list of modules/versions specified per job:
 
-NOTE: This list of external software is unchanged relative to nwps v1.4.8
+NOTE: External building for: emapf-c degrib and gd are not happening in v1.5.0 compared to v1.4.23  
 
 jnwps_ofs_prep.ecf/jnwps_rtofs_prep.ecf/jnwps_estofs_prep.ecf/jnwps_psurge_prep.ecf:
 craype-x86-rome
@@ -230,17 +230,17 @@ Done - resolved before.
 364 Remove GOTO statements
 Not started, we will work on auxiliary fortran codes not the swan source codes as it need significant changes, this is agreed in a meeting with Steven Earl and NCO.
 Rip current has no go-tos, 
-Runup has no go-tos. degrib, gd and emapf-c removal also removed goto statements. 
+Runup has no go-tos. External building of degrib, gd and emapf-c has also been removed which reduced the goto statements. 
 
 
 What changes were made to the above code/scripts to support the new architecture?
-changes can be tracked on github
+changes can be tracked on github, and are also listed above
 
 Were any other changes made that aren’t directly related to the transition?
 No
 
 Are there any changes to incoming data needs or outgoing products? 
-Yes, dependence on stofs 2d global currents 
+Yes, dependence on stofs 2d global currents as upstream data
 
 If output filenames are changing, list the current and new filename
 no new filename changes , new products listed in PNS:
