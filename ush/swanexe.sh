@@ -204,7 +204,7 @@ then
       done
 
       echo "Starting PuNSWAN executable for "${siteid}
-      mpiexec -n ${NTAKS} -ppn ${PROCPERNODE} ${EXECnwps}/punswan4110.exe
+      mpiexec -n ${NTASKS} -ppn ${PROCPERNODE} ${EXECnwps}/punswan4110.exe
       export err=$?;
       echo "Exit Code: ${err}" | tee -a ${LOGdir}/swan_exe_error.log
       cp ${RUNdir}/PE0000/PRINT ${RUNdir}/
