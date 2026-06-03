@@ -80,7 +80,7 @@ module swn_outnc
     logical                     :: stnames_initialized = .false., &
                                    skip_range_error = .true.
     type(recordaxe_type), save  :: recordaxe(MAX_OUTP_REQ)
-    integer,save                :: ncoffset(MAX_OUTP_REQ) = 0
+    integer,save                :: ncid_store(MAX_OUTP_REQ) = 0
 
 !PUN    logical                     :: PUNSWAN = .true.
 !NPUN    logical                     :: PUNSWAN = .false.
@@ -237,7 +237,8 @@ contains
         call swn_outnc_appendspc(OQI, spcaux)
         if (STPNOW()) return
 
-        call nccheck(nf90_close(oqi(1) + ncoffset(irq) ))
+        call nccheck(nf90_close(ncid_store(irq)))
+        ncid_store(irq) = 0
         oqi(1) = 0
       end if
 
@@ -477,14 +478,15 @@ contains
         call swn_outnc_deallocate_spcaux( spcaux )
 
         if ( NSTATM == 0 .or. TIMCO >= TFINC ) then
-            call close_ncfile(OQI(1) + ncoffset(irq) )
+            call close_ncfile(ncid_store(irq))
+            ncid_store(irq) = 0
             OQI(1) = 0
 
             ! The intermediate binary files are closed and deleted in
             !    swanparll.ftn -> SWCOLOUT
 
         else
-            call nccheck( NF90_SYNC( OQI(1) + ncoffset(irq)  ))
+            call nccheck( NF90_SYNC( ncid_store(irq) ))
         end if
     end subroutine swn_outnc_colspc
 
@@ -976,7 +978,7 @@ contains
 !
       if (LTRACE) call STRACE (IENT,'swn_outnc_appendspc')
       irq  = oqi(2)
-      ncid = oqi(1) + ncoffset(irq)
+      ncid = ncid_store(irq)
 
       call swn_outnc_spcflags(oqi(4), spc_as_map, wetnode_list, spcaux, noaux=noaux)
 
@@ -1307,6 +1309,7 @@ contains
 !
 ! 7) open file in write mode
 !
+        if (ncid_store(irq) /= 0) call close_ncfile(ncid_store(irq))
         call open_ncfile( ncfile, "write", ncid, recordaxe(irq))
 
         ! if only only record found, set delta to delta specified in command file (or 1 on stationary)
@@ -1317,7 +1320,7 @@ contains
                 recordaxe(irq)%delta = 1
             end if
         end if
-        ncoffset(irq) = ncid - oqi(1)
+        ncid_store(irq) = ncid
 
     end subroutine swn_outnc_openspecfile
 
@@ -1384,7 +1387,7 @@ contains
         if (LTRACE) call STRACE (IENT,'swn_outnc_appendblock')
         if ( ivtype == 40 ) return
 
-        ncid = nref + ncoffset(irq)
+        ncid = ncid_store(irq)
 
         if ( recordaxe(irq)%nstatm ) then
             READ (chtime, '(I8,1X,I6)') (xpctmp(i), i=1,2)
@@ -1422,7 +1425,7 @@ contains
         integer, save                    :: IENT=0
 
         ncid = nref
-        if ( present(irq) ) ncid = nref + ncoffset(irq)
+        if ( present(irq) ) ncid = ncid_store(irq)
 
         ! Decided to sync data to file even in non stationary mode because
         ! otherwise data is buffered during the entire computation,
@@ -1431,6 +1434,7 @@ contains
         if ( nstatm == 0 .or. ( (ic == NCOMPT).and.(TIMCO >= TFINC)) ) then
             call close_ncfile(ncid)
             nref = 0
+            if ( present(irq) ) ncid_store(irq) = 0
         else
             call nccheck( NF90_SYNC(ncid) )
         end if
@@ -1601,11 +1605,10 @@ contains
             call close_ncfile(ncid)
         end if
 
+        if (ncid_store(irq) /= 0) call close_ncfile(ncid_store(irq))
         call open_ncfile( ncfile, "write", ncid, recordaxe(irq))
 
-        ! set the offset to translate between swan's HIOPEN + IRQ and
-        ! the netcdf 65xxx range
-        ncoffset(irq) = ncid - oqi(1)
+        ncid_store(irq) = ncid
 
         ! if only only record found, set delta to delta specified in command file (or 1 on stationary)
         if ( recordaxe(irq)%ncontent == 1 ) then
