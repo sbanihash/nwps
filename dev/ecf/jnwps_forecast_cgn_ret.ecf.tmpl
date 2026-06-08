@@ -32,8 +32,8 @@
 #PBS -l place=excl
 #PBS -l debug=true
 #PBS -V
-#PBS -o /lfs/h2/emc/ptmp/ali.salimi/com/retro/nwps/v1.5.0/NWPS_%WFO%_forecast_cgn.o
-#PBS -e /lfs/h2/emc/ptmp/ali.salimi/com/retro/nwps/v1.5.0/NWPS_%WFO%_forecast_cgn.o
+#PBS -o /lfs/h2/emc/ptmp/saeideh.banihashemi/com/retro/nwps/v1.5.0/NWPS_%WFO%_forecast_cgn.o
+#PBS -e /lfs/h2/emc/ptmp/saeideh.banihashemi/com/retro/nwps/v1.5.0/NWPS_%WFO%_forecast_cgn.o
 
 cd $PBS_O_WORKDIR
 
@@ -54,11 +54,12 @@ module load prod_envir/${prod_envir_ver}
 module load prod_util/${prod_util_ver}
 module load PrgEnv-intel/${PrgEnv_intel_ver}
 module load craype/${craype_ver}
-module load intel/${inter_ver}
+module load intel/${intel_ver}
 module load cray-pals/${cray_pals_ver}
+module load cray-mpich/{cary_mpich_ver}
 module load wgrib2/${wgrib2_ver}
-#module load hdf5/${hdf5_ver}
-#module load netcdf/${netcdf_ver}
+module load hdf5-B/${hdf5_B_ver}
+module load netcdf-B/${netcdf_B_ver}
 module load ve/nwps/${ve_ver}
 module load jasper/${jasper_ver}
 module load libpng/${libpng_ver}
@@ -66,8 +67,6 @@ module load zlib/${zlib_ver}
 module load w3nco/${w3nco_ver}
 module load cfp/${cfp_ver}
 module list
-
-export IOBUF_PARAMS="*:count=4:size=32M:prefetch=1:preflush=1"
 
 export FORT_BUFFERED=true
 export NWPSplatform="DEVWCOSS"

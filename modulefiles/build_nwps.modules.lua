@@ -20,11 +20,11 @@ setenv("lname","NWPS")
 
 -- Loading Intel Compiler Suite
 load("PrgEnv-intel/"..os.getenv("PrgEnv_intel_ver"))
-load("intel/"..os.getenv("intel_ver"))
-load("craype/"..os.getenv("craype_ver"))
+--load("intel/"..os.getenv("intel_ver"))
+--load("craype/"..os.getenv("craype_ver"))
 load("cray-mpich/"..os.getenv("cray_mpich_ver"))
---load("hdf5/"..os.getenv("hdf5_ver"))
---load("netcdf/"..os.getenv("netcdf_ver"))
+load("hdf5-B/"..os.getenv("hdf5_B_ver"))
+load("netcdf-B/"..os.getenv("netcdf_B_ver"))
 -- used for multiwavegrib2
 load("jasper/"..os.getenv("jasper_ver"))
 load("libpng/"..os.getenv("libpng_ver"))
