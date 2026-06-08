@@ -314,8 +314,8 @@ echo "Checking GFSdir: ${GFSdir}"
 for CYCLE in ${CYCLES}
 do
     echo "CYCLE = ${CYCLE}"
-    firstfile="${CYCLE}/atmos/gfs.t${CYCLE}z.pgrb2.0p25.f000"
-    lastfile="${CYCLE}/atmos/gfs.t${CYCLE}z.pgrb2.0p25.f${GFSHOURS}"
+    firstfile="${CYCLE}/products/atmos/grib2/0p25/gfs.t${CYCLE}z.pres_a.0p25.f000.grib2"
+    lastfile="${CYCLE}/products/atmos/grib2/0p25/gfs.t${CYCLE}z.pres_a.0p25.f${GFSHOURS}.grib2"
     if [ -e ${GFSdir}/${firstfile} ] && [ -e ${GFSdir}/${lastfile} ]
     then
 	echo "INFO - We have ${GFSHOURS} for the ${CYCLE} on ${PDY}"
@@ -333,8 +333,8 @@ then
     for CYCLE in ${CYCLES}
     do
 	echo "CYCLE = ${CYCLE}"
-	firstfile="${CYCLE}/atmos/gfs.t${CYCLE}z.pgrb2.0p25.f000"
-	lastfile="${CYCLE}/atmos/gfs.t${CYCLE}z.pgrb2.0p25.f${GFSHOURS}"
+	firstfile="${CYCLE}/products/atmos/grib2/0p25/gfs.t${CYCLE}z.pres_a.0p25.f000.grib2"
+	lastfile="${CYCLE}/products/atmos/grib2/0p25/gfs.t${CYCLE}z.pres_a.0p25.f${GFSHOURS}.grib2"
 	if [ -e ${GFSdir}/${firstfile} ] && [ -e ${GFSdir}/${lastfile} ]
 	then
 	    echo "INFO - We have ${GFSHOURS} for the ${CYCLE} on ${PDYm1}"
@@ -354,28 +354,41 @@ then
 fi
 
 FF="000"
-file="gfs.t${CYCLE}z.pgrb2.0p25.f${FF}"
+file="gfs.t${CYCLE}z.pres_a.0p25.f${FF}.grib2"
 
-echo "Copying ${GFSdir}/${CYCLE}/atmos/${file}" | tee -a ${LOGfile}
-if [ ! -e ${GFSdir}/${CYCLE}/atmos/${file} ]
+echo "Copying ${GFSdir}/${CYCLE}/products/atmos/grib2/0p25/${file}" | tee -a ${LOGfile}
+if [ ! -e ${GFSdir}/${CYCLE}/products/atmos/grib2/0p25/${file} ]
 then
-    echo "INFO - ${GFSdir}/${CYCLE}/atmos/${file} not available yet"
+    echo "INFO - ${GFSdir}/${CYCLE}/products/atmos/grib2/0p25/${file} not available yet"
     echo "Exiting"
     export err=1; err_chk
     exit 1
 fi
 
-${RSYNC} ${RSYNCargs} ${GFSdir}/${CYCLE}/atmos/${file} ${SPOOLdir}/${file}
+${RSYNC} ${RSYNCargs} ${GFSdir}/${CYCLE}/products/atmos/grib2/0p25/${file} ${SPOOLdir}/${file}
 if [ "$?" != "0" ] 
 then
-    echo "ERROR - copying file ${GFSdir}/atmos/${CYCLE}/${file}"
+    echo "ERROR - copying file ${GFSdir}/${CYCLE}/products/atmos/grib2/0p25/${file}"
     if [ -e ${SPOOLdir}/${file} ]; then rm -fv ${SPOOLdir}/${file}; fi
     export err=1; err_chk
     exit 1
 fi
 
-epoc_time=$(${WGRIB2} -d 1 -unix_time ${SPOOLdir}/${file} | grep "1:0:unix" | awk -F= '{ print $3 }')
-date_str=$(echo ${epoc_time} | awk '{ print strftime("%Y%m%d", $1) }')
+# ==============================================================================
+# NEW STABLE TIMESTAMP EXTRACTION (Bypasses wgrib2 glibc bug)
+# ==============================================================================
+# 1. Grab raw reference time string (e.g., 2026060212)
+raw_time=$(${WGRIB2} -d 1 -t ${SPOOLdir}/${file} | awk -F'd=' '{print $2}' | cut -c1-10)
+
+# 2. Extract YYYYMMDD directly for date_str (First 8 characters of raw_time)
+date_str="${raw_time:0:8}"
+
+# 3. Reformat to standard format (YYYY-MM-DD HH:00:00) for the Epoch calculation
+formatted_time="${raw_time:0:4}-${raw_time:4:2}-${raw_time:6:2} ${raw_time:8:2}:00:00"
+
+# 4. Safely generate the 10-digit Epoch time integer via OS system date
+epoc_time=$(date -d "$formatted_time" +%s)
+
 swan_uv_ofile_fname="gfswind_${epoc_time}_${date_str}_${CYCLE}_f000.dat"
 swan_uv_ofile="${OUTPUTdir}/${swan_uv_ofile_fname}"
 echo ${epoc_time} > ${OUTPUTdir}/gfswind_start_time.txt
@@ -423,23 +436,23 @@ until [ $end -gt $HOURS ]; do
 	continue
     fi
 
-    file="gfs.t${CYCLE}z.pgrb2.0p25.f${FF}"
+    file="gfs.t${CYCLE}z.pres_a.0p25.f${FF}.grib2"
     outfile="${file}"
     cd ${PRODUCTdir}
-    echo "Copying ${GFSdir}/${CYCLE}/atmos/${file}" | tee -a ${LOGfile}
+    echo "Copying ${GFSdir}/${CYCLE}/products/atmos/grib2/0p25/${file}" | tee -a ${LOGfile}
 
-    if [ ! -e ${GFSdir}/${CYCLE}/atmos/${file} ]
+    if [ ! -e ${GFSdir}/${CYCLE}/products/atmos/grib2/0p25/${file} ]
     then
-	echo "INFO - ${GFSdir}/${CYCLE}/atmos/${file} not available yet"
+	echo "INFO - ${GFSdir}/${CYCLE}/products/atmos/grib2/0p25/${file} not available yet"
 	echo "Exiting"
 	export err=1; err_chk
 	exit 1
     fi
 
-    ${RSYNC} ${RSYNCargs} ${GFSdir}/${CYCLE}/atmos/${file} ${PRODUCTdir}/${file}
+    ${RSYNC} ${RSYNCargs} ${GFSdir}/${CYCLE}/products/atmos/grib2/0p25/${file} ${PRODUCTdir}/${file}
     if [ "$?" != "0" ] 
     then
-	echo "ERROR - copying file ${GFSdir}/atmos/${CYCLE}/${file}"
+	echo "ERROR - copying file ${GFSdir}/${CYCLE}/products/atmos/grib2/0p25/${file}"
 	if [ -e ${PRODUCTdir}/${file} ]; then rm -fv ${PRODUCTdir}/${file}; fi
 	export err=1; err_chk
 	exit 1

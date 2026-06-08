@@ -232,9 +232,9 @@ echo "WNA:      ${WNA}"
 if [ "${WNA^^}" = "WNAWAVE" ]
 then
    bc_option="gfswave"
-   bctarfile="gfswave.t${bcCYCLE}z.ibp_tar"
+   bctarfile="gfs.t${bcCYCLE}z.ibp.tar"
 #   url="${COMINwave}/${bcCYCLE}/wave/station"
-   url="${COMINwave}/gfs.${bcYYYYMMDD}/${bcCYCLE}/wave/station"
+   url="${COMINwave}/gfs.${bcYYYYMMDD}/${bcCYCLE}/products/wave/station"
 
 elif [ "${WNA^^}" = "HURWAVE" ]
    then
@@ -273,7 +273,7 @@ cd ${DATA}
 
 if [ -e "${url}/${bctarfile}" ];then
     DATABCdir="${GESOUT}/databc/${bc_option}.${bcYYYYMMDD}_t${bcCYCLE}z"
-    file="${bc_option}.${FTPPAT2}"
+    file="gfs.${FTPPAT2}"
     if [ ! -e ${DATABCdir}/${bctarfile} ]
     then
        echo " We do not have the lattest Boundary Conditions"
@@ -334,12 +334,12 @@ if [ -e "${url}/${bctarfile}" ];then
         #RemoveLockFile
         export err=1; err_chk
     fi
-elif [ -e "${COMINwave}/gfs.${bcOLDYYYYMMDD}/${bcOLDCYCLE}/wave/station/${bc_option}.t${bcOLDCYCLE}z.ibp_tar" ];then
+elif [ -e "${COMINwave}/gfs.${bcOLDYYYYMMDD}/${bcOLDCYCLE}/products/wave/station/gfs.t${bcOLDCYCLE}z.ibp.tar" ];then
     # Use BCs from one cycle ago (e.g. WW3_multi_2/HURwave is a late run)
-    bctarfile="${bc_option}.t${bcOLDCYCLE}z.ibp_tar"
-    url="${COMINwave}/gfs.${bcOLDYYYYMMDD}/${bcOLDCYCLE}/wave/station"
+    bctarfile="gfs.t${bcOLDCYCLE}z.ibp.tar"
+    url="${COMINwave}/gfs.${bcOLDYYYYMMDD}/${bcOLDCYCLE}/products/wave/station"
     DATABCdir="${GESOUT}/databc/${bc_option}.${bcOLDYYYYMMDD}_t${bcOLDCYCLE}z"
-    file="${bc_option}.${FTPPAT2}"
+    file="gfs.${FTPPAT2}"
 
     echo "WARNING: Using wave boundary conditions from previous cycle (${bcOLDYYYYMMDD}_${bcOLDCYCLE}z)." | tee -a ${RUNdir}/Warn_Forecaster_${SITEID}.${PDY}.txt
 
