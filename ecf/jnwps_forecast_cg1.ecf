@@ -31,19 +31,8 @@ module load libpng/${libpng_ver}
 module load zlib/${zlib_ver}
 module load w3nco/${w3nco_ver}
 module load cfp/${cfp_ver}
-module load iobuf/${iobuf_ver}
 module load perl/${perl_ver}
 module list
-
-export NETCDF_ROOT=$(nc-config --prefix)
-export NETCDF=$NETCDF_ROOT
-export NETCDF_INC=$(nc-config --includedir)
-export NETCDF_INCLUDES=$(nc-config --includedir)
-export NETCDF_LIBRARIES=$(nc-config --libdir)
-
-export HDF5_ROOT=$(dirname $(dirname $(which h5dump)))
-export HDF5_INC=${HDF5_ROOT}/include
-export HDF5_LIBRARIES=${HDF5_ROOT}/lib
 
 export FORT_BUFFERED=true
 export NWPSplatform="WCOSS"

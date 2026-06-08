@@ -32,8 +32,8 @@
 #PBS -l place=excl
 #PBS -l debug=true
 #PBS -V
-#PBS -o /lfs/h2/emc/ptmp/ali.salimi/com/nwps/v1.5.0/NWPS_%WFO%_wavetrack_cg1.o
-#PBS -e /lfs/h2/emc/ptmp/ali.salimi/com/nwps/v1.5.0/NWPS_%WFO%_wavetrack_cg1.o
+#PBS -o /lfs/h2/emc/ptmp/saeideh.banihashemi/com/nwps/v1.5.0/NWPS_%WFO%_wavetrack_cg1.o
+#PBS -e /lfs/h2/emc/ptmp/saeideh.banihashemi/com/nwps/v1.5.0/NWPS_%WFO%_wavetrack_cg1.o
 
 cd $PBS_O_WORKDIR
 
@@ -63,7 +63,6 @@ module load proj/${proj_ver}
 module load geos/${geos_ver}
 module load libjpeg/${libjpeg_ver}
 module load ve/nwps/${ve_ver}
-module load iobuf/${iobuf_ver}
 module list
 
 export IOBUF_PARAMS="*:count=4:size=32M:prefetch=1:preflush=1"
