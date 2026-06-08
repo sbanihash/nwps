@@ -118,11 +118,11 @@ export WVTRKPA="20. 2. 0.25 0.1 20. 2."
 # them from the interactive Run_NWPS GUI.
 #
 export BOUNCOND="1"
-export FTPPAT1="gfswave"
-export FTPPAT1B="gfswave"
+export FTPPAT1="gfs"
+export FTPPAT1B="gfs"
 export FTPPAT2="NW-AER"
 export NFTPATTEMPTS="3"
-export WAVECPS="gfswave.NW-AER66.spec.swan"
+export WAVECPS="gfs.NW-AER66.spec.swan"
 #
 # THE FOLLOWING LINES MUST BE COMMENTED. IF YOU ADD BOUNDARY COMMAND LINES FOR YOUR
 # DOMAIN, ADD THEM WITH THE "#" AS A FIRST CHARACTER, IF YOU DECIDE NOT TO USE BOUNARY
@@ -133,52 +133,52 @@ export WAVECPS="gfswave.NW-AER66.spec.swan"
 #$BOUNDARY COMMAND LINES
 #$UNSTR SWAN BOUNDARY COMMAND LINES - SITE NW-AER
 #$ W OPEN GRID BOUNDARY
-#BOUNDspec SIDE 53 CCW CON FILE 'gfswave.NW-AER53.spec.swan' 1
-#BOUNDspec SIDE 52 CCW CON FILE 'gfswave.NW-AER52.spec.swan' 1
-#BOUNDspec SIDE 51 CCW CON FILE 'gfswave.NW-AER51.spec.swan' 1
+#BOUNDspec SIDE 53 CCW CON FILE 'gfs.NW-AER53.spec.swan' 1
+#BOUNDspec SIDE 52 CCW CON FILE 'gfs.NW-AER52.spec.swan' 1
+#BOUNDspec SIDE 51 CCW CON FILE 'gfs.NW-AER51.spec.swan' 1
 #$ S OPEN GRID BOUNDARY
-#BOUNDspec SIDE 96 CCW CON FILE 'gfswave.NW-AER96.spec.swan' 1
-#BOUNDspec SIDE 95 CCW CON FILE 'gfswave.NW-AER95.spec.swan' 1
-#BOUNDspec SIDE 94 CCW CON FILE 'gfswave.NW-AER94.spec.swan' 1
-#BOUNDspec SIDE 93 CCW CON FILE 'gfswave.NW-AER93.spec.swan' 1
-#BOUNDspec SIDE 92 CCW CON FILE 'gfswave.NW-AER92.spec.swan' 1
-#BOUNDspec SIDE 91 CCW CON FILE 'gfswave.NW-AER91.spec.swan' 1
-#BOUNDspec SIDE 90 CCW CON FILE 'gfswave.NW-AER90.spec.swan' 1
-#BOUNDspec SIDE 89 CCW CON FILE 'gfswave.NW-AER89.spec.swan' 1
-#BOUNDspec SIDE 88 CCW CON FILE 'gfswave.NW-AER88.spec.swan' 1
-#BOUNDspec SIDE 87 CCW CON FILE 'gfswave.NW-AER87.spec.swan' 1
-#BOUNDspec SIDE 86 CCW CON FILE 'gfswave.NW-AER86.spec.swan' 1
-#BOUNDspec SIDE 85 CCW CON FILE 'gfswave.NW-AER85.spec.swan' 1
-#BOUNDspec SIDE 84 CCW CON FILE 'gfswave.NW-AER84.spec.swan' 1
-#BOUNDspec SIDE 83 CCW CON FILE 'gfswave.NW-AER83.spec.swan' 1
-#BOUNDspec SIDE 82 CCW CON FILE 'gfswave.NW-AER82.spec.swan' 1
-#BOUNDspec SIDE 81 CCW CON FILE 'gfswave.NW-AER81.spec.swan' 1
-#BOUNDspec SIDE 80 CCW CON FILE 'gfswave.NW-AER80.spec.swan' 1
-#BOUNDspec SIDE 79 CCW CON FILE 'gfswave.NW-AER79.spec.swan' 1
-#BOUNDspec SIDE 78 CCW CON FILE 'gfswave.NW-AER78.spec.swan' 1
-#BOUNDspec SIDE 77 CCW CON FILE 'gfswave.NW-AER77.spec.swan' 1
-#BOUNDspec SIDE 76 CCW CON FILE 'gfswave.NW-AER76.spec.swan' 1
-#BOUNDspec SIDE 75 CCW CON FILE 'gfswave.NW-AER75.spec.swan' 1
-#BOUNDspec SIDE 74 CCW CON FILE 'gfswave.NW-AER74.spec.swan' 1
-#BOUNDspec SIDE 73 CCW CON FILE 'gfswave.NW-AER73.spec.swan' 1
-#BOUNDspec SIDE 72 CCW CON FILE 'gfswave.NW-AER72.spec.swan' 1
-#BOUNDspec SIDE 71 CCW CON FILE 'gfswave.NW-AER71.spec.swan' 1
-#BOUNDspec SIDE 70 CCW CON FILE 'gfswave.NW-AER70.spec.swan' 1
-#BOUNDspec SIDE 69 CCW CON FILE 'gfswave.NW-AER69.spec.swan' 1
-#BOUNDspec SIDE 68 CCW CON FILE 'gfswave.NW-AER68.spec.swan' 1
-#BOUNDspec SIDE 67 CCW CON FILE 'gfswave.NW-AER67.spec.swan' 1
-#BOUNDspec SIDE 66 CCW CON FILE 'gfswave.NW-AER66.spec.swan' 1
+#BOUNDspec SIDE 96 CCW CON FILE 'gfs.NW-AER96.spec.swan' 1
+#BOUNDspec SIDE 95 CCW CON FILE 'gfs.NW-AER95.spec.swan' 1
+#BOUNDspec SIDE 94 CCW CON FILE 'gfs.NW-AER94.spec.swan' 1
+#BOUNDspec SIDE 93 CCW CON FILE 'gfs.NW-AER93.spec.swan' 1
+#BOUNDspec SIDE 92 CCW CON FILE 'gfs.NW-AER92.spec.swan' 1
+#BOUNDspec SIDE 91 CCW CON FILE 'gfs.NW-AER91.spec.swan' 1
+#BOUNDspec SIDE 90 CCW CON FILE 'gfs.NW-AER90.spec.swan' 1
+#BOUNDspec SIDE 89 CCW CON FILE 'gfs.NW-AER89.spec.swan' 1
+#BOUNDspec SIDE 88 CCW CON FILE 'gfs.NW-AER88.spec.swan' 1
+#BOUNDspec SIDE 87 CCW CON FILE 'gfs.NW-AER87.spec.swan' 1
+#BOUNDspec SIDE 86 CCW CON FILE 'gfs.NW-AER86.spec.swan' 1
+#BOUNDspec SIDE 85 CCW CON FILE 'gfs.NW-AER85.spec.swan' 1
+#BOUNDspec SIDE 84 CCW CON FILE 'gfs.NW-AER84.spec.swan' 1
+#BOUNDspec SIDE 83 CCW CON FILE 'gfs.NW-AER83.spec.swan' 1
+#BOUNDspec SIDE 82 CCW CON FILE 'gfs.NW-AER82.spec.swan' 1
+#BOUNDspec SIDE 81 CCW CON FILE 'gfs.NW-AER81.spec.swan' 1
+#BOUNDspec SIDE 80 CCW CON FILE 'gfs.NW-AER80.spec.swan' 1
+#BOUNDspec SIDE 79 CCW CON FILE 'gfs.NW-AER79.spec.swan' 1
+#BOUNDspec SIDE 78 CCW CON FILE 'gfs.NW-AER78.spec.swan' 1
+#BOUNDspec SIDE 77 CCW CON FILE 'gfs.NW-AER77.spec.swan' 1
+#BOUNDspec SIDE 76 CCW CON FILE 'gfs.NW-AER76.spec.swan' 1
+#BOUNDspec SIDE 75 CCW CON FILE 'gfs.NW-AER75.spec.swan' 1
+#BOUNDspec SIDE 74 CCW CON FILE 'gfs.NW-AER74.spec.swan' 1
+#BOUNDspec SIDE 73 CCW CON FILE 'gfs.NW-AER73.spec.swan' 1
+#BOUNDspec SIDE 72 CCW CON FILE 'gfs.NW-AER72.spec.swan' 1
+#BOUNDspec SIDE 71 CCW CON FILE 'gfs.NW-AER71.spec.swan' 1
+#BOUNDspec SIDE 70 CCW CON FILE 'gfs.NW-AER70.spec.swan' 1
+#BOUNDspec SIDE 69 CCW CON FILE 'gfs.NW-AER69.spec.swan' 1
+#BOUNDspec SIDE 68 CCW CON FILE 'gfs.NW-AER68.spec.swan' 1
+#BOUNDspec SIDE 67 CCW CON FILE 'gfs.NW-AER67.spec.swan' 1
+#BOUNDspec SIDE 66 CCW CON FILE 'gfs.NW-AER66.spec.swan' 1
 #$ E OPEN GRID BOUNDARY
-#BOUNDspec SIDE 65 CCW CON FILE 'gfswave.NW-AER65.spec.swan' 1
-#BOUNDspec SIDE 64 CCW CON FILE 'gfswave.NW-AER64.spec.swan' 1
-#BOUNDspec SIDE 63 CCW CON FILE 'gfswave.NW-AER63.spec.swan' 1
-#BOUNDspec SIDE 62 CCW CON FILE 'gfswave.NW-AER62.spec.swan' 1
-#BOUNDspec SIDE 61 CCW CON FILE 'gfswave.NW-AER61.spec.swan' 1
-#BOUNDspec SIDE 60 CCW CON FILE 'gfswave.NW-AER60.spec.swan' 1
-#BOUNDspec SIDE 59 CCW CON FILE 'gfswave.NW-AER59.spec.swan' 1
-#BOUNDspec SIDE 58 CCW CON FILE 'gfswave.NW-AER58.spec.swan' 1
-#BOUNDspec SIDE 57 CCW CON FILE 'gfswave.NW-AER57.spec.swan' 1
-#BOUNDspec SIDE 56 CCW CON FILE 'gfswave.NW-AER56.spec.swan' 1
+#BOUNDspec SIDE 65 CCW CON FILE 'gfs.NW-AER65.spec.swan' 1
+#BOUNDspec SIDE 64 CCW CON FILE 'gfs.NW-AER64.spec.swan' 1
+#BOUNDspec SIDE 63 CCW CON FILE 'gfs.NW-AER63.spec.swan' 1
+#BOUNDspec SIDE 62 CCW CON FILE 'gfs.NW-AER62.spec.swan' 1
+#BOUNDspec SIDE 61 CCW CON FILE 'gfs.NW-AER61.spec.swan' 1
+#BOUNDspec SIDE 60 CCW CON FILE 'gfs.NW-AER60.spec.swan' 1
+#BOUNDspec SIDE 59 CCW CON FILE 'gfs.NW-AER59.spec.swan' 1
+#BOUNDspec SIDE 58 CCW CON FILE 'gfs.NW-AER58.spec.swan' 1
+#BOUNDspec SIDE 57 CCW CON FILE 'gfs.NW-AER57.spec.swan' 1
+#BOUNDspec SIDE 56 CCW CON FILE 'gfs.NW-AER56.spec.swan' 1
 #NUM DIRimpl cdd=1 cdlim=2
 #$END BOUNSEG for UNSTR SWAN
 #

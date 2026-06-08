@@ -132,11 +132,11 @@ export WVTRKPA="20. 2. 0.25 0.1 20. 2."
 # them from the interactive Run_NWPS GUI.
 #
 export BOUNCOND="1"
-export FTPPAT1="gfswave"
-export FTPPAT1B="gfswave"
+export FTPPAT1="gfs"
+export FTPPAT1B="gfs"
 export FTPPAT2="NW-AJK"
 export NFTPATTEMPTS="3"
-export WAVECPS="gfswave.NW-AJK51.spec.swan,gfswave.NW-AJK65.spec.swan"
+export WAVECPS="gfs.NW-AJK51.spec.swan,gfs.NW-AJK65.spec.swan"
 #
 # THE FOLLOWING LINES MUST BE COMMENTED. IF YOU ADD BOUNDARY COMMAND LINES FOR YOUR
 # DOMAIN, ADD THEM WITH THE "#" AS A FIRST CHARACTER, IF YOU DECIDE NOT TO USE BOUNARY
@@ -147,45 +147,45 @@ export WAVECPS="gfswave.NW-AJK51.spec.swan,gfswave.NW-AJK65.spec.swan"
 #$BOUNDARY COMMAND LINES
 #$UNSTR SWAN BOUNDARY COMMAND LINES - SITE NW-AJK
 #$ W OPEN GRID BOUNDARY
-#BOUNDspec SIDE 64 CCW CON FILE 'gfswave.NW-AJK64.spec.swan' 1
-#BOUNDspec SIDE 63 CCW CON FILE 'gfswave.NW-AJK63.spec.swan' 1
-#BOUNDspec SIDE 62 CCW CON FILE 'gfswave.NW-AJK62.spec.swan' 1
-#BOUNDspec SIDE 61 CCW CON FILE 'gfswave.NW-AJK61.spec.swan' 1
-#BOUNDspec SIDE 60 CCW CON FILE 'gfswave.NW-AJK60.spec.swan' 1
-#BOUNDspec SIDE 59 CCW CON FILE 'gfswave.NW-AJK59.spec.swan' 1
-#BOUNDspec SIDE 58 CCW CON FILE 'gfswave.NW-AJK58.spec.swan' 1
-#BOUNDspec SIDE 57 CCW CON FILE 'gfswave.NW-AJK57.spec.swan' 1
-#BOUNDspec SIDE 56 CCW CON FILE 'gfswave.NW-AJK56.spec.swan' 1
-#BOUNDspec SIDE 55 CCW CON FILE 'gfswave.NW-AJK55.spec.swan' 1
-#BOUNDspec SIDE 54 CCW CON FILE 'gfswave.NW-AJK54.spec.swan' 1
-#BOUNDspec SIDE 53 CCW CON FILE 'gfswave.NW-AJK53.spec.swan' 1
-#BOUNDspec SIDE 52 CCW CON FILE 'gfswave.NW-AJK52.spec.swan' 1
-#BOUNDspec SIDE 51 CCW CON FILE 'gfswave.NW-AJK51.spec.swan' 1
+#BOUNDspec SIDE 64 CCW CON FILE 'gfs.NW-AJK64.spec.swan' 1
+#BOUNDspec SIDE 63 CCW CON FILE 'gfs.NW-AJK63.spec.swan' 1
+#BOUNDspec SIDE 62 CCW CON FILE 'gfs.NW-AJK62.spec.swan' 1
+#BOUNDspec SIDE 61 CCW CON FILE 'gfs.NW-AJK61.spec.swan' 1
+#BOUNDspec SIDE 60 CCW CON FILE 'gfs.NW-AJK60.spec.swan' 1
+#BOUNDspec SIDE 59 CCW CON FILE 'gfs.NW-AJK59.spec.swan' 1
+#BOUNDspec SIDE 58 CCW CON FILE 'gfs.NW-AJK58.spec.swan' 1
+#BOUNDspec SIDE 57 CCW CON FILE 'gfs.NW-AJK57.spec.swan' 1
+#BOUNDspec SIDE 56 CCW CON FILE 'gfs.NW-AJK56.spec.swan' 1
+#BOUNDspec SIDE 55 CCW CON FILE 'gfs.NW-AJK55.spec.swan' 1
+#BOUNDspec SIDE 54 CCW CON FILE 'gfs.NW-AJK54.spec.swan' 1
+#BOUNDspec SIDE 53 CCW CON FILE 'gfs.NW-AJK53.spec.swan' 1
+#BOUNDspec SIDE 52 CCW CON FILE 'gfs.NW-AJK52.spec.swan' 1
+#BOUNDspec SIDE 51 CCW CON FILE 'gfs.NW-AJK51.spec.swan' 1
 #$ S OPEN GRID BOUNDARY
-#BOUNDspec SIDE 88 CCW CON FILE 'gfswave.NW-AJK88.spec.swan' 1
-#BOUNDspec SIDE 87 CCW CON FILE 'gfswave.NW-AJK87.spec.swan' 1
-#BOUNDspec SIDE 86 CCW CON FILE 'gfswave.NW-AJK86.spec.swan' 1
-#BOUNDspec SIDE 85 CCW CON FILE 'gfswave.NW-AJK85.spec.swan' 1
-#BOUNDspec SIDE 84 CCW CON FILE 'gfswave.NW-AJK84.spec.swan' 1
-#BOUNDspec SIDE 83 CCW CON FILE 'gfswave.NW-AJK83.spec.swan' 1
-#BOUNDspec SIDE 82 CCW CON FILE 'gfswave.NW-AJK82.spec.swan' 1
-#BOUNDspec SIDE 81 CCW CON FILE 'gfswave.NW-AJK81.spec.swan' 1
-#BOUNDspec SIDE 80 CCW CON FILE 'gfswave.NW-AJK80.spec.swan' 1
-#BOUNDspec SIDE 79 CCW CON FILE 'gfswave.NW-AJK79.spec.swan' 1
-#BOUNDspec SIDE 78 CCW CON FILE 'gfswave.NW-AJK78.spec.swan' 1
-#BOUNDspec SIDE 77 CCW CON FILE 'gfswave.NW-AJK77.spec.swan' 1
-#BOUNDspec SIDE 76 CCW CON FILE 'gfswave.NW-AJK76.spec.swan' 1
-#BOUNDspec SIDE 75 CCW CON FILE 'gfswave.NW-AJK75.spec.swan' 1
-#BOUNDspec SIDE 74 CCW CON FILE 'gfswave.NW-AJK74.spec.swan' 1
-#BOUNDspec SIDE 73 CCW CON FILE 'gfswave.NW-AJK73.spec.swan' 1
-#BOUNDspec SIDE 72 CCW CON FILE 'gfswave.NW-AJK72.spec.swan' 1
-#BOUNDspec SIDE 71 CCW CON FILE 'gfswave.NW-AJK71.spec.swan' 1
-#BOUNDspec SIDE 70 CCW CON FILE 'gfswave.NW-AJK70.spec.swan' 1
-#BOUNDspec SIDE 69 CCW CON FILE 'gfswave.NW-AJK69.spec.swan' 1
-#BOUNDspec SIDE 68 CCW CON FILE 'gfswave.NW-AJK68.spec.swan' 1
-#BOUNDspec SIDE 67 CCW CON FILE 'gfswave.NW-AJK67.spec.swan' 1
-#BOUNDspec SIDE 66 CCW CON FILE 'gfswave.NW-AJK66.spec.swan' 1
-#BOUNDspec SIDE 65 CCW CON FILE 'gfswave.NW-AJK65.spec.swan' 1
+#BOUNDspec SIDE 88 CCW CON FILE 'gfs.NW-AJK88.spec.swan' 1
+#BOUNDspec SIDE 87 CCW CON FILE 'gfs.NW-AJK87.spec.swan' 1
+#BOUNDspec SIDE 86 CCW CON FILE 'gfs.NW-AJK86.spec.swan' 1
+#BOUNDspec SIDE 85 CCW CON FILE 'gfs.NW-AJK85.spec.swan' 1
+#BOUNDspec SIDE 84 CCW CON FILE 'gfs.NW-AJK84.spec.swan' 1
+#BOUNDspec SIDE 83 CCW CON FILE 'gfs.NW-AJK83.spec.swan' 1
+#BOUNDspec SIDE 82 CCW CON FILE 'gfs.NW-AJK82.spec.swan' 1
+#BOUNDspec SIDE 81 CCW CON FILE 'gfs.NW-AJK81.spec.swan' 1
+#BOUNDspec SIDE 80 CCW CON FILE 'gfs.NW-AJK80.spec.swan' 1
+#BOUNDspec SIDE 79 CCW CON FILE 'gfs.NW-AJK79.spec.swan' 1
+#BOUNDspec SIDE 78 CCW CON FILE 'gfs.NW-AJK78.spec.swan' 1
+#BOUNDspec SIDE 77 CCW CON FILE 'gfs.NW-AJK77.spec.swan' 1
+#BOUNDspec SIDE 76 CCW CON FILE 'gfs.NW-AJK76.spec.swan' 1
+#BOUNDspec SIDE 75 CCW CON FILE 'gfs.NW-AJK75.spec.swan' 1
+#BOUNDspec SIDE 74 CCW CON FILE 'gfs.NW-AJK74.spec.swan' 1
+#BOUNDspec SIDE 73 CCW CON FILE 'gfs.NW-AJK73.spec.swan' 1
+#BOUNDspec SIDE 72 CCW CON FILE 'gfs.NW-AJK72.spec.swan' 1
+#BOUNDspec SIDE 71 CCW CON FILE 'gfs.NW-AJK71.spec.swan' 1
+#BOUNDspec SIDE 70 CCW CON FILE 'gfs.NW-AJK70.spec.swan' 1
+#BOUNDspec SIDE 69 CCW CON FILE 'gfs.NW-AJK69.spec.swan' 1
+#BOUNDspec SIDE 68 CCW CON FILE 'gfs.NW-AJK68.spec.swan' 1
+#BOUNDspec SIDE 67 CCW CON FILE 'gfs.NW-AJK67.spec.swan' 1
+#BOUNDspec SIDE 66 CCW CON FILE 'gfs.NW-AJK66.spec.swan' 1
+#BOUNDspec SIDE 65 CCW CON FILE 'gfs.NW-AJK65.spec.swan' 1
 #NUM DIRimpl cdd=1 cdlim=2
 #$END BOUNSEG for UNSTR SWAN
 #

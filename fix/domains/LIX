@@ -143,11 +143,11 @@ export WVTRKPA="20. 2. 0.25 0.1 20. 2."
 # them from the interactive Run_NWPS GUI.
 #
 export BOUNCOND="1"
-export FTPPAT1="gfswave"
-export FTPPAT1B="gfswave"
+export FTPPAT1="gfs"
+export FTPPAT1B="gfs"
 export FTPPAT2="LIX"
 export NFTPATTEMPTS="3"
-export WAVECPS="gfswave.LIX54.spec.swan,gfswave.LIX63.spec.swan"
+export WAVECPS="gfs.LIX54.spec.swan,gfs.LIX63.spec.swan"
 #
 # THE FOLLOWING LINES MUST BE COMMENTED. IF YOU ADD BOUNDARY COMMAND LINES FOR YOUR
 # DOMAIN, ADD THEM WITH THE "#" AS A FIRST CHARACTER, IF YOU DECIDE NOT TO USE BOUNARY
@@ -157,24 +157,24 @@ export WAVECPS="gfswave.LIX54.spec.swan,gfswave.LIX63.spec.swan"
 #
 #$BOUNDARY COMMAND LINES
 #$UNSTR SWAN BOUNDARY COMMAND LINES - SITE NW-LIX
-#BOUNDspec SIDE 51 CCW CON FILE 'gfswave.LIX51.spec.swan' 1
-#BOUNDspec SIDE 52 CCW CON FILE 'gfswave.LIX52.spec.swan' 1
-#BOUNDspec SIDE 53 CCW CON FILE 'gfswave.LIX53.spec.swan' 1
-#BOUNDspec SIDE 54 CCW CON FILE 'gfswave.LIX54.spec.swan' 1
-#BOUNDspec SIDE 55 CCW CON FILE 'gfswave.LIX55.spec.swan' 1
-#BOUNDspec SIDE 56 CCW CON FILE 'gfswave.LIX56.spec.swan' 1
-#BOUNDspec SIDE 57 CCW CON FILE 'gfswave.LIX57.spec.swan' 1
-#BOUNDspec SIDE 58 CCW CON FILE 'gfswave.LIX58.spec.swan' 1
-#BOUNDspec SIDE 59 CCW CON FILE 'gfswave.LIX59.spec.swan' 1
-#BOUNDspec SIDE 60 CCW CON FILE 'gfswave.LIX60.spec.swan' 1
-#BOUNDspec SIDE 61 CCW CON FILE 'gfswave.LIX61.spec.swan' 1
-#BOUNDspec SIDE 62 CCW CON FILE 'gfswave.LIX62.spec.swan' 1
-#BOUNDspec SIDE 63 CCW CON FILE 'gfswave.LIX63.spec.swan' 1
-#BOUNDspec SIDE 64 CCW CON FILE 'gfswave.LIX64.spec.swan' 1
-#BOUNDspec SIDE 65 CCW CON FILE 'gfswave.LIX65.spec.swan' 1
-#BOUNDspec SIDE 66 CCW CON FILE 'gfswave.LIX66.spec.swan' 1
-#BOUNDspec SIDE 67 CCW CON FILE 'gfswave.LIX67.spec.swan' 1
-#BOUNDspec SIDE 68 CCW CON FILE 'gfswave.LIX68.spec.swan' 1
+#BOUNDspec SIDE 51 CCW CON FILE 'gfs.LIX51.spec.swan' 1
+#BOUNDspec SIDE 52 CCW CON FILE 'gfs.LIX52.spec.swan' 1
+#BOUNDspec SIDE 53 CCW CON FILE 'gfs.LIX53.spec.swan' 1
+#BOUNDspec SIDE 54 CCW CON FILE 'gfs.LIX54.spec.swan' 1
+#BOUNDspec SIDE 55 CCW CON FILE 'gfs.LIX55.spec.swan' 1
+#BOUNDspec SIDE 56 CCW CON FILE 'gfs.LIX56.spec.swan' 1
+#BOUNDspec SIDE 57 CCW CON FILE 'gfs.LIX57.spec.swan' 1
+#BOUNDspec SIDE 58 CCW CON FILE 'gfs.LIX58.spec.swan' 1
+#BOUNDspec SIDE 59 CCW CON FILE 'gfs.LIX59.spec.swan' 1
+#BOUNDspec SIDE 60 CCW CON FILE 'gfs.LIX60.spec.swan' 1
+#BOUNDspec SIDE 61 CCW CON FILE 'gfs.LIX61.spec.swan' 1
+#BOUNDspec SIDE 62 CCW CON FILE 'gfs.LIX62.spec.swan' 1
+#BOUNDspec SIDE 63 CCW CON FILE 'gfs.LIX63.spec.swan' 1
+#BOUNDspec SIDE 64 CCW CON FILE 'gfs.LIX64.spec.swan' 1
+#BOUNDspec SIDE 65 CCW CON FILE 'gfs.LIX65.spec.swan' 1
+#BOUNDspec SIDE 66 CCW CON FILE 'gfs.LIX66.spec.swan' 1
+#BOUNDspec SIDE 67 CCW CON FILE 'gfs.LIX67.spec.swan' 1
+#BOUNDspec SIDE 68 CCW CON FILE 'gfs.LIX68.spec.swan' 1
 #$END BOUNSEG for UNSTR SWAN
 #
 #========================================================================

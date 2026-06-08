@@ -123,11 +123,11 @@ export WVTRKPA="50. 5. 0.25 0.1 50. 5."
 # them from the interactive Run_NWPS GUI.
 #
 export BOUNCOND="1"
-export FTPPAT1="gfswave"
-export FTPPAT1B="gfswave"
+export FTPPAT1="gfs"
+export FTPPAT1B="gfs"
 export FTPPAT2="NW-LOX"
 export NFTPATTEMPTS="3"
-export WAVECPS="gfswave.NW-LOX51.spec.swan,gfswave.NW-LOX58.spec.swan"
+export WAVECPS="gfs.NW-LOX51.spec.swan,gfs.NW-LOX58.spec.swan"
 #
 # THE FOLLOWING LINES MUST BE COMMENTED. IF YOU ADD BOUNDARY COMMAND LINES FOR YOUR
 # DOMAIN, ADD THEM WITH THE "#" AS A FIRST CHARACTER, IF YOU DECIDE NOT TO USE BOUNARY
@@ -138,31 +138,31 @@ export WAVECPS="gfswave.NW-LOX51.spec.swan,gfswave.NW-LOX58.spec.swan"
 #$BOUNDARY COMMAND LINES
 #$UNSTR SWAN BOUNDARY COMMAND LINES - SITE NW-LOX
 #$ S OPEN GRID BOUNDARY
-#BOUNDspec SIDE 75 CCW CON FILE 'gfswave.NW-LOX75.spec.swan' 1
-#BOUNDspec SIDE 74 CCW CON FILE 'gfswave.NW-LOX74.spec.swan' 1
-#BOUNDspec SIDE 73 CCW CON FILE 'gfswave.NW-LOX73.spec.swan' 1
-#BOUNDspec SIDE 72 CCW CON FILE 'gfswave.NW-LOX72.spec.swan' 1
-#BOUNDspec SIDE 71 CCW CON FILE 'gfswave.NW-LOX71.spec.swan' 1
-#BOUNDspec SIDE 70 CCW CON FILE 'gfswave.NW-LOX70.spec.swan' 1
-#BOUNDspec SIDE 69 CCW CON FILE 'gfswave.NW-LOX69.spec.swan' 1
-#BOUNDspec SIDE 68 CCW CON FILE 'gfswave.NW-LOX68.spec.swan' 1
-#BOUNDspec SIDE 67 CCW CON FILE 'gfswave.NW-LOX67.spec.swan' 1
-#BOUNDspec SIDE 66 CCW CON FILE 'gfswave.NW-LOX66.spec.swan' 1
-#BOUNDspec SIDE 65 CCW CON FILE 'gfswave.NW-LOX65.spec.swan' 1
-#BOUNDspec SIDE 64 CCW CON FILE 'gfswave.NW-LOX64.spec.swan' 1
+#BOUNDspec SIDE 75 CCW CON FILE 'gfs.NW-LOX75.spec.swan' 1
+#BOUNDspec SIDE 74 CCW CON FILE 'gfs.NW-LOX74.spec.swan' 1
+#BOUNDspec SIDE 73 CCW CON FILE 'gfs.NW-LOX73.spec.swan' 1
+#BOUNDspec SIDE 72 CCW CON FILE 'gfs.NW-LOX72.spec.swan' 1
+#BOUNDspec SIDE 71 CCW CON FILE 'gfs.NW-LOX71.spec.swan' 1
+#BOUNDspec SIDE 70 CCW CON FILE 'gfs.NW-LOX70.spec.swan' 1
+#BOUNDspec SIDE 69 CCW CON FILE 'gfs.NW-LOX69.spec.swan' 1
+#BOUNDspec SIDE 68 CCW CON FILE 'gfs.NW-LOX68.spec.swan' 1
+#BOUNDspec SIDE 67 CCW CON FILE 'gfs.NW-LOX67.spec.swan' 1
+#BOUNDspec SIDE 66 CCW CON FILE 'gfs.NW-LOX66.spec.swan' 1
+#BOUNDspec SIDE 65 CCW CON FILE 'gfs.NW-LOX65.spec.swan' 1
+#BOUNDspec SIDE 64 CCW CON FILE 'gfs.NW-LOX64.spec.swan' 1
 #$ W OPEN GRID BOUNDARY
-#BOUNDspec SIDE 51 CCW CON FILE 'gfswave.NW-LOX51.spec.swan' 1
-#BOUNDspec SIDE 52 CCW CON FILE 'gfswave.NW-LOX52.spec.swan' 1
-#BOUNDspec SIDE 53 CCW CON FILE 'gfswave.NW-LOX53.spec.swan' 1
-#BOUNDspec SIDE 54 CCW CON FILE 'gfswave.NW-LOX54.spec.swan' 1
-#BOUNDspec SIDE 55 CCW CON FILE 'gfswave.NW-LOX55.spec.swan' 1
-#BOUNDspec SIDE 56 CCW CON FILE 'gfswave.NW-LOX56.spec.swan' 1
-#BOUNDspec SIDE 57 CCW CON FILE 'gfswave.NW-LOX57.spec.swan' 1
-#BOUNDspec SIDE 58 CCW CON FILE 'gfswave.NW-LOX58.spec.swan' 1
+#BOUNDspec SIDE 51 CCW CON FILE 'gfs.NW-LOX51.spec.swan' 1
+#BOUNDspec SIDE 52 CCW CON FILE 'gfs.NW-LOX52.spec.swan' 1
+#BOUNDspec SIDE 53 CCW CON FILE 'gfs.NW-LOX53.spec.swan' 1
+#BOUNDspec SIDE 54 CCW CON FILE 'gfs.NW-LOX54.spec.swan' 1
+#BOUNDspec SIDE 55 CCW CON FILE 'gfs.NW-LOX55.spec.swan' 1
+#BOUNDspec SIDE 56 CCW CON FILE 'gfs.NW-LOX56.spec.swan' 1
+#BOUNDspec SIDE 57 CCW CON FILE 'gfs.NW-LOX57.spec.swan' 1
+#BOUNDspec SIDE 58 CCW CON FILE 'gfs.NW-LOX58.spec.swan' 1
 #$ N OPEN GRID BOUNDARY
-#BOUNDspec SIDE 60 CCW CON FILE 'gfswave.NW-LOX60.spec.swan' 1
-#BOUNDspec SIDE 61 CCW CON FILE 'gfswave.NW-LOX61.spec.swan' 1
-#BOUNDspec SIDE 62 CCW CON FILE 'gfswave.NW-LOX62.spec.swan' 1
+#BOUNDspec SIDE 60 CCW CON FILE 'gfs.NW-LOX60.spec.swan' 1
+#BOUNDspec SIDE 61 CCW CON FILE 'gfs.NW-LOX61.spec.swan' 1
+#BOUNDspec SIDE 62 CCW CON FILE 'gfs.NW-LOX62.spec.swan' 1
 #$END BOUNSEG for UNSTR SWAN
 #NUM DIRimpl cdd=1 cdlim=2
 #$END BOUNSEG
