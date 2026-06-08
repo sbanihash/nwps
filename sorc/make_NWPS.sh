@@ -95,40 +95,6 @@ module list
 
 mkdir -p ${NWPSdir}/exec
 
-#FOR NETCDF
-echo "================== FOR NETCDF : make_netcdf-4.2.sh =================="
-#cd ${NWPSdir}/lib
-#./make_netcdf-4.2.sh | tee ./netcdf-4.2_build.log
-
-#export NETCDF=${NWPSdir}/lib/netcdf/${netcdf_ver}
-#export NETCDF_ROOT=${NWPSdir}/lib/netcdf/${netcdf_ver}
-#export HDF5_ROOT=${NWPSdir}/lib/hdf5/${hdf5_ver}
-#export NETCDF_INC=${NWPSdir}/lib/netcdf/${netcdf_ver}/include
-#export HDF5_INC=${NWPSdir}/lib/hdf5/${hdf5_ver}/include
-#export NETCDF_INCLUDES=${NWPSdir}/lib/netcdf/${netcdf_ver}/include
-#export NETCDF_LIBRARIES=${NWPSdir}/lib/netcdf/${netcdf_ver}/lib
-#export HDF5_LIBRARIES=${NWPSdir}/lib/hdf5/${hdf5_ver}/lib
-
-export NETCDF_ROOT=$(nc-config --prefix)
-export NETCDF=$NETCDF_ROOT
-export NETCDF_INC=$(nc-config --includedir)
-export NETCDF_INCLUDES=$(nc-config --includedir)
-export NETCDF_LIBRARIES=$(nc-config --libdir)
-
-export HDF5_ROOT=$(dirname $(dirname $(which h5dump)))
-export HDF5_INC=${HDF5_ROOT}/include
-export HDF5_LIBRARIES=${HDF5_ROOT}/lib
-
-#FOR DEGRIB
-#echo "================== FOR DEGRIB : make_degrib-2.15.sh =================="
-#cd ${NWPSdir}/sorc
-#./make_degrib-2.15.sh
-#rc=$?
-#if [[ $rc -ne 0 ]] ; then
-#    echo "Fatal error in building degrib-2.15."
-#    echo "The log file is in sorc/degrib-2.15.cd/degrib_build.log"
-#fi
-
 #FOR SWAN (REGULAR GRID)
 echo "================== FOR SWAN (REGULAR GRID) : make_swan.sh  =================="
 cd ${NWPSdir}/sorc
