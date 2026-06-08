@@ -161,11 +161,11 @@ export WVTRKPA="50. 5. 0.25 0.1 50. 5."
 # them from the interactive Run_NWPS GUI.
 #
 export BOUNCOND="1"
-export FTPPAT1="gfswave"
-export FTPPAT1B="gfswave"
+export FTPPAT1="gfs"
+export FTPPAT1B="gfs"
 export FTPPAT2="NW-EKA"
 export NFTPATTEMPTS="3"
-export WAVECPS="gfswave.NW-EKA51.spec.swan,gfswave.NW-EKA59.spec.swan"
+export WAVECPS="gfs.NW-EKA51.spec.swan,gfs.NW-EKA59.spec.swan"
 #
 # THE FOLLOWING LINES MUST BE COMMENTED. IF YOU ADD BOUNDARY COMMAND LINES FOR YOUR
 # DOMAIN, ADD THEM WITH THE "#" AS A FIRST CHARACTER, IF YOU DECIDE NOT TO USE BOUNARY
@@ -176,27 +176,27 @@ export WAVECPS="gfswave.NW-EKA51.spec.swan,gfswave.NW-EKA59.spec.swan"
 #$BOUNDARY COMMAND LINES
 #$UNSTR SWAN BOUNDARY COMMAND LINES - SITE NW-EKA
 #$ N OPEN GRID BOUNDARY
-#BOUNDspec SIDE 63 CCW CON FILE 'gfswave.NW-EKA63.spec.swan' 1
-#BOUNDspec SIDE 62 CCW CON FILE 'gfswave.NW-EKA62.spec.swan' 1
-#BOUNDspec SIDE 61 CCW CON FILE 'gfswave.NW-EKA61.spec.swan' 1
-#BOUNDspec SIDE 60 CCW CON FILE 'gfswave.NW-EKA60.spec.swan' 1
+#BOUNDspec SIDE 63 CCW CON FILE 'gfs.NW-EKA63.spec.swan' 1
+#BOUNDspec SIDE 62 CCW CON FILE 'gfs.NW-EKA62.spec.swan' 1
+#BOUNDspec SIDE 61 CCW CON FILE 'gfs.NW-EKA61.spec.swan' 1
+#BOUNDspec SIDE 60 CCW CON FILE 'gfs.NW-EKA60.spec.swan' 1
 #$ W OPEN GRID BOUNDARY
-#BOUNDspec SIDE 59 CCW CON FILE 'gfswave.NW-EKA59.spec.swan' 1
-#BOUNDspec SIDE 58 CCW CON FILE 'gfswave.NW-EKA58.spec.swan' 1
-#BOUNDspec SIDE 57 CCW CON FILE 'gfswave.NW-EKA57.spec.swan' 1
-#BOUNDspec SIDE 56 CCW CON FILE 'gfswave.NW-EKA56.spec.swan' 1
-#BOUNDspec SIDE 55 CCW CON FILE 'gfswave.NW-EKA55.spec.swan' 1
-#BOUNDspec SIDE 54 CCW CON FILE 'gfswave.NW-EKA54.spec.swan' 1
-#BOUNDspec SIDE 53 CCW CON FILE 'gfswave.NW-EKA53.spec.swan' 1
-#BOUNDspec SIDE 52 CCW CON FILE 'gfswave.NW-EKA52.spec.swan' 1
-#BOUNDspec SIDE 51 CCW CON FILE 'gfswave.NW-EKA51.spec.swan' 1
+#BOUNDspec SIDE 59 CCW CON FILE 'gfs.NW-EKA59.spec.swan' 1
+#BOUNDspec SIDE 58 CCW CON FILE 'gfs.NW-EKA58.spec.swan' 1
+#BOUNDspec SIDE 57 CCW CON FILE 'gfs.NW-EKA57.spec.swan' 1
+#BOUNDspec SIDE 56 CCW CON FILE 'gfs.NW-EKA56.spec.swan' 1
+#BOUNDspec SIDE 55 CCW CON FILE 'gfs.NW-EKA55.spec.swan' 1
+#BOUNDspec SIDE 54 CCW CON FILE 'gfs.NW-EKA54.spec.swan' 1
+#BOUNDspec SIDE 53 CCW CON FILE 'gfs.NW-EKA53.spec.swan' 1
+#BOUNDspec SIDE 52 CCW CON FILE 'gfs.NW-EKA52.spec.swan' 1
+#BOUNDspec SIDE 51 CCW CON FILE 'gfs.NW-EKA51.spec.swan' 1
 #$ S OPEN GRID BOUNDARY
-#BOUNDspec SIDE 69 CCW CON FILE 'gfswave.NW-EKA69.spec.swan' 1
-#BOUNDspec SIDE 68 CCW CON FILE 'gfswave.NW-EKA68.spec.swan' 1
-#BOUNDspec SIDE 67 CCW CON FILE 'gfswave.NW-EKA67.spec.swan' 1
-#BOUNDspec SIDE 66 CCW CON FILE 'gfswave.NW-EKA66.spec.swan' 1
-#BOUNDspec SIDE 65 CCW CON FILE 'gfswave.NW-EKA65.spec.swan' 1
-#BOUNDspec SIDE 64 CCW CON FILE 'gfswave.NW-EKA64.spec.swan' 1
+#BOUNDspec SIDE 69 CCW CON FILE 'gfs.NW-EKA69.spec.swan' 1
+#BOUNDspec SIDE 68 CCW CON FILE 'gfs.NW-EKA68.spec.swan' 1
+#BOUNDspec SIDE 67 CCW CON FILE 'gfs.NW-EKA67.spec.swan' 1
+#BOUNDspec SIDE 66 CCW CON FILE 'gfs.NW-EKA66.spec.swan' 1
+#BOUNDspec SIDE 65 CCW CON FILE 'gfs.NW-EKA65.spec.swan' 1
+#BOUNDspec SIDE 64 CCW CON FILE 'gfs.NW-EKA64.spec.swan' 1
 #$END BOUNSEG for UNSTR SWAN
 #
 #========================================================================

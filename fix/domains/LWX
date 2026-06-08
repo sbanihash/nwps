@@ -108,11 +108,11 @@ export WVTRKPA="20. 2. 0.25 0.1 20. 2."
 # them from the interactive Run_NWPS GUI.
 #
 export BOUNCOND="1"
-export FTPPAT1="gfswave"
-export FTPPAT1B="gfswave"
+export FTPPAT1="gfs"
+export FTPPAT1B="gfs"
 export FTPPAT2="NW-LWX"
 export NFTPATTEMPTS="3"
-export WAVECPS="gfswave.NW-LWX51.spec.swan"
+export WAVECPS="gfs.NW-LWX51.spec.swan"
 #
 # THE FOLLOWING LINES MUST BE COMMENTED. IF YOU ADD BOUNDARY COMMAND LINES FOR YOUR
 # DOMAIN, ADD THEM WITH THE "#" AS A FIRST CHARACTER, IF YOU DECIDE NOT TO USE BOUNARY
@@ -122,13 +122,13 @@ export WAVECPS="gfswave.NW-LWX51.spec.swan"
 #
 #$BOUNDARY COMMAND LINES
 #$UNSTR SWAN BOUNDARY COMMAND LINES - SITE NW-LWX
-#BOUNDspec SIDE 53 CCW CON FILE 'gfswave.NW-LWX53.spec.swan' 1
-#BOUNDspec SIDE 52 CCW CON FILE 'gfswave.NW-LWX52.spec.swan' 1
-#BOUNDspec SIDE 51 CCW CON FILE 'gfswave.NW-LWX51.spec.swan' 1
-#BOUNDspec SIDE 54 CCW CON FILE 'gfswave.NW-LWX54.spec.swan' 1
-#BOUNDspec SIDE 55 CCW CON FILE 'gfswave.NW-LWX55.spec.swan' 1
-#BOUNDspec SIDE 56 CCW CON FILE 'gfswave.NW-LWX56.spec.swan' 1
-#BOUNDspec SIDE 57 CCW CON FILE 'gfswave.NW-LWX57.spec.swan' 1
+#BOUNDspec SIDE 53 CCW CON FILE 'gfs.NW-LWX53.spec.swan' 1
+#BOUNDspec SIDE 52 CCW CON FILE 'gfs.NW-LWX52.spec.swan' 1
+#BOUNDspec SIDE 51 CCW CON FILE 'gfs.NW-LWX51.spec.swan' 1
+#BOUNDspec SIDE 54 CCW CON FILE 'gfs.NW-LWX54.spec.swan' 1
+#BOUNDspec SIDE 55 CCW CON FILE 'gfs.NW-LWX55.spec.swan' 1
+#BOUNDspec SIDE 56 CCW CON FILE 'gfs.NW-LWX56.spec.swan' 1
+#BOUNDspec SIDE 57 CCW CON FILE 'gfs.NW-LWX57.spec.swan' 1
 #$END BOUNSEG for UNSTR SWAN
 #
 #========================================================================

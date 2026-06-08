@@ -130,11 +130,11 @@ export WVTRKPA="50. 5. 0.25 0.1 50. 5."
 # them from the interactive Run_NWPS GUI.
 #
 export BOUNCOND="1"
-export FTPPAT1="gfswave"
-export FTPPAT1B="gfswave"
+export FTPPAT1="gfs"
+export FTPPAT1B="gfs"
 export FTPPAT2="NW-MTR"
 export NFTPATTEMPTS="3"
-export WAVECPS="gfswave.NW-MTR51.spec.swan,gfswave.NW-MTR60.spec.swan"
+export WAVECPS="gfs.NW-MTR51.spec.swan,gfs.NW-MTR60.spec.swan"
 #
 # THE FOLLOWING LINES MUST BE COMMENTED. IF YOU ADD BOUNDARY COMMAND LINES FOR YOUR
 # DOMAIN, ADD THEM WITH THE "#" AS A FIRST CHARACTER, IF YOU DECIDE NOT TO USE BOUNARY
@@ -145,32 +145,32 @@ export WAVECPS="gfswave.NW-MTR51.spec.swan,gfswave.NW-MTR60.spec.swan"
 #$BOUNDARY COMMAND LINES
 #$UNSTR SWAN BOUNDARY COMMAND LINES - SITE NW-MTR
 #$ N OPEN GRID BOUNDARY
-#BOUNDspec SIDE 75 CCW CON FILE 'gfswave.NW-MTR75.spec.swan' 1
-#BOUNDspec SIDE 74 CCW CON FILE 'gfswave.NW-MTR74.spec.swan' 1
-#BOUNDspec SIDE 73 CCW CON FILE 'gfswave.NW-MTR73.spec.swan' 1
-#BOUNDspec SIDE 72 CCW CON FILE 'gfswave.NW-MTR72.spec.swan' 1
+#BOUNDspec SIDE 75 CCW CON FILE 'gfs.NW-MTR75.spec.swan' 1
+#BOUNDspec SIDE 74 CCW CON FILE 'gfs.NW-MTR74.spec.swan' 1
+#BOUNDspec SIDE 73 CCW CON FILE 'gfs.NW-MTR73.spec.swan' 1
+#BOUNDspec SIDE 72 CCW CON FILE 'gfs.NW-MTR72.spec.swan' 1
 #$ W OPEN GRID BOUNDARY
-#BOUNDspec SIDE 51 CCW CON FILE 'gfswave.NW-MTR51.spec.swan' 1
-#BOUNDspec SIDE 52 CCW CON FILE 'gfswave.NW-MTR52.spec.swan' 1
-#BOUNDspec SIDE 53 CCW CON FILE 'gfswave.NW-MTR53.spec.swan' 1
-#BOUNDspec SIDE 54 CCW CON FILE 'gfswave.NW-MTR54.spec.swan' 1
-#BOUNDspec SIDE 55 CCW CON FILE 'gfswave.NW-MTR55.spec.swan' 1
-#BOUNDspec SIDE 56 CCW CON FILE 'gfswave.NW-MTR56.spec.swan' 1
-#BOUNDspec SIDE 57 CCW CON FILE 'gfswave.NW-MTR57.spec.swan' 1
-#BOUNDspec SIDE 58 CCW CON FILE 'gfswave.NW-MTR58.spec.swan' 1
-#BOUNDspec SIDE 59 CCW CON FILE 'gfswave.NW-MTR59.spec.swan' 1
-#BOUNDspec SIDE 60 CCW CON FILE 'gfswave.NW-MTR60.spec.swan' 1
+#BOUNDspec SIDE 51 CCW CON FILE 'gfs.NW-MTR51.spec.swan' 1
+#BOUNDspec SIDE 52 CCW CON FILE 'gfs.NW-MTR52.spec.swan' 1
+#BOUNDspec SIDE 53 CCW CON FILE 'gfs.NW-MTR53.spec.swan' 1
+#BOUNDspec SIDE 54 CCW CON FILE 'gfs.NW-MTR54.spec.swan' 1
+#BOUNDspec SIDE 55 CCW CON FILE 'gfs.NW-MTR55.spec.swan' 1
+#BOUNDspec SIDE 56 CCW CON FILE 'gfs.NW-MTR56.spec.swan' 1
+#BOUNDspec SIDE 57 CCW CON FILE 'gfs.NW-MTR57.spec.swan' 1
+#BOUNDspec SIDE 58 CCW CON FILE 'gfs.NW-MTR58.spec.swan' 1
+#BOUNDspec SIDE 59 CCW CON FILE 'gfs.NW-MTR59.spec.swan' 1
+#BOUNDspec SIDE 60 CCW CON FILE 'gfs.NW-MTR60.spec.swan' 1
 #$ N OPEN GRID BOUNDARY
-#BOUNDspec SIDE 61 CCW CON FILE 'gfswave.NW-MTR61.spec.swan' 1
-#BOUNDspec SIDE 62 CCW CON FILE 'gfswave.NW-MTR62.spec.swan' 1
-#BOUNDspec SIDE 63 CCW CON FILE 'gfswave.NW-MTR63.spec.swan' 1
-#BOUNDspec SIDE 64 CCW CON FILE 'gfswave.NW-MTR64.spec.swan' 1
-#BOUNDspec SIDE 65 CCW CON FILE 'gfswave.NW-MTR65.spec.swan' 1
-#BOUNDspec SIDE 66 CCW CON FILE 'gfswave.NW-MTR66.spec.swan' 1
-#BOUNDspec SIDE 67 CCW CON FILE 'gfswave.NW-MTR67.spec.swan' 1
-#BOUNDspec SIDE 68 CCW CON FILE 'gfswave.NW-MTR68.spec.swan' 1
-#BOUNDspec SIDE 69 CCW CON FILE 'gfswave.NW-MTR69.spec.swan' 1
-#BOUNDspec SIDE 70 CCW CON FILE 'gfswave.NW-MTR70.spec.swan' 1
+#BOUNDspec SIDE 61 CCW CON FILE 'gfs.NW-MTR61.spec.swan' 1
+#BOUNDspec SIDE 62 CCW CON FILE 'gfs.NW-MTR62.spec.swan' 1
+#BOUNDspec SIDE 63 CCW CON FILE 'gfs.NW-MTR63.spec.swan' 1
+#BOUNDspec SIDE 64 CCW CON FILE 'gfs.NW-MTR64.spec.swan' 1
+#BOUNDspec SIDE 65 CCW CON FILE 'gfs.NW-MTR65.spec.swan' 1
+#BOUNDspec SIDE 66 CCW CON FILE 'gfs.NW-MTR66.spec.swan' 1
+#BOUNDspec SIDE 67 CCW CON FILE 'gfs.NW-MTR67.spec.swan' 1
+#BOUNDspec SIDE 68 CCW CON FILE 'gfs.NW-MTR68.spec.swan' 1
+#BOUNDspec SIDE 69 CCW CON FILE 'gfs.NW-MTR69.spec.swan' 1
+#BOUNDspec SIDE 70 CCW CON FILE 'gfs.NW-MTR70.spec.swan' 1
 #$END BOUNSEG for UNSTR SWAN
 #NUM DIRimpl cdd=1 cdlim=2
 #$END BOUNSEG
