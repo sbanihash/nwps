@@ -31,7 +31,7 @@
 # 1. Grid that you are extracting data along contours from. (ie CG2)
 # 2. contour: 5 (for 5m contour)
 # -----------------------------------------------------------
-
+set -xa
 
 if [ "${SITEID}" == "" ]
     then
@@ -199,7 +199,7 @@ cycle="${CYCLE}00"
 fullname="${DATE}_${CYCLE}00"
 #CG=${contour}m_${CGnumber}_"$CYCLE"_"$DATE"_prob.txt_${SITEID}
 CGCONT=${contour}m_contour_${CGnumber}."$fullname"_${SITEID}
-COM_CGCONT=${NET}.t${CYCLE}z.${contour}m_contour_${CGnumber}.${WFO}
+COM_CGCONT=${NET}.t${CYCLE}z.${contour}m_contour_${CGnumber}.${WFO}.txt
 echo "" 
 echo "_________________________________________________________________"
 echo "                           Rip Current Program                   "
@@ -247,7 +247,7 @@ if [[ ! -f ${RIPDATA}/${CONT}m_contour_${CG}.${INIT_DATE}_${SITEID} ]]; then
 fi
 
 cp ${RIPDATA}/${contour}m_RipForecastShoreline_${SITEID}.txt ${RIPDATA}/fort.21
-i
+
 
 # ======================================================================
 # Copy the data from the previous 72 hrs
