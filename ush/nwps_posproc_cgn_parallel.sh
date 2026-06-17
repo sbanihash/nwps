@@ -328,8 +328,6 @@ export COMOUT_CORRECT="${COMOUT_ROOT}/${REGION_ONLY}.${PDY_INPUT}/${COMOUT_WFO}"
          $DBNROOT/bin/dbn_alert MODEL NWPS_ASCII_RIPPROB ${job} ${COMOUTCYC}/${FORT23}
      fi
 
-     cp -fv  ${RIPDATA}/${CGCONT} ${COMOUT_CORRECT}/riphist/$cycleout/${COM_CGCONT}
-
      # TODO: 11/29/2016 - Tesing RIP GRIB2 encoding below
      SWAN_RIP_OUTPUT_FILE="${RIPDATA}/${FORT23}"
      rip_current_meta_template="${FIXnwps}/templates/RIP.meta"
