@@ -27,6 +27,8 @@
 # NOTE: 03/22/2016 GRADS migrated Python plotting.
 #
 # -----------------------------------------------------------
+set -xa
+
 export TZ="UTC"
 
 # Check to see if our NWPS env is set
@@ -47,7 +49,7 @@ if [ "${INPUTGRIB2file}" == "" ]
 then
     if [ ! -e ${OUTPUTdir}/grib2/CG1 ]; then mkdir -pv ${OUTPUTdir}/grib2/CG1; fi
     cd ${OUTPUTdir}/grib2/CG1
-    INPUTGRIB2file=$(ls -1rat --color=none ???_nwps_CG1_????????_????.grib2 | tail -1)
+    INPUTGRIB2file=$(ls -1rat --color=none nwps.t??z.CG1.???.grib2 | tail -1)
     if [ "${INPUTGRIB2file}" == "" ]; then
 	echo "ERROR - No CG1 GRIB2 file from last run"
 	exit 1
@@ -316,7 +318,7 @@ do
         echo "Filter table file to 3-hourly..."
         # Accounting for init hours that differ from the 3-hourly cadence (00z, 03z, 06z, 09z, ...)
 	cycle=$(awk '{print $1;}' ${RUNdir}/CYCLE)
-	hourshift=expr $cycle % 3
+	hourshift=$(( expr $cycle % 3 ))
 	starthour=$(( expr $hourshift % 3 - 3 ))
 	endhour=$(( 21 + expr $hourshift % 3 ))
 

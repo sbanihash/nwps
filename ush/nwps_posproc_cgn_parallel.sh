@@ -19,6 +19,8 @@
 #
 #
 # ----------------------------------------------------------- 
+set -xa
+
 export CGNUMPLOT=${1}
 CGNUM="${1}"
 export CGNUMPLOT
@@ -214,6 +216,7 @@ export COMOUT_CORRECT="${COMOUT_ROOT}/${REGION_ONLY}.${PDY_INPUT}/${COMOUT_WFO}"
      # nomenclature input file for run_runup.sh e.g 20m_contour_CG2.20150202_0000_MHX
      fileor="${dpt_runup_contour}_contour_CG${CGNUM}"
      filein="${dpt_runup_contour}_contour_CG${CGNUM}.${yyyy}${mon}${dd}_${CYCLErunup}_${SITEID}"
+     filecomout="${NET}.t${hh}z.${dpt_runup_contour}_contour_CG${CGNUM}.${SITEID}.txt"
      #fileout="${dpt_runup_contour}_CG${CGNUM}_runup.${yyyy}${mon}${dd}_${hh}${mm}_${SITEID}.txt"
      #fileout="${WFO}_${NET}_${dpt_runup_contour}_CG${CGNUM}_runup.${yyyy}${mon}${dd}_${hh}${mm}"
      echo "filein: ${filein}"  | tee -a $logrunup
@@ -236,7 +239,7 @@ export COMOUT_CORRECT="${COMOUT_ROOT}/${REGION_ONLY}.${PDY_INPUT}/${COMOUT_WFO}"
      COMOUTCYC="${COMOUT_CORRECT}/${cycle}/CG${CGNUM}"
      if [ "${SENDCOM}" == "YES" ]; then
         mkdir -p $COMOUTCYC
-        cp -fv  ${OUTDIRrunup}/${filein} ${COMOUTCYC}/${filein}
+        cp -fv  ${OUTDIRrunup}/${filein} ${COMOUTCYC}/${filecomout}
         cp -fv  ${OUTDIRrunup}/${FORT22} ${COMOUTCYC}/${FORT22}
         if [ "${SENDDBN}" == "YES" ]
         then
@@ -286,8 +289,8 @@ export COMOUT_CORRECT="${COMOUT_ROOT}/${REGION_ONLY}.${PDY_INPUT}/${COMOUT_WFO}"
 	 for parm in ${RUNUPparms}
 	 do
 	     cat ${parm}_final_runup.grib2 >> final_runup.grib2
-	     cp -f final_runup.grib2 ${COMOUTCYC}/${siteid}_nwps_CG${CGNUM}_${fullname}_RipRunup.grib2
-	     cp -f final_runup.grib2 ${NWPSDATA}/output/grib2/CG${CGNUM}/${siteid}_nwps_CG${CGNUM}_${fullname}_RipRunup.grib2
+	     cp -f final_runup.grib2 ${COMOUTCYC}/nwps.CG${CGNUM}_RipRunup.${siteid}.grib2
+	     cp -f final_runup.grib2 ${NWPSDATA}/output/grib2/CG${CGNUM}/nwps.CG${CGNUM}_RipRunup.${siteid}.grib2
 	 done
          #AW052917 Do not include runup output in general GRIB2 output, because it won't go over SBN yet.
          #cat final_runup.grib2 >> ${GRIB2file}
@@ -325,9 +328,6 @@ export COMOUT_CORRECT="${COMOUT_ROOT}/${REGION_ONLY}.${PDY_INPUT}/${COMOUT_WFO}"
          $DBNROOT/bin/dbn_alert MODEL NWPS_ASCII_RIPPROB ${job} ${COMOUTCYC}/${FORT23}
      fi
 
-     mkdir -p $GESOUT/riphist/${SITEID}
-     cp -fv  ${RIPDATA}/${CGCONT} ${GESOUT}/riphist/${SITEID}/${CGCONT}
-
      # TODO: 11/29/2016 - Tesing RIP GRIB2 encoding below
      SWAN_RIP_OUTPUT_FILE="${RIPDATA}/${FORT23}"
      rip_current_meta_template="${FIXnwps}/templates/RIP.meta"
@@ -359,9 +359,8 @@ export COMOUT_CORRECT="${COMOUT_ROOT}/${REGION_ONLY}.${PDY_INPUT}/${COMOUT_WFO}"
 	 ${WGRIB2} ${RIPDATA}/templates.grib2 -no_header -import_bin ${RIPDATA}/points.bin -grib_out ${RIPDATA}/final_rip.grib2
          #AW052917 Do not include runup output in general GRIB2 output, because it won't go over SBN yet.
          #cat ${RIPDATA}/final_rip.grib2 >> ${GRIB2file}
-	 #cp -f ${RIPDATA}/final_rip.grib2 ${COMOUTCYC}/${siteid}_nwps_CG${CGNUM}_${fullname}_RipRunup.grib2
-         cat ${RIPDATA}/final_rip.grib2 >> ${COMOUTCYC}/${siteid}_nwps_CG${CGNUM}_${fullname}_RipRunup.grib2
-         cat ${RIPDATA}/final_rip.grib2 >> ${NWPSDATA}/output/grib2/CG${CGNUM}/${siteid}_nwps_CG${CGNUM}_${fullname}_RipRunup.grib2
+         cat ${RIPDATA}/final_rip.grib2 >> ${COMOUTCYC}/nwps.CG${CGNUM}_RipRunup.${siteid}.grib2
+         cat ${RIPDATA}/final_rip.grib2 >> ${NWPSDATA}/output/grib2/CG${CGNUM}/nwps.CG${CGNUM}_RipRunup.${siteid}.grib2
      fi
      # TODO: 11/29/2016 - Tesing RIP GRIB2 encoding above
   else
@@ -455,7 +454,7 @@ cd ${DATA}/output/grib2/CG${CGNUM}
      mm=$(cat mm)
 
      date_stamp="${yyyy}${mon}${dd}"
-     grib2File="${siteid}_nwps_CG${CGNUM}_${date_stamp}_${hh}${mm}.grib2"
+     grib2File="nwps.t${hh}z.CG${CGNUM}.${siteid}.grib2"
      cycle=$(awk '{print $1;}' ${RUNdir}/CYCLE)
      COMOUTCYC="${COMOUT_CORRECT}/${cycle}/CG${CGNUM}"
      if [ "${SENDCOM}" == "YES" ]; then
