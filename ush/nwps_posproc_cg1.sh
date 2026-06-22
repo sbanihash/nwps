@@ -217,6 +217,7 @@ export COMOUT_CORRECT="${COMOUT_ROOT}/${REGION_ONLY}.${PDY_INPUT}/${COMOUT_WFO}"
      # nomenclature input file for run_runup.sh e.g 20m_contour_CG2.20150202_0000_MHX
      fileor="${dpt_runup_contour}_contour_CG${CGNUM}"
      filein="${dpt_runup_contour}_contour_CG${CGNUM}.${yyyy}${mon}${dd}_${CYCLErunup}_${SITEID}"
+     filecomout="${NET}.t${hh}z.${dpt_runup_contour}_contour_CG${CGNUM}.${SITEID}.txt"
      #fileout="${dpt_runup_contour}_CG${CGNUM}_runup.${yyyy}${mon}${dd}_${hh}${mm}_${SITEID}.txt"
      #fileout="${WFO}_${NET}_${dpt_runup_contour}_CG${CGNUM}_runup.${yyyy}${mon}${dd}_${hh}${mm}"
      echo "filein: ${filein}"  | tee -a $logrunup
@@ -240,7 +241,7 @@ export COMOUT_CORRECT="${COMOUT_ROOT}/${REGION_ONLY}.${PDY_INPUT}/${COMOUT_WFO}"
      
      if [ "${SENDCOM}" == "YES" ]; then
         mkdir -p $COMOUTCYC
-        cp -fv  ${OUTDIRrunup}/${filein} ${COMOUTCYC}/${filein}
+        cp -fv  ${OUTDIRrunup}/${filein} ${COMOUTCYC}/${filecomout}
         cp -fv  ${OUTDIRrunup}/${FORT22} ${COMOUTCYC}/${FORT22}
 	    if [ "${SENDDBN}" == "YES" ]
 	    then
@@ -249,7 +250,7 @@ export COMOUT_CORRECT="${COMOUT_ROOT}/${REGION_ONLY}.${PDY_INPUT}/${COMOUT_WFO}"
         fi
      fi
 
-     gribfile=$(ls ${DATA}/output/grib2/CG${CGNUM}/*CG${CGNUM}_????????_????.grib2 | xargs -n 1 basename | tail -n 1)
+     gribfile=$(ls ${DATA}/output/grib2/CG${CGNUM}/nwps.t*.CG${CGNUM}.???.grib2 | xargs -n 1 basename | tail -n 1)
      fullname=`echo $gribfile | cut -c14-26`
      GRIB2file=${NWPSDATA}/output/grib2/CG${CGNUM}/${gribfile}
      WAVE_RUNUP_TO_BIN="${EXECnwps}/nwps_utils_wave_runup_to_bin"
@@ -293,8 +294,6 @@ export COMOUT_CORRECT="${COMOUT_ROOT}/${REGION_ONLY}.${PDY_INPUT}/${COMOUT_WFO}"
              echo "cat ${parm}_final_runup.grib2 >> final_runup.grib2"
 	     cat ${parm}_final_runup.grib2 >> final_runup.grib2
 	 done
-	 #cp -f final_runup.grib2 ${COMOUTCYC}/${siteid}_nwps_CG${CGNUM}_${fullname}_RipRunup.grib2
-	 #cp -f final_runup.grib2 ${NWPSDATA}/output/grib2/CG${CGNUM}/${siteid}_nwps_CG${CGNUM}_${fullname}_RipRunup.grib2
          echo "Copying final_runup.grib2 to ${GRIB2file}"
          ${WGRIB2} -count final_runup.grib2
          echo "cat final_runup.grib2 >> ${GRIB2file}"
@@ -332,7 +331,7 @@ export COMOUT_CORRECT="${COMOUT_ROOT}/${REGION_ONLY}.${PDY_INPUT}/${COMOUT_WFO}"
      cycleout=$(awk '{print $1;}' ${RUNdir}/CYCLE)
      COMOUTCYC="${COMOUT_CORRECT}/${cycleout}/${RIPDOMAIN}"
      mkdir -p $COMOUTCYC
-     cp -fv  ${RIPDATA}/${CGCONT} ${COMOUTCYC}/${CGCONT}
+     cp -fv  ${RIPDATA}/${CGCONT} ${COMOUTCYC}/${COM_CGCONT}
      cp -fv  ${RIPDATA}/${FORT23} ${COMOUTCYC}/${FORT23}
 
 
@@ -342,15 +341,12 @@ export COMOUT_CORRECT="${COMOUT_ROOT}/${REGION_ONLY}.${PDY_INPUT}/${COMOUT_WFO}"
 	     $DBNROOT/bin/dbn_alert MODEL NWPS_ASCII_RIPPROB ${job} ${COMOUTCYC}/${FORT23}
      fi
 
-     mkdir -p $GESOUT/riphist/${SITEID}
-     cp -fv  ${RIPDATA}/${CGCONT} ${GESOUT}/riphist/${SITEID}/${CGCONT}
-
      SWAN_RIP_OUTPUT_FILE="${RIPDATA}/${FORT23}"
      rip_current_meta_template="${FIXnwps}/templates/RIP.meta"
      rip_current_meta="${RIPDATA}/RIP.meta"
      cat ${rip_current_meta_template} > ${rip_current_meta}
      RIP_CURRENT_TO_BIN="${EXECnwps}/nwps_utils_rip_current_to_bin"
-     gribfile=$(ls ${DATA}/output/grib2/CG${CGNUM}/???_nwps_CG${CGNUM}_????????_????.grib2 | xargs -n 1 basename | tail -n 1)
+     gribfile=$(ls ${DATA}/output/grib2/CG${CGNUM}/nwps.t*.CG${CGNUM}.???.grib2 | xargs -n 1 basename | tail -n 1)
      fullname=`echo $gribfile | cut -c14-26`
      GRIB2file=${NWPSDATA}/output/grib2/CG${CGNUM}/${gribfile}
      cgnCLON1=$(${WGRIB2} ${GRIB2file} -V -d 1 | grep lon | grep to | grep by | awk '{ print $2 }')
@@ -499,7 +495,7 @@ cd ${DATA}/output/grib2/CG${CGNUM}
      mm=$(cat mm)
 
      date_stamp="${yyyy}${mon}${dd}"
-     grib2File="${siteid}_nwps_CG${CGNUM}_${date_stamp}_${hh}${mm}.grib2"
+     grib2File="nwps.t${hh}z.CG${CGNUM}.${siteid}.grib2"
      cycle=$(awk '{print $1;}' ${RUNdir}/CYCLE)
      COMOUTCYC="${COMOUT_CORRECT}/${cycle}/CG${CGNUM}"
      if [ "${SENDCOM}" == "YES" ]; then
@@ -524,8 +520,7 @@ cd ${DATA}/output/grib2/CG${CGNUM}
               || [ "${SITEID}" == "GUM" ] || [ "${SITEID}" == "JAX" ] || [ "${SITEID}" == "CHSX" ] \
               || [ "${SITEID}" == "ILMX" ] || [ "${SITEID}" == "PHIX" ] || [ "${SITEID}" == "GYX" ] \
               || [ "${SITEID}" == "TAEX" ] || [ "${SITEID}" == "MOBX" ] || [ "${SITEID}" == "HGXX" ] \
-              || [ "${SITEID}" == "HFO" ] \
-              || [ "${SITEID}" == "LOX" ] || [ "${SITEID}" == "MTR" ] || [ "${SITEID}" == "EKA" ] \
+              || [ "${SITEID}" == "HFO" ] || [ "${SITEID}" == "MTR" ] || [ "${SITEID}" == "EKA" ] \
               || [ "${SITEID}" == "MFR" ] || [ "${SITEID}" == "PQR" ] || [ "${SITEID}" == "SEWX" ] \
               || [ "${SITEID}" == "AJK" ] || [ "${SITEID}" == "AER" ] || [ "${SITEID}" == "AFG" ] \
               || [ "${SITEID}" == "BRO" ] || [ "${SITEID}" == "CRP" ] || [ "${SITEID}" == "LCH" ] \
@@ -545,7 +540,7 @@ cd ${DATA}/output/grib2/CG${CGNUM}
               done
            fi
 	   
-	   if [ "${SITEID}" == "SEW" ] 
+	   if [ "${SITEID}" == "SEW" ] || [ "${SITEID}" == "LOX" ]
            then
               for i in {10..35}; do
                  mkdir -p ${COMOUTCYC}/PE00${i}/

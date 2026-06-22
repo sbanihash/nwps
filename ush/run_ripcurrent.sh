@@ -31,7 +31,7 @@
 # 1. Grid that you are extracting data along contours from. (ie CG2)
 # 2. contour: 5 (for 5m contour)
 # -----------------------------------------------------------
-
+set -xa
 
 if [ "${SITEID}" == "" ]
     then
@@ -184,14 +184,22 @@ cat /dev/null > ${NWPSDATA}/logs/runrip.log
 # Find newest GRIB2 output file to process
 ls -lt ${NWPSDATA}/output/grib2/${CGnumber}
 gribfile=$(ls ${NWPSDATA}/output/grib2/${CGnumber}/*${CGnumber}*grib2 | xargs -n 1 basename | tail -n 1)
-cycle=`echo $gribfile | cut -c23-26`
-CYCLE=`echo $gribfile | cut -c23-24`
-DATE=`echo $gribfile | cut -c14-21`
-fullname=`echo $gribfile | cut -c14-26`
+# Get the full path to the file
+gribpath=$(ls ${NWPSDATA}/output/grib2/${CGnumber}/*${CGnumber}*grib2 | tail -n 1)
 
+# 1. Extract the reference date/time using wgrib2
+# This outputs a string like "d=2026060912" (YYYYMMDDHH)
+grib_vt=$(wgrib2 -vt $gribpath | head -n 1 | cut -d'=' -f2)
+
+# 2. Parse out the pieces
+DATE=$(echo $grib_vt | cut -c1-8)     # Result: 20260609
+CYCLE=$(echo $grib_vt | cut -c9-10)   # Result: 12
+cycle="${CYCLE}00"
+
+fullname="${DATE}_${CYCLE}00"
 #CG=${contour}m_${CGnumber}_"$CYCLE"_"$DATE"_prob.txt_${SITEID}
 CGCONT=${contour}m_contour_${CGnumber}."$fullname"_${SITEID}
-
+COM_CGCONT=${NET}.t${CYCLE}z.${contour}m_contour_${CGnumber}.${WFO}.txt
 echo "" 
 echo "_________________________________________________________________"
 echo "                           Rip Current Program                   "
@@ -240,12 +248,57 @@ fi
 
 cp ${RIPDATA}/${contour}m_RipForecastShoreline_${SITEID}.txt ${RIPDATA}/fort.21
 
+
 # ======================================================================
 # Copy the data from the previous 72 hrs
 # ======================================================================
-cp -f $GESINm3/riphist/${SITEID}/${contour}*${CGnumber}*${SITEID} ${RIPDATA}
-cp -f $GESINm4/riphist/${SITEID}/${contour}*${CGnumber}*${SITEID} ${RIPDATA}
-cp -f $GESINm5/riphist/${SITEID}/${contour}*${CGnumber}*${SITEID} ${RIPDATA}
+
+# 1. Loop through days 3, 4, and 5 back -- have to confirm why this changed to 3-4-5 with AliS
+for i in {3..5}; do
+    # Get the value of $COMINm3, $COMINm4, etc., dynamically
+    VAR_NAME="COMINm${i}"
+    GESIN_DIR="${!VAR_NAME}"
+
+    # Calculate the exact past PDY for this specific day to use in the filename
+    PAST_PDY=$(date -d "$PDY - $i days" +%Y%m%d 2>/dev/null || date -j -f "%Y%m%d" "$PDY" -v-"${i}"d +%Y%m%d)
+
+    echo "=== Processing Day -$i (Variable: $VAR_NAME | PDY: $PAST_PDY) ==="
+
+    TARGET_PATH="${GESIN_DIR}"
+
+    # 2. Check if the comout directory exists without cd'ing into it
+    if [ -d "$TARGET_PATH" ]; then
+
+        # 3. Find whatever CYC folders exist dynamically by looking into the full path
+        for CYC_PATH in "${TARGET_PATH}"/*/; do
+
+            # Ensure it's a valid directory match before proceeding
+            [ -d "$CYC_PATH" ] || continue
+
+            # Extract the cycle name from the path (e.g., /path/to/riphist/06/ -> 06)
+            CYC=$(basename "$CYC_PATH")
+
+            # Check if matching files exist using the full path
+            if ls "${CYC_PATH}"/"${CG}"/nwps.t"${CYC}"z.5m_contour* >/dev/null 2>&1; then
+
+                for FILE in "${CYC_PATH}"/"${CG}"/nwps.t"${CYC}"z.5m_contour*; do
+                    # Ensure it's a file, not a directory
+                    [ -f "$FILE" ] || continue
+
+                    # 4. Construct the unique new filename using the correct PAST_PDY
+                    NEW_NAME="${contour}m_contour_${CG}.${PAST_PDY}_${CYC}00_${SITEID}"
+
+                    echo "Copying: $FILE -> ${RIPDATA}/${NEW_NAME}"
+                    cp -f "$FILE" "${RIPDATA}/${NEW_NAME}"
+                done
+            fi
+        done
+    else
+        echo "Directory $TARGET_PATH does not exist, skipping Day -$i."
+    fi
+    echo ""
+done
+
 
 # ======================================================================
 # Create output file and add header
