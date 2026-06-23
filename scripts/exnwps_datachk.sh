@@ -1,6 +1,5 @@
 #!/bin/sh
 set -xa
-# JY -08/03/22  if [ "${envir}" != para ]; then
    ncyc="_$($NDATE)"
    dncyc=".$($NDATE)"
    ncycm1="_$($NDATE -1)"
@@ -8,18 +7,6 @@ set -xa
    ncycm3="_$($NDATE -3)"
    ncycm4="_$($NDATE -4)"
    ncycm5="_$($NDATE -5)"
-# JY - should not have this setting in para?
-# else
-#   # for testing in para, set hour
-#   nhour=23
-#   ncyc="_$($NDATE 0 ${PDY}${nhour})"
-#   dncyc=".$($NDATE 0 ${PDY}${nhour})"
-#   ncycm1="_$($NDATE -1 ${PDY}${nhour})"
-#   ncycm2="_$($NDATE -2 ${PDY}${nhour})"
-#   ncycm3="_$($NDATE -3 ${PDY}${nhour})"
-#   ncycm4="_$($NDATE -4 ${PDY}${nhour})"
-#   ncycm5="_$($NDATE -5 ${PDY}${nhour})"
-#fi
 
 export ECF_NAME_ORIG=${ECF_NAME}
 export ECF_PASS_ORIG=${ECF_PASS}
@@ -67,7 +54,6 @@ function process_nwps_dcom {
     nrunning=0
     nfinished=0
     nignored=0
-#    DCOM_FILES=($( for i in $(cat ${FIXnwps}/wfolist.dat |grep -v -E "^$|#"|tr '[A-Z]' '[a-z]'); do
     DCOM_FILES=($( for i in $(cat ${PARMnwps}/wfo.tbl|grep -v "#"|awk -F"/" '{print $2}'); do
                         if ls -1rt ${FORECASTWINDdir}/*_${i}* &> /dev/null; then
                             ls -1rt ${FORECASTWINDdir}/*_${i}*|tail -n 1
