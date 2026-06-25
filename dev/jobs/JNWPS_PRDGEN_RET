@@ -93,6 +93,7 @@ export INPUTdir=${INPUTdir:-${DATA}/input}
 export VARdir=${VARdir:-${DATA}/var}
 export OUTPUTdir=${OUTPUTdir:-${DATA}/output}
 export GRIB2dir=${GRIB2dir:-${DATA}/output/grib2}
+export PARMwmo="${PARMnwps}/wmo"
 export RUNdir=${RUNdir:-${DATA}/run}
 export TMPdir=${TMPdir:-${DATA}/tmp}
 export LOGdir=${LOGdir:-${DATA}/logs}
