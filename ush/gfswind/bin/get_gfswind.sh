@@ -382,7 +382,7 @@ while [ "${epoc_time}" == "" ] || [ "${epoc_time}" == "-1" ]; do
 done
 
 date_str=$(echo ${epoc_time} | awk '{ print strftime("%Y%m%d", $1) }')
->>>>>>> EMC/prod/v1.5
+
 swan_uv_ofile_fname="gfswind_${epoc_time}_${date_str}_${CYCLE}_f000.dat"
 swan_uv_ofile="${OUTPUTdir}/${swan_uv_ofile_fname}"
 echo ${epoc_time} > ${OUTPUTdir}/gfswind_start_time.txt
