@@ -264,7 +264,7 @@ function process_wfolist() {
         fi
 
     fi
-    
+
     hasdownload_000="true"
 
     if [ "${STOFSUSEICEMASK}" == "TRUE" ]
@@ -273,13 +273,13 @@ function process_wfolist() {
        echo "Clip and reproject to sea ice grid"
        #--- Make local copy of input file and check size -----------
        cp ${SPOOLdir}/${icefile} ${CLIPdir}/${icefile}
-       $WGRIB2 -count ${CLIPdir}/${icefile} > ${CLIPdir}/filechk
-       nrecords=`wc -l ${CLIPdir}/filechk | cut -c1`
+       $WGRIB2 -count ${CLIPdir}/${icefile} > ${CLIPdir}/filechk 2>/dev/null
+       nrecords=$(wc -l < ${CLIPdir}/filechk)
        while [ ${nrecords} -ne 1 ]; do
           echo "Repeating GRIB2 ice file copy for ${wfo}"
           cp ${SPOOLdir}/${icefile} ${CLIPdir}/${icefile}
-          $WGRIB2 -count ${CLIPdir}/${icefile} > ${CLIPdir}/filechk
-          nrecords=`wc -l ${CLIPdir}/filechk | cut -c1`
+          $WGRIB2 -count ${CLIPdir}/${icefile} > ${CLIPdir}/filechk 2>/dev/null
+	  nrecords=$(wc -l < ${CLIPdir}/filechk)
        done
        #------------------------------------------------------------
        echo "${WGRIB2} ${CLIPdir}/${icefile} -new_grid latlon ${LL_LON}:${NX}:${DX} ${LL_LAT}:${NY}:${DY} ${CLIPdir}/ice.grib2"
@@ -289,7 +289,7 @@ function process_wfolist() {
        echo "${WGRIB2} -no_header -match ${PARM} -bin ${CLIPdir}/ice.bin ${CLIPdir}/ice.grib2"
        ${WGRIB2} -no_header -match ${PARM} -bin ${CLIPdir}/ice.bin ${CLIPdir}/ice.grib2
     fi
-  
+
     while [ "${epoc_time}" == "" ] || [ "${epoc_time}" == "-1" ]; do
        echo "Extracting epoc time for ${wfo}"
        epoc_time=`${WGRIB2} -unix_time ${SPOOLdir}/${file} | grep "1:4:unix" | awk -F= '{ print $3 }'`
@@ -314,13 +314,13 @@ function process_wfolist() {
         while [ ! -s ${CLIPdir}/${file} ]; do
            cp ${SPOOLdir}/${file} ${CLIPdir}/${file}
         done
-        $WGRIB2 -count ${CLIPdir}/${file} > ${CLIPdir}/filechk
-        nrecords=`wc -l ${CLIPdir}/filechk | cut -c1`
+        $WGRIB2 -count ${CLIPdir}/${file} > ${CLIPdir}/filechk 2>/dev/null
+        nrecords=$(wc -l < ${CLIPdir}/filechk)
         while [ ${nrecords} -ne 3 ]; do
            echo "Repeating GRIB2 file copy for ${wfo} f000"
            cp ${SPOOLdir}/${file} ${CLIPdir}/${file}
-           $WGRIB2 -count ${CLIPdir}/${file} > ${CLIPdir}/filechk
-           nrecords=`wc -l ${CLIPdir}/filechk | cut -c1`
+           $WGRIB2 -count ${CLIPdir}/${file} > ${CLIPdir}/filechk 2>/dev/null
+           nrecords=$(wc -l < ${CLIPdir}/filechk)
         done
         MakeClip ${CLIPdir} ${file} 0 ${WFO}
         #------------------------------------------------------------
@@ -352,7 +352,7 @@ function process_wfolist() {
     	if [ $end -le 9 ];then
     	    FF=`echo 00$end`
     	fi
-    	
+
     	swan_wl_ofile_fname="wave_stofs_waterlevel_${epoc_time}_${date_str}_${CYCLE}_f${FF}.dat"
     	swan_wl_ofile="${OUTPUTdir}/${swan_wl_ofile_fname}"
     	if [ -e ${swan_wl_ofile} ];then
@@ -361,7 +361,7 @@ function process_wfolist() {
     	    let end+=$TIMESTEP
     	    continue
     	fi
-    	
+
         file="${STOFS_BASIN}.t${CYCLE}z.${STOFS_REGION}.f${FF}.grib2"
     	outfile="${file}"
     	cd ${PRODUCTdir}
@@ -393,17 +393,17 @@ function process_wfolist() {
         		export err=1; err_chk
     	    fi
     	fi
-    	touch ${VARdir}/hasstofsdownload_${CYCLE}z.${STOFS_BASIN}.${STOFS_REGION}.f${FF}
+	touch ${VARdir}/hasstofsdownload_${CYCLE}z.${STOFS_BASIN}.${STOFS_REGION}.f${FF}
 
         #--- Make local copy of input file and check size -----------
         cp ${PRODUCTdir}/${file} ${CLIPdir}/${file}
-        $WGRIB2 -count ${CLIPdir}/${file} > ${CLIPdir}/filechk
-        nrecords=`wc -l ${CLIPdir}/filechk | cut -c1`
+        $WGRIB2 -count ${CLIPdir}/${file} > ${CLIPdir}/filechk 2>/dev/null
+        nrecords=$(wc -l < ${CLIPdir}/filechk)
         while [ ${nrecords} -ne 3 ]; do
            echo "Repeating GRIB2 file copy for ${wfo} f${FF}"
            cp ${PRODUCTdir}/${file} ${CLIPdir}/${file}
-           $WGRIB2 -count ${CLIPdir}/${file} > ${CLIPdir}/filechk
-           nrecords=`wc -l ${CLIPdir}/filechk | cut -c1`
+           $WGRIB2 -count ${CLIPdir}/${file} > ${CLIPdir}/filechk 2>/dev/null
+           nrecords=$(wc -l < ${CLIPdir}/filechk)
         done
         MakeClip ${CLIPdir} ${file} ${end} ${WFO}
         #------------------------------------------------------------
