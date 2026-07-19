@@ -273,13 +273,13 @@ function process_wfolist() {
        echo "Clip and reproject to sea ice grid"
        #--- Make local copy of input file and check size -----------
        cp ${SPOOLdir}/${icefile} ${CLIPdir}/${icefile}
-       $WGRIB2 -count ${CLIPdir}/${icefile} > ${CLIPdir}/filechk
-       nrecords=`wc -l ${CLIPdir}/filechk | cut -c1`
+       $WGRIB2 -count ${CLIPdir}/${icefile} > ${CLIPdir}/filechk 2>/dev/null
+       nrecords=$(wc -l < ${CLIPdir}/filechk)
        while [ ${nrecords} -ne 1 ]; do
           echo "Repeating GRIB2 ice file copy for ${wfo}"
           cp ${SPOOLdir}/${icefile} ${CLIPdir}/${icefile}
-          $WGRIB2 -count ${CLIPdir}/${icefile} > ${CLIPdir}/filechk
-          nrecords=`wc -l ${CLIPdir}/filechk | cut -c1`
+          $WGRIB2 -count ${CLIPdir}/${icefile} > ${CLIPdir}/filechk 2>/dev/null
+	  nrecords=$(wc -l < ${CLIPdir}/filechk)
        done
        #------------------------------------------------------------
        echo "${WGRIB2} ${CLIPdir}/${icefile} -new_grid latlon ${LL_LON}:${NX}:${DX} ${LL_LAT}:${NY}:${DY} ${CLIPdir}/ice.grib2"
@@ -291,20 +291,20 @@ function process_wfolist() {
     fi
 
     while [ "${epoc_time}" == "" ] || [ "${epoc_time}" == "-1" ]; do
-        echo "Extracting epoc time for ${wfo}..."
-        # 2>/dev/null hides the fatal error message while waiting for the file to finish writing
-        epoc_time=`${WGRIB2} -unix_time ${SPOOLdir}/${file} 2>/dev/null | grep "1:4:unix" | awk -F= '{ print $3 }'`
-
-        # If it failed to get the time, sleep for 5 seconds before trying again
-        if [ "${epoc_time}" == "" ] || [ "${epoc_time}" == "-1" ]; then
-            sleep 5
-        fi
+       echo "Extracting epoc time for ${wfo}"
+       epoc_time=`${WGRIB2} -unix_time ${SPOOLdir}/${file} | grep "1:4:unix" | awk -F= '{ print $3 }'`
     done
-
+    #epoc_time=`${WGRIB2} -unix_time ${SPOOLdir}/${file} | grep "1:4:unix" | awk -F= '{ print $3 }'`
     date_str=`echo ${epoc_time} | awk '{ print strftime("%Y%m%d", $1) }'`
     echo ${epoc_time} > ${OUTPUTdir}/stofs_waterlevel_start_time.txt
     echo "STOFSDOMAIN:${STOFSDOMAIN}" > ${OUTPUTdir}/stofs_waterlevel_domain.txt
 
+#    if [ $SENDDBN = YES ]; then
+#      $DBNROOT/bin/dbn_alert MODEL NWPS_ASCII_PARA $job ${OUTPUTdir}/stofs_waterlevel_start_time.txt
+#    fi
+#    if [ $SENDDBN = YES ]; then
+#      $DBNROOT/bin/dbn_alert MODEL NWPS_ASCII_PARA $job ${OUTPUTdir}/stofs_waterlevel_domain.txt
+#    fi
     swan_wl_ofile_fname="wave_stofs_waterlevel_${epoc_time}_${date_str}_${CYCLE}_f${FF}.dat"
     swan_wl_ofile="${OUTPUTdir}/${swan_wl_ofile_fname}"
 
@@ -312,23 +312,16 @@ function process_wfolist() {
         #MakeClip ${SPOOLdir} ${file} 0 ${WFO}
         #--- Make local copy of input file and check size -----------
         while [ ! -s ${CLIPdir}/${file} ]; do
-            cp ${SPOOLdir}/${file} ${CLIPdir}/${file}
-            sleep 2
+           cp ${SPOOLdir}/${file} ${CLIPdir}/${file}
         done
-
-        # Divert stderr to /dev/null so the initial "bad grib" error doesn't spam your logs
         $WGRIB2 -count ${CLIPdir}/${file} > ${CLIPdir}/filechk 2>/dev/null
-        # A robust way to count lines without using 'cut'
-        nrecords=$(wc -l < "${CLIPdir}/filechk")
-
-        while [ "${nrecords}" -ne 3 ]; do
-           echo "File incomplete. Sleeping 5s and repeating GRIB2 file copy for ${wfo} f000"
-           sleep 5
+        nrecords=$(wc -l < ${CLIPdir}/filechk)
+        while [ ${nrecords} -ne 3 ]; do
+           echo "Repeating GRIB2 file copy for ${wfo} f000"
            cp ${SPOOLdir}/${file} ${CLIPdir}/${file}
            $WGRIB2 -count ${CLIPdir}/${file} > ${CLIPdir}/filechk 2>/dev/null
-           nrecords=$(wc -l < "${CLIPdir}/filechk")
+           nrecords=$(wc -l < ${CLIPdir}/filechk)
         done
-
         MakeClip ${CLIPdir} ${file} 0 ${WFO}
         #------------------------------------------------------------
     	export err=$?; err_chk
@@ -368,7 +361,7 @@ function process_wfolist() {
     	    let end+=$TIMESTEP
     	    continue
     	fi
-    	
+
         file="${STOFS_BASIN}.t${CYCLE}z.${STOFS_REGION}.f${FF}.grib2"
     	outfile="${file}"
     	cd ${PRODUCTdir}
@@ -400,21 +393,17 @@ function process_wfolist() {
         		export err=1; err_chk
     	    fi
     	fi
-
 	touch ${VARdir}/hasstofsdownload_${CYCLE}z.${STOFS_BASIN}.${STOFS_REGION}.f${FF}
-	#--- Make local copy of input file and check size -----------
-	cp ${PRODUCTdir}/${file} ${CLIPdir}/${file}
-	$WGRIB2 -count ${CLIPdir}/${file} > ${CLIPdir}/filechk 2>/dev/null
-	# FIX: Use awk to get the exact total line count safely
+
+        #--- Make local copy of input file and check size -----------
+        cp ${PRODUCTdir}/${file} ${CLIPdir}/${file}
+        $WGRIB2 -count ${CLIPdir}/${file} > ${CLIPdir}/filechk 2>/dev/null
         nrecords=$(wc -l < ${CLIPdir}/filechk)
-
-	while [ ${nrecords} -ne 3 ]; do
-	    echo "Repeating GRIB2 file copy for ${wfo} f${FF} (Found ${nrecords} records, expected 3)"
-	    sleep 2 # Good practice to give the filesystem a moment to sync
-	    cp ${PRODUCTdir}/${file} ${CLIPdir}/${file}
-	    $WGRIB2 -count ${CLIPdir}/${file}  > ${CLIPdir}/filechk 2>/dev/null
-
-	    nrecords=$(wc -l < ${CLIPdir}/filechk)
+        while [ ${nrecords} -ne 3 ]; do
+           echo "Repeating GRIB2 file copy for ${wfo} f${FF}"
+           cp ${PRODUCTdir}/${file} ${CLIPdir}/${file}
+           $WGRIB2 -count ${CLIPdir}/${file} > ${CLIPdir}/filechk 2>/dev/null
+           nrecords=$(wc -l < ${CLIPdir}/filechk)
         done
         MakeClip ${CLIPdir} ${file} ${end} ${WFO}
         #------------------------------------------------------------
