@@ -675,7 +675,7 @@ cd ${DATA}/output/grib2/CG${CGNUM}
         fi
 
         if [ "${SENDDBN}" == "YES" ]; then
-            ${DBNROOT}/bin/dbn_alert MODEL NWPS_GRIB $job ${COMOUTCYC}/${g2F}
+            ${DBNROOT}/bin/dbn_alert MODEL NWPS_GRIB $job ${COMOUTCYC}/${g2f}
         fi
      fi
 
