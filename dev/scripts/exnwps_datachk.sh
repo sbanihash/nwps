@@ -270,27 +270,9 @@ else
                 qsub ${HOMEnwps}/dev/ecf/jnwps_prdgen_cgn.ecf.${wfo}    >> ${HOMEnwps}/dev/ecf/jobids_${wfo}.log
 
                 echo 'Submitted run for '${wfo}': '${runit}
-
-                #ecflow_client --requeue force ${ECF_NAME%/*}/${ecf_wfo} 2> /dev/null
-                #ecflow_client --requeue force ${ECF_NAME%/*}/${ecf_wfo}/jnwps_prep 2> /dev/null
-                #ecflow_client --requeue force ${ECF_NAME%/*}/${ecf_wfo}/jnwps_forecast_cg1 2> /dev/null
-                #ecflow_client --requeue force ${ECF_NAME%/*}/${ecf_wfo}/jnwps_post_cg1 2> /dev/null
-                #ecflow_client --requeue force ${ECF_NAME%/*}/${ecf_wfo}/jnwps_wavetrack_cg1 2> /dev/null
-                #ecflow_client --requeue force ${ECF_NAME%/*}/${ecf_wfo}/jnwps_forecast_cgn 2> /dev/null
-                #ecflow_client --requeue force ${ECF_NAME%/*}/${ecf_wfo}/jnwps_post_cgn 2> /dev/null
-                #>export err=$?
-                #>if [ "$err" -eq 0 ]; then
-                    export tstart=$(date -u "+%Y%m%d%H%M")
+                    export tstart=$($MDATE)
                     echo "STARTED $runit AT ${tstart}" >> ${dcom_hist}
                     DCOM_FILES=( "${DCOM_FILES[@]/${runit}}" )
-                    ((nrunning++))
-                #>else 
-                #>    echo -ne "ERROR:\t\tREQUEUEING $(echo ${runit}|awk -F_ '{print $2}') FAILED.\n"
-                #>    export tstart=$(date -u "+%Y%m%d%H%M")
-                #>    echo "ERROR $runit AT ${tstart}" >> ${dcom_hist}
-                #>    DCOM_FILES=( "${DCOM_FILES[@]/${runit}}" )
-                #>    #err_chk
-                #>fi
                 sleep 5
             fi
         else

@@ -156,7 +156,7 @@ do
 
       if [ $TSM_FLAG = 'NO' ]
       then
-        date
+        echo "$($MDATE)"
         if [[ $DRY_RUN_ONLY == "YES" ]] ; then
             echo "DRY RUN, list of files that would be archived:"
             cat ${dir}/$region.$file | sort
@@ -170,7 +170,7 @@ do
           echo "rhist_savenwps.sh:  File $tarfile was not successfully created."
           exit 3
         fi
-        date
+        echo "$($MDATE)"
 
       #
       #   Read the tarfile and save a list of files that are in the tar file.
@@ -201,7 +201,7 @@ do
       #   appropriate directory in ${TSMOUT}.
       #  
    
-        date
+        echo "$($MDATE)"
         gtar -cvf ${DATA}/$tarfile -T ${DATA}/$region.$file
         err=$?
         if [ $err -ne 0 ]
@@ -211,7 +211,7 @@ do
         fi 
 
         $SCP $SCP_CONFIG ${DATA}/${tarfile} ibmtsm1.ncep.noaa.gov:${rhistdir}/${tarfile}
-        date
+        echo "$($MDATE)"
       fi
    
       rm ${dir}/$region.$file
