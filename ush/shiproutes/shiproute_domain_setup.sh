@@ -27,22 +27,19 @@ export TZ="UTC"
 # Check to see if our SITEID is set
 if [ "${SITEID}" == "" ]
     then
-    echo "ERROR - Your SITEID variable is not set"
-    exit 1
+    err_exit "ERROR - Your SITEID variable is not set"
 fi
 
 if [ "${HOMEnwps}" == "" ]
     then 
-    echo "ERROR - Your HOMEnwps variable is not set"
-    exit 1
+    err_exit "ERROR - Your HOMEnwps variable is not set"
 fi
 
 if [ -e ${USHnwps}/nwps_config.sh ]
 then
     source ${USHnwps}/nwps_config.sh
 else
-    echo "ERROR - Cannot find ${USHnwps}/nwps_config.sh"
-    exit 1
+    err_exit "ERROR - Cannot find ${USHnwps}/nwps_config.sh"
 fi
 
 CFGFILE=${FIXnwps}/shiproutes/${siteid}_shiproutes.cfg
@@ -50,7 +47,7 @@ if [ ! -e ${CFGFILE} ]
 then
     echo "ERROR - Missing ${FIXnwps}/shiproutes/${siteid}_shiproutes.cfg"
     echo "ERROR - No ship route data or plots will be created for ${SITEID}"
-    exit 1
+    err_exit "Missing file ${CFGFILE}"
 fi
 
 PROCdir="${VARdir}/shiproutes"
@@ -116,38 +113,30 @@ do
 	echo "Checking ship route configuration" | tee -a ${LOGFILE}
 	if [ "${loc1}" == "" ]; then
 	    echo "ERROR - loc1 is not set, check ${CFGFILE} config file" | tee -a ${LOGFILE}
-	    error_level=1
-	    continue
+	    err_exit " loc1 is not set, check ${CFGFILE} config file"
 	fi
 	if [ "${loc2}" == "" ]; then
-	    echo "ERROR - loc2 is not set, check ${CFGFILE} config file" | tee -a ${LOGFILE}
-	    error_level=1
-	    continue
+        echo "ERROR - loc2 is not set, check ${CFGFILE} config file" | tee -a ${LOGFILE}
+	    err_exit "loc2 is not set, check ${CFGFILE} config file"
 	fi
 	if [ "${stlat}" == "" ]; then
-	    echo "ERROR - stlat is not set, check ${CFGFILE} config file" | tee -a ${LOGFILE}
-	    error_level=1
-	    continue
+        echo "ERROR - stlat is not set, check ${CFGFILE} config file" | tee -a ${LOGFILE}
+	    err_exit "stlat is not set, check ${CFGFILE} config file"
 	fi
 	if [ "${stlon}" == "" ]; then
-	    echo "ERROR - stlon is not set, check ${CFGFILE} config file" | tee -a ${LOGFILE}
-	    error_level=1
-	    continue
+        echo "ERROR - stlon is not set, check ${CFGFILE} config file" | tee -a ${LOGFILE}
+	    err_exit "stlon is not set, check ${CFGFILE} config file"
 	fi
 	if [ "${endlat}" == "" ]; then
-	    echo "ERROR - endlat is not set, check ${CFGFILE} config file" | tee -a ${LOGFILE}
-	    error_level=1
-	    continue
+        echo "ERROR - endlat is not set, check ${CFGFILE} config file" | tee -a ${LOGFILE}
+	    err_exit "endlat is not set, check ${CFGFILE} config file"
 	fi
 	if [ "${endlon}" == "" ]; then
-	    echo "ERROR - endlon is not set, check ${CFGFILE} config file" | tee -a ${LOGFILE}
-	    error_level=1
-	    continue
+        echo "ERROR - endlon is not set, check ${CFGFILE} config file" | tee -a ${LOGFILE}
+	    err_exit "endlon is not set, check ${CFGFILE} config file"
 	fi
 	if [ "${res}" == "" ]; then
-	    echo "ERROR - res	 is not set, check ${CFGFILE} config file" | tee -a ${LOGFILE}
-	    error_level=1
-	    continue
+	    err_exit "ERROR - res	 is not set, check ${CFGFILE} config file"
 	fi
 	if [ "${current_box_lats}" == "" ]; then
 	    current_box_lats="${stlat} ${endlat}"
@@ -174,9 +163,8 @@ do
 	ptnum=$(echo "scale=0;(${dist}/${res})" | bc)
 	echo "Total Grid Points: $ptnum"
 	if [ $ptnum -le 0 ]; then
-	    echo "ERROR - Bad number of points $ptnum" | tee -a ${LOGFILE}
-	    error_level=1
-	    continue
+        echo "ERROR - Bad number of points $ptnum" | tee -a ${LOGFILE}
+	    err_exit "Bad number of points $ptnum" 
 	fi
 	
 	latincr=$(echo "scale=10;(${endlat} - ${stlat})/$ptnum" | bc)
