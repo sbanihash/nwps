@@ -492,7 +492,6 @@ sub translate {
                 #Logs::err("\n\n\nline = $line\n\n\n",3);
 		my ($date,$blah,$hour,$min)=unpack"A8 A A2 A2",$line;
 		#Logs::err("date = $date \n blah = $blah \n undef = $undef\n hour = $hour \n min = $min \n\n\n",3);
-		#Logs::err("specDate = ($date + ($hour / 100))\n\n\n",3);
 		$specDate=($date + ($hour / 100));
 		#Logs::err("SPECDATE = $specDate\n\n\n",3);
 		

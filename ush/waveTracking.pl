@@ -39,6 +39,8 @@ use GraphicOutput qw(getValuesFromCommandFile);
 use CommonSub qw(removeFiles removeOldFiles mvFiles renameFilesWithSuffix giveDate);
 use ConfigSwan;
 use Cleanup;
+use strict;
+use warnings;
 use Logs;
 use Archive qw(completeArchiveAndCleanup);
 use Cwd 'chdir';
@@ -276,9 +278,15 @@ for $i (0..0){
    #system("cp -f ${sysTrcktFileName} partition.raw");
    #AW # Remove any exception values in partition file produced by SWAN, in particular wind speed
    #AW system("sed -i 's/\\*\\*\\*\\*\\*/  0.0/g' partition.raw");
-   system("date +%s > ${VARdir}/wavetrackrun_start_secs.txt");
+    open(my $fh, '>', "$ENV{VARdir}/wavetrackrun_start_secs.txt")
+    or die "Could not open file: $!";
+
+    print $fh time();
    system("${USHnwps}/ww3_systrackexe.sh > ${LOGdir}/run_ww3_systrk.log 2> ${LOGdir}/run_ww3_systrk_exe_error.log");
-   system("date +%s > ${VARdir}/wavetrackrun_end_secs.txt");
+    open(my $fh, '>', "$ENV{VARdir}/wavetrackrun_end_secs.txt")
+    or die "Could not open file: $!";
+
+    print $fh time();
    #Print a warning that NWPS is not using wavetracking mpi (if requested) but the serial version
    #my $mpiORser = "${LOGdir}/waveTrck_mpiORser.log";
    #if (-e $mpiORser) {

@@ -379,10 +379,13 @@ sub graphicOutputProcessing (%){
     if( ! $g2log ){
 	Logs::bug("ERROR - Cannot create file ${g2logfname}",6);
     }
-    system("date +%s > ${VARdir}/grib2_start_secs.txt");
+    open my $fh, '>', "$VARdir/grib2_start_secs.txt"
+	    or die "ERROR: Could not open $VARdir/grib2_start_secs.txt: $!\n";
+    print $fh time, "\n";
+    close $fh;
     
     print G2LOG "Startring GRIB2 encoding process for raw SWAN output\n";
-    system("date -u >> ${g2logfname}");
+    print G2LOG scalar gmtime(), " UTC\n";
     
     system ("mkdir -pv ${OUTPUTdir}/grib2/CG${cgnum} >> ${g2logfname}");
     system ("mkdir -pv ${OUTPUTdir}/grib2/raw_swan_output_CG${cgnum} >> ${g2logfname}");
@@ -588,8 +591,11 @@ sub graphicOutputProcessing (%){
 	system ("rmdir ${OUTPUTdir}/grib2/raw_swan_output_CG${cgnum} >> ${g2logfname}");
     }
     
-    system("date -u >> ${g2logfname}");
-    system("date +%s > ${VARdir}/grib2_end_secs.txt");
+    print G2LOG scalar gmtime(), " UTC\n";
+    open my $fh, '>', "$VARdir/grib2_end_secs.txt"
+	    or die "ERROR: Could not open $VARdir/grib2_end_secs.txt: $!\n";
+    print $fh time, "\n";
+    close $fh;
     print G2LOG "GRIB2 encoding complete\n";
     close(G2LOG);
     Logs::bug("GRIB2 encoding complete",1);
@@ -604,7 +610,10 @@ sub graphicOutputProcessing (%){
         if( ! $spclog ){
      	    Logs::bug("ERROR - Cannot create file ${spectralogfname}",6);
         }
-        system("date +%s > ${VARdir}/spectra1d_start_secs.txt");
+        open my $fh, '>', "$VARdir/spectra1d_start_secs.txt" 
+		or die "ERROR: Could not open $VARdir/spectra1d_start_secs.txt: $!\n";
+	print $fh time, "\n";
+	close $fh;
         print SPCLOG "Startring spectra 1d encoding process for raw SWAN output\n";
     
         chdir("${RUNdir}");
@@ -659,7 +668,10 @@ sub graphicOutputProcessing (%){
 	    #system("${HOMEnwps}/ush/grads/bin/plot_specta.sh ${cgnum} >> ${LOGdir}/spectra1d_encoding.log 2>&1"); 
 	    #AW020117 system("${HOMEnwps}/ush/python/plot_specta.sh ${cgnum} >> ${LOGdir}/spectra1d_encoding.log 2>&1"); 
         }
-        system("date +%s > ${VARdir}/spectra1d_end_secs.txt");
+        open my $fh, '>', "$VARdir/spectra1d_end_secs.txt" 
+		or die "ERROR: Could not open $VARdir/spectra1d_end_secs.txt: $!\n";
+	print $fh time, "\n";
+	close $fh;
         print SPCLOG "Specta 1d processing complete\n";
         close(SPCLOG);
         Logs::bug("Specta 1d processing complete",1);
@@ -675,7 +687,12 @@ sub graphicOutputProcessing (%){
     if( ! $prtlog ){
 	Logs::bug("ERROR - Cannot create file ${partitionlogfname}",6);
     }
-    system("date +%s > ${VARdir}/partition_start_secs.txt");
+    open(my $fh, '>', "$ENV{VARdir}/partition_start_secs.txt") 
+    or die "Could not open file: $!";
+
+    print $fh time();
+
+    close($fh);
     print PRTLOG "Startring partition encoding process for raw SWAN output\n";
     
     chdir("${RUNdir}");
@@ -702,7 +719,12 @@ sub graphicOutputProcessing (%){
     }
     
     Logs::bug("Starting netCDF encoding",1);
-    system("date +%s > ${VARdir}/netcdf_start_secs.txt");
+    open(my $fh, '>', "$ENV{VARdir}/netcdf_start_secs.txt")
+    or die "Could not open file: $!";
+
+    print $fh time();
+
+    close($fh);
     chdir ("${OUTPUTdir}/grid/");
     &createHeader("CG$cgnum");
     foreach (@{$CG{OUTPUTDATATYPES}}) {
@@ -730,7 +752,12 @@ sub graphicOutputProcessing (%){
 	print PRTLOG "=====printAndShipNetCdfFile DONE \n";
     undef (@netCdfData);
     undef @header;
-    system("date +%s > ${VARdir}/netcdf_end_secs.txt");
+    open(my $fh, '>', "$ENV{VARdir}/netcdf_end_secs.txt")
+    or die "Could not open file: $!";
+
+    print $fh time();
+
+    close($fh);
     Logs::bug("netCDF encoding complete",1);
     Logs::bug("end graphicOutputProcessing",1);
     close(PRTLOG);
@@ -753,7 +780,7 @@ sub createHeader {
     if( ! TEMP ) {
 	Logs::err("ERROR - Could not open netCDF template ${template}, halting run.",1);
     }
-    
+
     @header=<TEMP>;
     close TEMP;
     chomp(@header);
