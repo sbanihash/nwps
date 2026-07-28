@@ -256,7 +256,7 @@ else
                     export tstart=$($MDATE)
                     echo "ERROR $runit AT ${tstart}" >> ${dcom_hist}
                     DCOM_FILES=( "${DCOM_FILES[@]/${runit}}" )
-                    #err_chk
+                    err_exit "Issue requeuing" 
                 fi
                 sleep 1
             fi
