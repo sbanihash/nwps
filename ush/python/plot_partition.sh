@@ -153,7 +153,7 @@ do
       DD=$(echo ${file} | awk -F. '{ print $7 }' | cut -b3-4)
       HH=$(echo ${file} | awk -F. '{ print $8 }' | cut -b3-4)
       MIN="00"
-      YPREFIX=$(date +%Y | cut -b1-2)
+      YPREFIX=$($NDATE | cut -b1-2)
       CC=$(echo "${YPREFIX}")
       YYYY=$(echo "${YPREFIX}${YY}")
       time_str="${YYYY} ${MM} ${DD} ${HH} ${MIN} 00"

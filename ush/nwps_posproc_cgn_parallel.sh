@@ -656,7 +656,7 @@ source ${USHnwps}/calc_runtime.sh
 export err=$?; err_chk
 echo " " | tee -a $logfile
 
-date +%s > ${VARdir}/total_end_secs.txt
+echo "$(perl -e 'print time')" > "${VARdir}/total_end_secs.txt"
 START=$(cat ${VARdir}/total_start_secs.txt)
 FINISH=$(cat ${VARdir}/total_end_secs.txt)
 PROCNAME="NWPS package"

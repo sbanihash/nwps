@@ -167,7 +167,7 @@ do
 	DD=$(echo ${file} | awk -F. '{ print $6 }' | cut -b3-4)
 	HH=$(echo ${file} | awk -F. '{ print $7 }' | cut -b3-4)
 	MIN="00"
-	YPREFIX=$(date +%Y | cut -b1-2)
+	YPREFIX=$($NDATE | cut -b1-2)
 	YYYY=$(echo "${YPREFIX}${YY}")
 	time_str="${YYYY} ${MO} ${DD} ${HH} ${MIN} 00"
 	epoch_time=$(echo ${time_str} | awk -F: '{ print mktime($1 $2 $3 $4 $5 $6) }')

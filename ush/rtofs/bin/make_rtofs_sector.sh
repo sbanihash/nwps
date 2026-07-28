@@ -93,7 +93,7 @@ CYCLE="00"
 if [ "$1" != "" ]; then CYCLE="$1"; fi
 
 # Adjust to the correct cycle
-curhour=$(date -u +%H)
+curhour=$( $NDATE | cut -c9-10 )
 if [ $curhour -lt 12 ]; then CYCLE="00"; fi
 if [ $curhour -ge 12 ] && [ $curhour -lt 18 ]; then CYCLE="06"; fi
 if [ $curhour -ge 18 ] && [ $curhour -lt 22 ]; then CYCLE="12"; fi
@@ -111,10 +111,6 @@ TIMESTEP="${RTOFSTIMESTEP}"
 if [ "$3" != "" ]; then TIMESTEP="$3"; fi
 
 # Set the date stamp using the system Z time
-#YYYY=`date +%Y`
-#MM=`date +%m`
-#DD=`date +%d`
-
 # Optional ARGS used to override the default settings
 # Optional ARGS used to override the default settings
 #YYYYMMDD="${YYYY}${MM}${DD}"
@@ -212,8 +208,7 @@ function MakeClip() {
     #fi
 }
 
-datetime=`date -u`
-echo "Starting download at at $datetime UTC" | tee -a ${LOGfile}
+echo "Starting download at at $($MDATE) UTC" | tee -a ${LOGfile}
 echo "Our spool DIR for FTP data is: ${SPOOLdir}" | tee -a ${LOGfile}  
 echo "Our spool DIR for FTP forecast data is: ${PRODUCTdir}" | tee -a ${LOGfile}  
 echo "RTOFSHOURS = ${RTOFSHOURS}" | tee -a ${LOGfile}
@@ -418,8 +413,7 @@ do
     done
 done
 
-datetime=`date -u`
-echo "Ending download at $datetime UTC" | tee -a ${LOGfile}
+echo "Ending download at $($MDATE) UTC" | tee -a ${LOGfile}
 
 for site in ${WFOLIST}
 do
@@ -482,8 +476,7 @@ rm -fv ${SPOOLdir}/.listing
 find ${SPOOLdir} -name "*.grb2" -print | xargs rm -fv
 find ${SPOOLdir} -name "*.out" -print | xargs rm -fv
 
-datetime=`date -u`
-echo "Ending RTOFS make clips at $datetime UTC" | tee -a ${LOGfile}
+echo "Ending RTOFS make clips at $($MDATE) UTC" | tee -a ${LOGfile}
 
 #for site in ${WFOLIST}
 #do
