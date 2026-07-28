@@ -22,9 +22,6 @@ set -xa
 # into CG0, CG1 to CGn grib2 files
 #
 # ----------------------------------------------------------- 
-
-
-
 # Setup our NWPS environment                                                    
 if [ "${USHnwps}" == "" ]
     then 
@@ -134,7 +131,6 @@ YMDH=${PDY}
     do
       cx=$(( $cx + 1 ))
       grdID="CG${cx}"
-      grdid="cg${cx}"
       echo "Preparing input file for: ${grdID}"
       if [ ! -f gribfile.$grdID ]
       then
@@ -264,7 +260,6 @@ YMDH=${PDY}
     do
       cx=$(( $cx + 1 ))
       grdID="CG${cx}"
-
       echo '------------------------------'
       echo "AWIPS headers to GRIB file: ${grdID} "
       echo '------------------------------'
@@ -322,7 +317,7 @@ YMDH=${PDY}
 
 # 2.a.7 Get the AWIPS grib bulletin out ...
       echo "   Get awips GRIB bulletins out ..."
-
+      grdid="${grdID,,}"
       if [ "$SENDCOM" = 'YES' ]
       then
         set +x
