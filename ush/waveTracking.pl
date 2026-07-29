@@ -39,8 +39,6 @@ use GraphicOutput qw(getValuesFromCommandFile);
 use CommonSub qw(removeFiles removeOldFiles mvFiles renameFilesWithSuffix giveDate);
 use ConfigSwan;
 use Cleanup;
-use strict;
-use warnings;
 use Logs;
 use Archive qw(completeArchiveAndCleanup);
 use Cwd 'chdir';
