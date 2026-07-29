@@ -104,9 +104,9 @@ YMDH=${PDY}
   echo '                         ****************************'
   echo '                         *** NWPS PRODUCTS SCRIPT ***'
   echo '                         ****************************'
-  echo "                                       $date $cycle"
+  echo "                                       $date "
   echo ' '
-  echo "Starting at : `date`"
+  echo "Starting at : $($MDATE)"
   echo ' '
   echo "   AWIPS grib fields : $awipsgrib"
   echo "   Wave  Grids       : $grids"
@@ -353,7 +353,7 @@ YMDH=${PDY}
   set +x
   echo ' '
   echo ' '
-  echo "Ending at : `date`"
+  echo "Ending at : $($MDATE)"
   echo ' '
   echo '                *** End of NWPS product generation ***'
   echo ' '
@@ -361,6 +361,6 @@ YMDH=${PDY}
 
 echo "$job completed normally" | tee -a ${LOGdir}/prdgen_cgn.log 
 
-date -u | tee -a ${LOGdir}/prdgen_cgn.log 
+echo "$($MDATE)" | tee -a "${LOGdir}/prdgen_cgn.log"
 exit 0
 # End of NWPS product generation script -------------------------------------- #

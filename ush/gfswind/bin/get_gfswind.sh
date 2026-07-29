@@ -139,25 +139,13 @@ CYCLE="00"
 # Check for command line CYCLE
 if [ $# -ge 1 ]; then CYCLE="$1"; fi
 
-#AW # Adjust to the correct cycle if the user has not specified a date for arg 4
-#AW if [ $# -lt 4 ]
-#AW then
-#AW     curhour=$(date -u +%H)
-#AW     if [ $curhour -lt 12 ]; then CYCLE="00"; fi
-#AW     if [ $curhour -ge 12 ] && [ $curhour -lt 18 ]; then CYCLE="06"; fi
-#AW     if [ $curhour -ge 18 ] && [ $curhour -lt 22 ]; then CYCLE="12"; fi
-#AW     if [ $curhour -ge 22 ]; then CYCLE="18"; fi
-#AW     echo ""
-#AW     echo "INFO - Current hour is ${curhour}, setting model cycle to ${CYCLE}"
-#AW fi
-
 HOURS="${GFSHOURS}"
 if [ $# -ge 2 ]; then HOURS="$2"; fi
 
 TIMESTEP="${GFSTIMESTEP}"
 if [ $# -ge 3 ]; then TIMESTEP="$3"; fi
 
-if [ -z ${PDY} ]; then export PDY=$(date +%Y%m%d); fi
+if [ -z ${PDY} ]; then export PDY=$($NDATE); fi
 
 # Set the date stamp using the system Z time
 YYYY=$(echo $PDY|cut -c1-4)
@@ -454,8 +442,7 @@ until [ $end -gt $HOURS ]; do
     let end+=$TIMESTEP
 done
 
-datetime=`date -u`
-echo "Ending download at $datetime UTC" | tee -a ${LOGfile}
+echo "Ending download at $($MDATE) UTC" | tee -a ${LOGfile}
 
 echo "Purging previous run from ${OUTPUTdir}" | tee -a ${LOGfile} 2>&1
 ${BINdir}/purge_gfswind.sh ${OUTPUTdir} ${GFSHOURS} | tee -a ${LOGfile}

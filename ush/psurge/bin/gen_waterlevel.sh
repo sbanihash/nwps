@@ -74,8 +74,7 @@ echo "Generating waterlevel files for NWPS model" | tee -a ${LOGfile}
 #echo "Checking for lock files" | tee -a ${LOGfile}
 #LockFileCheck $MINold
 
-datetime=`date -u`
-echo "Starting processing at at $datetime UTC" | tee -a ${LOGfile}
+echo "Starting processing at at $($MDATE) UTC" | tee -a ${LOGfile}
 
 ##CreateLockFile
 

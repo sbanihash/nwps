@@ -26,9 +26,6 @@ function calc_runtime() {
     # Caller must supply a start and finish time by adding the following
     # lines at the top and bottom of the script or function:
     #
-    # START=`date +%s`
-    # ...
-    # FINISH=`date +%s`
     #
     # source ~/bin/calc_runtime.sh
     # calc_runtime $START $FINISH "My process"

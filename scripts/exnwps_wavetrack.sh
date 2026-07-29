@@ -30,7 +30,7 @@
   echo '                      ****** NWPSYSTEM SCRIPT ******'
   echo '                      ******************************'
   echo ' '
-  echo "Starting at : `date`"
+  echo "Starting at : $($MDATE)"
   set -x
 
 source ${USHnwps}/nwps_config.sh

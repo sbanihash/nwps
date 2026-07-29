@@ -53,7 +53,7 @@ fi
 PROCdir="${VARdir}/shiproutes"
 if [ ! -e ${PROCdir} ]; then mkdir -p ${PROCdir}; fi
 
-export curhour=$(date -u +%H)
+export curhour=$( $NDATE | cut -c9-10 )
 if [ ! -z "${USER_PDY}" ]; then curhour=$(echo "${USER_PDY}" | cut -c9-10); fi
 if [ $curhour -lt 12 ]; then CYCLE="00"; fi
 if [ $curhour -ge 12 ] && [ $curhour -lt 18 ]; then CYCLE="06"; fi
@@ -64,7 +64,7 @@ LOGFILE="${LOGdir}/shiproute_domain_setup.log"
 
 cat /dev/null > ${LOGFILE}
 echo "Setting up INPUTcg1 points for ${SITEID} shitp routes" | tee -a ${LOGFILE}
-date -u  | tee -a ${LOGFILE}
+echo "$($MDATE)" | tee -a "${LOGFILE}"
 
 cd ${PROCdir}
 
@@ -232,7 +232,7 @@ do
 	    echo -n "${clon} ${lat} " >> ${PROCdir}/INPUTcg1_shiproutes.app
 	done 3<${PROCdir}/lon_points.txt 4<${PROCdir}/lat_points.txt
 	echo "" >> ${PROCdir}/INPUTcg1_shiproutes.app
-	echo "TABLE '${swan_table_name}' HEAD '${swan_table_name}' TIME XP YP HSIG TPS PDIR WIND OUTPUT $(date +%Y%m%d).${CYCLE}00 3.0 HR" >> ${PROCdir}/INPUTcg1_shiproutes.app
+	echo "TABLE '${swan_table_name}' HEAD '${swan_table_name}' TIME XP YP HSIG TPS PDIR WIND OUTPUT $($NDATE).${CYCLE}00 3.0 HR" >> ${PROCdir}/INPUTcg1_shiproutes.app
 
 # End of config line read	
     fi
@@ -243,7 +243,7 @@ echo "$ END SHIP ROUTE LINES" >> ${PROCdir}/INPUTcg1_shiproutes.app
 echo "$" >> ${PROCdir}/INPUTcg1_shiproutes.app
 
 echo "Ship route INPUTcg1 lines complete for ${SITEID}" | tee -a ${LOGFILE}
-date -u | tee -a ${LOGFILE}
+echo "$($MDATE)" | tee -a "${LOGFILE}"
 
 exit ${error_level}
 # -----------------------------------------------------------

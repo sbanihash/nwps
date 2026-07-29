@@ -119,7 +119,7 @@ CYCLE="00"
 if [ "$1" != "" ]; then CYCLE="$1"; fi
 
 # Adjust to the correct cycle
-curhour=$(date -u +%H)
+curhour=$($MDATE | cut -c 9-10)
 if [ $curhour -lt 12 ]; then CYCLE="00"; fi
 if [ $curhour -ge 12 ] && [ $curhour -lt 18 ]; then CYCLE="06"; fi
 if [ $curhour -ge 18 ] && [ $curhour -lt 22 ]; then CYCLE="12"; fi
@@ -382,7 +382,7 @@ until [ $end -gt $HOURS ]; do
     let end+=$TIMESTEP
 done
 
-datetime=`date -u`
+datetime=$($NDATE)
 echo "Ending download at $datetime UTC" | tee -a ${LOGfile}
 
 echo "Purging previous run from ${OUTPUTdir}" | tee -a ${LOGfile} 2>&1

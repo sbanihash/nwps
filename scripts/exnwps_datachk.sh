@@ -122,7 +122,7 @@ function process_nwps_dcom {
                 export step=""
                 export tstart=$(grep STARTED.*${dfileH} ${dcom_hist}|awk '{print $NF}'|cut -c9-)
                 export tstart=${tstart:-$(grep STARTED.*${dfileH} ${dcom_histm1}|awk '{print $NF}'|cut -c9-)}
-                export tstop=$(date -u "+%Y%m%d%H%M")
+                export tstop=$($MDATE)
                 ((nfinished++))
                 echo "FINISHED $dfile AT ${tstop}" >> ${dcom_hist}
                 DCOM_FILES=( "${DCOM_FILES[@]/${dfile}}" )
@@ -247,13 +247,13 @@ else
                 #ecflow_client --requeue force ${ECF_NAME%/*}/${ecf_wfo}/jnwps_post_cgn 2> /dev/null
                 export err=$?
                 if [ "$err" -eq 0 ]; then
-                    export tstart=$(date -u "+%Y%m%d%H%M")
+                    export tstart=$($MDATE)
                     echo "STARTED $runit AT ${tstart}" >> ${dcom_hist}
                     DCOM_FILES=( "${DCOM_FILES[@]/${runit}}" )
                     ((nrunning++))
                 else 
                     echo -ne "ERROR:\t\tREQUEUEING $(echo ${runit}|awk -F_ '{print $2}') FAILED.\n"
-                    export tstart=$(date -u "+%Y%m%d%H%M")
+                    export tstart=$($MDATE)
                     echo "ERROR $runit AT ${tstart}" >> ${dcom_hist}
                     DCOM_FILES=( "${DCOM_FILES[@]/${runit}}" )
                     err_exit "Issue requeuing" 

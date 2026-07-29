@@ -96,8 +96,7 @@ if [ "${RETROSPECTIVE}" == "TRUE" ]; then    #RETROSPECTIVE
    exit 0
 fi     #RETROSPECTIVE
 
-datetime=`date -u`
-echo "Starting processing at at $datetime UTC" | tee -a ${LOGfile}
+echo "Starting processing at at $($MDATE) UTC" | tee -a ${LOGfile}
 
 ##CreateLockFile
 

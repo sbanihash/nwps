@@ -186,7 +186,7 @@ then
 	echo "====================================" | tee -a $logfile
 	echo "Forecaster wind file has arrived"     | tee -a $logfile 
 	echo -n ": "                                | tee -a $logfile
-	date "+%D  %H:%M:%S"                        | tee -a $logfile
+	echo "$($MDATE)"                            | tee -a $logfile
 	echo "====================================" | tee -a $logfile
 	rm -vf ${INPUTdir}/SWANflag                 | tee -a $logfile
     else
@@ -213,7 +213,7 @@ echo ": Cleaning and old process files ... " | tee -a $logfile
 if [ -e ${OUTPUTdir}/netCdf/not_completed ]; then rm -fv ${OUTPUTdir}/netCdf/not_completed; fi
 if [ -e ${OUTPUTdir}/netCdf/completed ]; then rm -fv ${OUTPUTdir}/netCdf/completed; fi
 rm -f ${VARdir}/*secs.txt &> /dev/null
-date +%s > ${VARdir}/total_start_secs.txt
+printf '%(%s)T\n' -1 > ${VARdir}/total_start_secs.txt
 
 if [ ! -e ${ARCHdir} ]; then mkdir -vp ${ARCHdir} | tee -a $logfile; fi
 if [ ! -e ${ARCHdir}/pen ]; then mkdir -vp ${ARCHdir}/pen | tee -a $logfile; fi
@@ -584,11 +584,11 @@ echo "$GEN_NETCDF" >> ${RUNdir}/info_to_nwps_coremodel.txt
 echo "$USERDELTAC" >> ${RUNdir}/info_to_nwps_coremodel.txt
 ################################################################### 
 echo "SWAN Run Started: "                           | tee -a $logfile
-date -u                                             | tee -a $logfile
+echo "$($MDATE) "                                   | tee -a $logfile
 echo "WNA: $WNA" | tee -a $logfile
 if [ "${DEBUGGING}" == "TRUE" ]
 then
-    echo "perl -w ${USHnwps}/nwps_preproc.pl" | tee -a $logfile    
+    echo "perl -w ${USHnwps}/nwps_preproc.pl" | tee -a $logfile
     perl -w ${USHnwps}/nwps_preproc.pl | tee -a $logfile
     export err=$?; err_chk
 else

@@ -11,7 +11,7 @@ set -xa
 
 echo " "                                            | tee -a $logfile
 echo -n "SWAN Run Finished: "                       | tee -a $logfile
-date                                                | tee -a $logfile
+echo "$($NDATE)"                                                | tee -a $logfile
 echo " " | tee -a $logfile
 
 
@@ -20,7 +20,7 @@ hastracking=$(cat ${RUNdir}/Tracking.flag)
 if [ "${hastracking}" == "TRUE" ] 
    then
    echo "Wave Tracking Started: "                      | tee -a $logfile
-   date -u                                             | tee -a $logfile
+   echo "$($NDATE)"                                    | tee -a $logfile
    cd ${RUNdir}
    pwd                                                 | tee -a $logfile
 
@@ -89,14 +89,14 @@ fi
 
 echo " "                                            | tee -a $logfile
 echo -n "Wave Tracking Run Finished: "              | tee -a $logfile
-date                                                | tee -a $logfile
+echo "$($NDATE)"                                                | tee -a $logfile
 echo " " | tee -a $logfile
 
 ################################################################### 
 echo " "                                            | tee -a $logfile
 echo "===================================="         | tee -a $logfile
 echo "Done running Wave Tracking"                            | tee -a $logfile
-date "+%D  %H:%M:%S"                                | tee -a $logfile
+echo "$($MDATE)"                                | tee -a $logfile
 echo "===================================="         | tee -a $logfile
 echo " "                                            | tee -a $logfile
 

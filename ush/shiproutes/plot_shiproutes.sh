@@ -92,13 +92,13 @@ echo "Checking for lock files"
 
 cat /dev/null > ${PROCdir}/start_secs.txt
 cat /dev/null > ${PROCdir}/end_secs.txt
-date +%s > ${PROCdir}/start_secs.txt
+perl -e 'print time' > "${PROCdir}/end_secs.txt"
 
 DEBUGLOGfile="${LOGdir}/plot_shiproutes_debug.log"
 cat /dev/null > ${DEBUGLOGfile}
 cat /dev/null > ${LOGFILE}
 echo "Starting ship route plots for ${SITEID}" | tee -a ${LOGFILE}
-date -u  | tee -a ${LOGFILE}
+echo "$($MDATE)" | tee -a "${LOGFILE}"
 
 TEMPLATEDIR="${USHnwps}/shiproutes/etc/default"
 

@@ -68,8 +68,8 @@ echo "Copying ${1} fields for SITE: ${siteid}"
 
 if [ $# -eq 1 ]
 then
-  date=`date +%Y%m%d`
-  datey=`date +%Y%m%d --date=yesterday`
+  date=$(NDATE)
+  datey=${PDYm1}
   #RTOFSPATH="ofs.${PDY}/rtofs/${siteid}_output"
   #RTOFSPATHY="ofs.${PDYm1}/rtofs/${siteid}_output"
   #STOFSPATH="ofs.${PDY}/stofs/${siteid}_output"
@@ -86,10 +86,9 @@ fi
 WGETargs="--mirror -nv --tries=5 --no-parent --timeout=60 --no-directories --level=1"
 WGET="/usr/bin/wget"
 
-echo "Downloading NCEP init files for NWPS"
-/bin/date -u
+echo "Downloading NCEP init files for NWPS $($MDATE)"
 
-/bin/mkdir -p ${LDMdir}/rtofs ${LDMdir}/stofs ${LDMdir}/psurge
+mkdir -p ${LDMdir}/rtofs ${LDMdir}/stofs ${LDMdir}/psurge
 
 
 list_zerobyte_files_in_dir () {
@@ -513,8 +512,7 @@ then
 
 fi
 
-echo "Download script complete"
-/bin/date -u
+echo "Download script complete $($MDATE)"
 
 #exit 0
 # ----------------------------------------------------------- 

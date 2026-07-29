@@ -43,9 +43,10 @@ LOGFILE=${LOGdir}/domain_setup.log
 cat /dev/null > ${LOGdir}/domain_setup.log
 
 NUMCPUS=$(cat /proc/cpuinfo | grep processor | wc -l | tr -d " ")
-JETLAG=$(expr $(date -u +%H) - $(date +%H))
-YMD=$(date +%Y%m%d)
-YMDHM=$(date +%Y%m%d%H%M)
+# JETLAG always zero on the operational machine as machine time and UTC and same
+JETLAG=0
+YMD=$($NDATE)
+YMDHM=$($MDATE)
 
 ### FUNCTIONS AREA ##################################
 function logit () {
@@ -667,7 +668,7 @@ function auto_run()
 {
     logit ""
     logit "Starting automatic domain setup "
-    date -u | tee -a ${LOGFILE}
+    echo "${PDY}${cyc}" | tee -a "${LOGFILE}"
     if [ ! -e ${DOMAINFILE} ]
 	then
     	logit "ERROR - Missing ${DOMAINFILE}"
@@ -1202,7 +1203,7 @@ if [ "${DOMAINFILE}" != "" ]
 else
     logit ""
     logit "Starting interactive domain setup"
-    date -u | tee -a ${LOGFILE}
+    echo "${PDY}${cyc}" | tee -a "${LOGFILE}"
     logit ""
     logit "NOTE: Interactive mode is used for testing and development"
     logit "NOTE: For production systems create domain setup file"
@@ -1279,7 +1280,6 @@ cd ${DATA}
 #else
 #    logit ": Backing up the current templates ... "
 #    cd ${PARMnwps}/templates/${LSID}
-#    BACKUPEXT=$(date +%Y%m%d_%H%M%S)
 #    #tar cfz templates_${BACKUPEXT}.tar.gz *
 #    tar cfz templates.tar.gz *
 #    cd ${DATA}
@@ -1723,7 +1723,7 @@ echo "export modeltype=$LRMODEL" >> ${DATA}/parm/templates/${LSID}/modeltype.sh
 
 logit " "
 logit "Domain setup complete"
-date -u | tee -a ${LOGFILE}
+echo "${PDY}${cyc}" | tee -a "${LOGFILE}"
 logit " "
 
 exit 0

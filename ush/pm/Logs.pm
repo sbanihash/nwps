@@ -23,6 +23,7 @@ package Logs;
 
 use ConfigSwan;
 use Data::Dumper;
+use Time::HiRes qw(gettimeofday);
 our ($rlog,$elog,$blog);
 
 #for_WCOSS
@@ -245,15 +246,19 @@ sub writefile {
 }
 
 sub time_stamp {
-    my ($d,$t,$us);
-    my $secs = `date +%s`;
-    my $usecs = `date +%6N`;
-    my ($sec,$min,$hour,$mday,$mon,$year,$wday,$yday,$wsdst) = localtime($secs);
+    # 1. Get epoch seconds and microseconds natively in one fast call
+    my ($secs, $usecs) = gettimeofday();
+
+    # 2. Break down the epoch seconds into date/time components
+    my ($sec, $min, $hour, $mday, $mon, $year) = localtime($secs);
     $year += 1900;
     $mon++;
-    $d = sprintf("%4d-%2.2d-%2.2d",$year,$mon,$mday);
-    $t = sprintf("%2.2d:%2.2d:%2.2d",$hour,$min,$sec);
-    $us = sprintf("%6.6d",$usecs);
+
+    # 3. Format into output strings
+    my $d  = sprintf("%4d-%02d-%02d", $year, $mon, $mday);
+    my $t  = sprintf("%02d:%02d:%02d", $hour, $min, $sec);
+    my $us = sprintf("%06d", $usecs);
+
     return "$d $t.$us";
 }
 

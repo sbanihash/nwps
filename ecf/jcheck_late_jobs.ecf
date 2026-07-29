@@ -21,7 +21,7 @@ then
     echo "++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++"
     echo
     ecflow_client --msg="${ECF_NAME}: LATE OR STUCK IN SUBMIT"
-    echo `date -u` "JOBS ARE LATE in production!!"  >> $adminlog
+    echo  "JOBS ARE LATE in production!! $($MDATE) "  >> $adminlog
     for suite in $(ecflow_client --suites|grep -v -E 'dev|test|para') nwps_para
     do
         if [ "$(ecflow_client --group="get /${suite}; show state"|grep "flag:.*late")" ]
