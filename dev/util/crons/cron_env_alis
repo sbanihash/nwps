@@ -1,11 +1,11 @@
 SHELL=/bin/bash -l
-PWD=/u/ali.salimi
+PWD=/u/omd.wave
 LANG=en_US.UTF-8
 SHLVL=1
-HOME=/u/ali.salimi
-LOGNAME=ali.salimi
-HOMEnwps=/lfs/h2/emc/couple/noscrub/ali.salimi/nwps/nwps.v1.5.0/
-VALIDATIONdir=/lfs/h2/emc/couple/noscrub/ali.salimi/nwps_para
+HOME=/u/omd.wave
+LOGNAME=omd.wave
+HOMEnwps=/lfs/h2/emc/couple/noscrub/omd.wave/nwps/nwps.v1.5.0/
+VALIDATIONdir=/lfs/h2/emc/couple/noscrub/omd.wave/nwps_para
 _=/usr/bin/env
 
 # 0. Retrospectives --------------------------
