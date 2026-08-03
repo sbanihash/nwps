@@ -20,5 +20,5 @@
 #PBS -o /lfs/h2/emc/ptmp/omd.wave/com/nwps/v1.5.0/nwps_websr.o
 #PBS -e /lfs/h2/emc/ptmp/omd.wave/com/nwps/v1.5.0/nwps_websr.o
 
-#mpirun.lsf cfp /u/$USER/wfo_cmdfile
-/u/$USER/nwps_webgraph_sr_dev.sh > ${HOME}/nwps_web_sr.log 2>&1
+#mpirun.lsf cfp ${HOMEcron}/wfo_cmdfile
+${HOMEcron}/nwps_webgraph_sr_dev.sh > ${HOMEcron}/nwps_web_sr.log 2>&1

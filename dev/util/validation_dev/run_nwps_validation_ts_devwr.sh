@@ -38,9 +38,9 @@ export STARTDATEm2=$(date -d "-2 days" +%Y%m%d)
 #export STARTDATE=$(date -d "-2 days" +%Y%m%d)
 export ENDDATE=$(date -d "+6 days" +%Y%m%d)
 
-export COMOUT='/lfs/h2/emc/ptmp/ali.salimi/com/nwps/v1.5.0/'
-export COMOUTm1='/lfs/h2/emc/ptmp/ali.salimi/com/nwps/v1.5.0/'
-export COMOUTm2='/lfs/h2/emc/ptmp/ali.salimi/com/nwps/v1.5.0/'
+export COMOUT='/lfs/h2/emc/ptmp/omd.wave/com/nwps/v1.5.0/'
+export COMOUTm1='/lfs/h2/emc/ptmp/omd.wave/com/nwps/v1.5.0/'
+export COMOUTm2='/lfs/h2/emc/ptmp/omd.wave/com/nwps/v1.5.0/'
 export COMOUTww1='/lfs/h1/ops/prod/com/gfs/v16.3/'
 export COMOUTww1_m1='/lfs/h1/ops/prod/com/gfs/v16.3/'
 export COMOUTww1_m2='/lfs/h1/ops/prod/com/gfs/v16.3/'
