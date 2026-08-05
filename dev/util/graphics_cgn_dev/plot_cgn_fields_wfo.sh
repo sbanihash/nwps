@@ -1,4 +1,4 @@
-#!/bin/bash 
+#!/bin/bash  
 set -x
 
 #region="sr"
@@ -31,9 +31,9 @@ do
             echo 'Searching' ${wfo} ${cgnum}
             #dset=${outdir}/${cgnum}/${wfo}_nwps_${cgnum}_${PDY}_${cycle}00.grib2
             # Check if there is new data than has not yet been plotted
-            if [ -f ${outdir}/${cgnum}/${wfo}_nwps_${cgnum}_*.grib2 ]
+            if [ -f ${outdir}/${cgnum}/nwps.*.${cgnum,,}.${wfo}.grib2 ]
             then 
-               dset=$(ls ${outdir}/${cgnum}/${wfo}_nwps_${cgnum}_*.grib2)
+               dset=$(ls ${outdir}/${cgnum}/nwps.*.${cgnum,,}.${wfo}.grib2 )
                if ! grep -q "${dset}" ${logfile}
                then
                   # Copy the data
@@ -60,6 +60,11 @@ do
                   python wlev.py 1 49
                   python cur.py 1 49 ${CURSOURCE}
                   tar -czvf plots_${wfo}_${cgnum}.tar.gz swan*.png
+
+                  # Push the completed plots to RZDM
+                  scp plots_${wfo}_${cgnum}.tar.gz waves@emcrzdm:/home/www/polar/nwps/para/images/rtimages/${wfo}/nwps/${cgnum}/
+                  ssh waves@emcrzdm 'cd /home/www/polar/nwps/para/images/rtimages/'${wfo}'/nwps/'${cgnum}'/; tar -xf plots*.tar.gz'
+                  ssh waves@emcrzdm 'cd /home/www/polar/nwps/para/images/rtimages/'${wfo}'/nwps/'${cgnum}'/; rm plots*.tar.gz'
 
                   echo 'Completed' ${wfo} ${cgnum}
                   echo "${dset} at $(date -u "+%Y%m%d%H%M")" >> ${logfile}

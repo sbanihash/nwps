@@ -16,5 +16,5 @@
 #BSUB -R rusage[mem=800]
 #BSUB -P NWPS-T2O
 
-#mpirun.lsf cfp /u/$USER/wfo_cmdfile
-/u/$USER/nwps_ftp_all_retro.sh > ${HOME}/nwps_ftp_all_retro.log 2>&1
+#mpirun.lsf cfp ${HOMEcron}/wfo_cmdfile
+${HOMEcron}/nwps_ftp_all_retro.sh > ${HOMEcron}/nwps_ftp_all_retro.log 2>&1

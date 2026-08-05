@@ -28,6 +28,8 @@ module load xt-lsfhpc
 module list
 
 # 0. Host assessment
+workdir=${HOMEcron}
+echo 'Running in '${workdir}
 
 export script='nwps_webgraph_dev.cron'
 export runon='BACKUPSYS'
@@ -98,11 +100,11 @@ export runon='BACKUPSYS'
 # --------------------------------------------------------------------------- #
 # 1.  Manage batch job
 
-qsub nwps_webgraph_sr_dev.lsf
-qsub nwps_webgraph_er_dev.lsf
-qsub nwps_webgraph_wr_dev.lsf
-qsub nwps_webgraph_pr_dev.lsf
-qsub nwps_webgraph_ar_dev.lsf
+qsub ${workdir}/nwps_webgraph_sr_dev.lsf
+qsub ${workdir}/nwps_webgraph_er_dev.lsf
+qsub ${workdir}/nwps_webgraph_wr_dev.lsf
+qsub ${workdir}/nwps_webgraph_pr_dev.lsf
+qsub ${workdir}/nwps_webgraph_ar_dev.lsf
 
 # --------------------------------------------------------------------------- #
 # 2.  End of all.
