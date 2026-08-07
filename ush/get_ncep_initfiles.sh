@@ -291,9 +291,9 @@ then
       #send inside the next for
       for i in $(ls wave_stofs_uv*.dat)
       do
-         init_time=`echo $i | cut -c23-32`
-         fhour=`echo $i | cut -c47-49`
-         cycle=`echo $i | cut -c43-44`
+         init_time=`echo $i | cut -c15-24`
+         fhour=`echo $i | cut -c39-41`
+         cycle=`echo $i | cut -c35-36`
          echo "Processing $i $init_time $start_time $fhour $cycle"
          if [ $init_time -lt $start_time ]  && [ -e wave_stofs_uv_${start_time}_${cycle}_f144.dat ]
          then
