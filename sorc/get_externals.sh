@@ -28,9 +28,6 @@ rm ${HOMEnwps}/fix/bathy_db_v1p5.tar
 
 scp /lfs/h2/emc/couple/noscrub/saeideh.banihashemi/git/fv3gfs/fix/fix_nwps/v_1-5/fix/pdef_ncep_global ${HOMEnwps}/fix/
 scp /lfs/h2/emc/couple/noscrub/saeideh.banihashemi/git/fv3gfs/fix/fix_nwps/v_1-5/ush/rtofs/datfiles/pdef_ncep_global.gz ${HOMEnwps}/ush/rtofs/datfiles/
-#scp /lfs/h2/emc/couple/noscrub/saeideh.banihashemi/git/fv3gfs/fix/fix_nwps/v_1-5/ush/rtofs/datfiles/pdef_ncep_reg1.gz ${HOMEnwps}/ush/rtofs/datfiles/
-#scp /lfs/h2/emc/couple/noscrub/saeideh.banihashemi/git/fv3gfs/fix/fix_nwps/v_1-5/ush/rtofs/datfiles/pdef_ncep_reg2.gz ${HOMEnwps}/ush/rtofs/datfiles/
-#scp /lfs/h2/emc/couple/noscrub/saeideh.banihashemi/git/fv3gfs/fix/fix_nwps/v_1-5/ush/rtofs/datfiles/pdef_ncep_reg3.gz ${HOMEnwps}/ush/rtofs/datfiles/
 scp /lfs/h2/emc/couple/noscrub/saeideh.banihashemi/git/fv3gfs/fix/fix_nwps/v_1-5/ush/python/etc/default/rdat.tar ${HOMEnwps}/ush/python/etc/default
 tar -C ${HOMEnwps}/ush/python/etc/default/ -xvf ${HOMEnwps}/ush/python/etc/default/rdat.tar
 rm ${HOMEnwps}/ush/python/etc/default/rdat.tar
