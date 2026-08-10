@@ -219,7 +219,19 @@ function MakeClip() {
     if [ ! -e ${CLIPdir}/${clip_file} ]
     then
 	echo "Clip and reproject to LAT/LON grid" | tee -a ${LOGfile} 2>&1
-	echo "${WGRIB2} ${DIR}/${FILE} -new_grid latlon ${LL_LON}:${NX}:${DX} ${LL_LAT}:${NY}:${DY} ${CLIPdir}/${clip_file}" | tee -a ${LOGfile} 
+	MAX_RETRIES=10
+	RETRY_COUNT=0
+	# Wait until wgrib2 can read the input file cleanly
+	until ${WGRIB2} "${DIR}/${FILE}" > /dev/null 2>&1; do
+	    RETRY_COUNT=$((RETRY_COUNT + 1))
+	    if [ ${RETRY_COUNT} -ge ${MAX_RETRIES} ]; then
+		echo "FATAL ERROR: Timeout waiting for valid GRIB file ${DIR}/${FILE}" | tee -a ${LOGfile}
+		exit 1
+	    fi
+	    echo "Waiting for ${DIR}/${FILE} to finish writing (Attempt ${RETRY_COUNT}/${MAX_RETRIES})..." | tee -a ${LOGfile}
+            sleep 5
+        done
+        echo "${WGRIB2} ${DIR}/${FILE} -new_grid latlon ${LL_LON}:${NX}:${DX} ${LL_LAT}:${NY}:${DY} ${CLIPdir}/${clip_file}" | tee -a ${LOGfile}
 	${WGRIB2} ${DIR}/${FILE} -new_grid latlon ${LL_LON}:${NX}:${DX} ${LL_LAT}:${NY}:${DY} ${CLIPdir}/${clip_file} | tee -a ${LOGfile} 2>&1
     fi
 
