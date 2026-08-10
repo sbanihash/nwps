@@ -11,7 +11,7 @@ set -xa
 
 echo " "                                            | tee -a $logfile
 echo -n "SWAN Run Finished: "                       | tee -a $logfile
-date                                                | tee -a $logfile
+echo "$($NDATE)"                                                | tee -a $logfile
 echo " " | tee -a $logfile
 
 
@@ -20,13 +20,18 @@ hastracking=$(cat ${RUNdir}/Tracking.flag)
 if [ "${hastracking}" == "TRUE" ] 
    then
    echo "Wave Tracking Started: "                      | tee -a $logfile
-   date -u                                             | tee -a $logfile
+   echo "$($NDATE)"                                    | tee -a $logfile
    cd ${RUNdir}
    pwd                                                 | tee -a $logfile
 
    # ----- Convert partition file to Python scikit learn format ----
    mv swan_part.CG1.raw partition.raw
    ${EXECnwps}/ww3_sysprep.exe
+   export err=$?
+   if [[ ${err} -ne 0 ]]; then
+     pgm="$(basename "ww3_sysprep.exe")"
+     err_exit "ww3_sysprep.exe failed"
+   fi
 
    # ----- Call script to perform cluster-based wave tracking ----
    cd ${RUNdir}
@@ -39,7 +44,7 @@ if [ "${hastracking}" == "TRUE" ]
    then
       msg="FATAL ERROR: Missing inputCG1 file. Cannot open ${inputparm}"
       postmsg $jlogfile "$msg"
-      export err=1; err_chk
+      err_exit "$msg"
    fi
 
 
@@ -50,8 +55,7 @@ if [ "${hastracking}" == "TRUE" ]
 
    # Sanity check
    if [ -z "$yyyy$mon$dd$hh$mm" ]; then
-     echo "ERROR: could not parse INPGRID WIND time from $inputparm" >&2
-     export err=1; err_chk
+     err_exit "ERROR: could not parse INPGRID WIND time from $inputparm"
    fi
 
    # 2) Build PDY and cycle
@@ -85,14 +89,14 @@ fi
 
 echo " "                                            | tee -a $logfile
 echo -n "Wave Tracking Run Finished: "              | tee -a $logfile
-date                                                | tee -a $logfile
+echo "$($NDATE)"                                                | tee -a $logfile
 echo " " | tee -a $logfile
 
 ################################################################### 
 echo " "                                            | tee -a $logfile
 echo "===================================="         | tee -a $logfile
 echo "Done running Wave Tracking"                            | tee -a $logfile
-date "+%D  %H:%M:%S"                                | tee -a $logfile
+echo "$($MDATE)"                                | tee -a $logfile
 echo "===================================="         | tee -a $logfile
 echo " "                                            | tee -a $logfile
 

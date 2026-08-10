@@ -221,7 +221,7 @@ if [ "${WINDS,,}" == "forecaster" ]; then
                msg="FATAL ERROR: CTL file missing in AWIPS submission. NWPS will not be executed."
                postmsg "$jlogfile" "$msg"
                cp -fv  ${RUNdir}/Warn_Forecaster_${SITEID}.${PDY}.txt ${GESOUT}/warnings/Warn_Forecaster_${SITEID}.${PDY}.txt
-               echo "ABORTED $FORECASTWINDdir/${NewestWind} AT $(date -u "+%Y%m%d%H%M")" >> ${dcom_hist}
+               echo "ABORTED $FORECASTWINDdir/${NewestWind} AT $($MDATE)" >> ${dcom_hist}
                export err=1; err_chk
             else
                numlines=$(cat ${ctlfile} | wc -l)
@@ -232,7 +232,7 @@ if [ "${WINDS,,}" == "forecaster" ]; then
                   msg="FATAL ERROR: CTL file from AWIPS is corrupt. NWPS will not be executed."
                   postmsg "$jlogfile" "$msg"
                   cp -fv  ${RUNdir}/Warn_Forecaster_${SITEID}.${PDY}.txt ${GESOUT}/warnings/Warn_Forecaster_${SITEID}.${PDY}.txt
-                  echo "ABORTED $FORECASTWINDdir/${NewestWind} AT $(date -u "+%Y%m%d%H%M")" >> ${dcom_hist}
+		  echo "ABORTED $FORECASTWINDdir/${NewestWind} AT $($MDATE)" >> ${dcom_hist}
                   export err=1; err_chk
                else
 	          cp -fpv ${ctlfile} ${INPUTdir}/${siteid}_inp_args.ctl
@@ -292,7 +292,7 @@ if [ "${WINDS,,}" == "forecaster" ]; then
         else
             # Check that the initialization time in the GFE wind file is not more than 6 h in the future
             init_epoch=`grep Wind_Mag_SFC:validTimes ${WindFileName} | cut -c29-38 | tail -1`
-            pdy_epoch=`date +%s`
+            pdy_epoch=$(perl -e 'print time')
             init_str=`date -d @${init_epoch} +'%Y%m%d %HZ'`
             init_win1_str=`date -d "-72 hours" +'%Y%m%d %HZ'`
             init_win2_str=`date -d "+6 hours" +'%Y%m%d %HZ'`
@@ -301,7 +301,7 @@ if [ "${WINDS,,}" == "forecaster" ]; then
                msg="FATAL ERROR: Forecast analysis time ${init_str} is too far in the future. NWPS will not be executed. Resubmit with an analysis time between ${init_win1_str} and ${init_win2_str}."
                postmsg "$jlogfile" "$msg"
                cp -fv  ${RUNdir}/Warn_Forecaster_${SITEID}.${PDY}.txt ${GESOUT}/warnings/Warn_Forecaster_${SITEID}.${PDY}.txt
-               echo "ABORTED $FORECASTWINDdir/${NewestWind} AT $(date -u "+%Y%m%d%H%M")" >> ${dcom_hist}
+               echo "ABORTED $FORECASTWINDdir/${NewestWind} AT $($MDATE)" >> ${dcom_hist}
                export err=1; err_chk
             fi
 	fi 
@@ -409,7 +409,7 @@ else
             postmsg "$jlogfile" "$msg"
             mkdir -p $GESOUT/warnings
             cp -fv  ${RUNdir}/Warn_Forecaster_${SITEID}.${PDY}.txt ${GESOUT}/warnings/Warn_Forecaster_${SITEID}.${PDY}.txt
-            echo "ABORTED $FORECASTWINDdir/${NewestWind} AT $(date -u "+%Y%m%d%H%M")" >> ${dcom_hist}
+            echo "ABORTED $FORECASTWINDdir/${NewestWind} AT $($MDATE)" >> ${dcom_hist}
             export err=1; err_chk
 	fi
     else
@@ -715,7 +715,7 @@ echo "WAVE MODEL CORE:  ${MODELCORE}"
 echo "Wave model core:  ${modelcore}" | tee -a ${LOGdir}/run_nwps.log
 echo "Starting model run" | tee -a ${LOGdir}/run_nwps.log 
 echo -n "Start time: "
-date -u | tee -a ${LOGdir}/run_nwps.log 
+echo "$($MDATE)" | tee -a ${LOGdir}/run_nwps.log 
 
 echo "${USHnwps}/nwps_preproc.sh" | tee -a ${LOGdir}/run_nwps.log
 echo "RUNLEN=${RUNLEN} WNA=${WNA} NESTS=${NESTS} RTOFS=${RTOFS} WINDS=${WINDS} WEB=${WEB} PLOT=${PLOT} USERDELTAC=${USERDELTAC} HOTSTART=${HOTSTART} WATERLEVELS=${WATERLEVELS} MODELCORE=${MODELCORE} EXCD=${EXCD}" | tee -a ${LOGdir}/run_nwps.log
@@ -801,7 +801,7 @@ fi
 ecflow_client --alter change label DCOM "`echo $NewestWind`" $ECF_NAME
 
 echo -n "End time: "
-date -u | tee -a ${LOGdir}/run_nwps.log 
+echo "$($MDATE)" | tee -a "${LOGdir}/run_nwps.log"
 exit 0
 # ----------------------------------------------------------- 
 # ******************************* 

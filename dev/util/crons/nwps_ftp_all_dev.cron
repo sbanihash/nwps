@@ -23,7 +23,7 @@ module load xt-lsfhpc
 module list
 
 # 0.a Set necessary variables
-workdir=${HOME}
+workdir=${HOMEcron}
 echo 'Running in '${workdir}
 
 # 0.b Host assessment
@@ -97,7 +97,7 @@ export runon='BACKUPSYS'
 # --------------------------------------------------------------------------- #
 # 1.  Manage batch job
 
-  qsub nwps_ftp_all_dev.lsf
+  qsub ${workdir}/nwps_ftp_all_dev.lsf
 
 # --------------------------------------------------------------------------- #
 # 2.  End of all.

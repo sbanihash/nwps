@@ -250,7 +250,7 @@ export COMOUT_CORRECT="${COMOUT_ROOT}/${REGION_ONLY}.${PDY_INPUT}/${COMOUT_WFO}"
         fi
      fi
 
-     gribfile=$(ls ${DATA}/output/grib2/CG${CGNUM}/nwps.t*.CG${CGNUM}.???.grib2 | xargs -n 1 basename | tail -n 1)
+     gribfile=$(ls ${DATA}/output/grib2/CG${CGNUM}/nwps.t${cycle}*.CG${CGNUM}.???.grib2 | xargs -n 1 basename | tail -n 1)
      fullname=`echo $gribfile | cut -c14-26`
      GRIB2file=${NWPSDATA}/output/grib2/CG${CGNUM}/${gribfile}
      WAVE_RUNUP_TO_BIN="${EXECnwps}/nwps_utils_wave_runup_to_bin"
@@ -346,7 +346,7 @@ export COMOUT_CORRECT="${COMOUT_ROOT}/${REGION_ONLY}.${PDY_INPUT}/${COMOUT_WFO}"
      rip_current_meta="${RIPDATA}/RIP.meta"
      cat ${rip_current_meta_template} > ${rip_current_meta}
      RIP_CURRENT_TO_BIN="${EXECnwps}/nwps_utils_rip_current_to_bin"
-     gribfile=$(ls ${DATA}/output/grib2/CG${CGNUM}/nwps.t*.CG${CGNUM}.???.grib2 | xargs -n 1 basename | tail -n 1)
+     gribfile=$(ls ${DATA}/output/grib2/CG${CGNUM}/nwps.t${cycleout}*.CG${CGNUM}.???.grib2 | xargs -n 1 basename | tail -n 1)
      fullname=`echo $gribfile | cut -c14-26`
      GRIB2file=${NWPSDATA}/output/grib2/CG${CGNUM}/${gribfile}
      cgnCLON1=$(${WGRIB2} ${GRIB2file} -V -d 1 | grep lon | grep to | grep by | awk '{ print $2 }')
@@ -675,7 +675,7 @@ cd ${DATA}/output/grib2/CG${CGNUM}
         fi
 
         if [ "${SENDDBN}" == "YES" ]; then
-            ${DBNROOT}/bin/dbn_alert MODEL NWPS_GRIB $job ${COMOUTCYC}/${g2F}
+            ${DBNROOT}/bin/dbn_alert MODEL NWPS_GRIB $job ${COMOUTCYC}/${g2f}
         fi
      fi
 
@@ -1269,7 +1269,7 @@ source ${USHnwps}/calc_runtime.sh
 export err=$?; err_chk
 echo " " | tee -a $logfile
 
-date +%s > ${VARdir}/total_end_secs.txt
+echo "$(perl -e 'print time')" > "${VARdir}/total_end_secs.txt"
 START=$(cat ${VARdir}/total_start_secs.txt)
 FINISH=$(cat ${VARdir}/total_end_secs.txt)
 PROCNAME="NWPS package"

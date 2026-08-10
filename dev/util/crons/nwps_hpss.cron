@@ -23,6 +23,8 @@ module load xt-lsfhpc
 module list
 
 # 0. Host assessment
+workdir=${HOMEcron}
+echo 'Running in '${workdir}
 
 export script='nwps_hpss.cron'
 export runon='BACKUPSYS'
@@ -92,7 +94,7 @@ export runon='BACKUPSYS'
 # --------------------------------------------------------------------------- #
 # 1.  Manage batch job
 
-qsub nwps_hpss.lsf
+qsub ${workdir}/nwps_hpss.lsf
 
 # --------------------------------------------------------------------------- #
 # 2.  End of all.

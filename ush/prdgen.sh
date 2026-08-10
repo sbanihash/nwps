@@ -22,9 +22,6 @@ set -xa
 # into CG0, CG1 to CGn grib2 files
 #
 # ----------------------------------------------------------- 
-
-
-
 # Setup our NWPS environment                                                    
 if [ "${USHnwps}" == "" ]
     then 
@@ -107,9 +104,9 @@ YMDH=${PDY}
   echo '                         ****************************'
   echo '                         *** NWPS PRODUCTS SCRIPT ***'
   echo '                         ****************************'
-  echo "                                       $date $cycle"
+  echo "                                       $date "
   echo ' '
-  echo "Starting at : `date`"
+  echo "Starting at : $($MDATE)"
   echo ' '
   echo "   AWIPS grib fields : $awipsgrib"
   echo "   Wave  Grids       : $grids"
@@ -134,7 +131,6 @@ YMDH=${PDY}
     do
       cx=$(( $cx + 1 ))
       grdID="CG${cx}"
-      grdid="cg${cx}"
       echo "Preparing input file for: ${grdID}"
       if [ ! -f gribfile.$grdID ]
       then
@@ -264,7 +260,6 @@ YMDH=${PDY}
     do
       cx=$(( $cx + 1 ))
       grdID="CG${cx}"
-
       echo '------------------------------'
       echo "AWIPS headers to GRIB file: ${grdID} "
       echo '------------------------------'
@@ -322,7 +317,7 @@ YMDH=${PDY}
 
 # 2.a.7 Get the AWIPS grib bulletin out ...
       echo "   Get awips GRIB bulletins out ..."
-
+      grdid="${grdID,,}"
       if [ "$SENDCOM" = 'YES' ]
       then
         set +x
@@ -358,7 +353,7 @@ YMDH=${PDY}
   set +x
   echo ' '
   echo ' '
-  echo "Ending at : `date`"
+  echo "Ending at : $($MDATE)"
   echo ' '
   echo '                *** End of NWPS product generation ***'
   echo ' '
@@ -366,6 +361,6 @@ YMDH=${PDY}
 
 echo "$job completed normally" | tee -a ${LOGdir}/prdgen_cgn.log 
 
-date -u | tee -a ${LOGdir}/prdgen_cgn.log 
+echo "$($MDATE)" | tee -a "${LOGdir}/prdgen_cgn.log"
 exit 0
 # End of NWPS product generation script -------------------------------------- #

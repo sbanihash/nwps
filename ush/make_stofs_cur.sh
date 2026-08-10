@@ -321,8 +321,7 @@ mpiexec -np 36 --cpu-bind verbose,core cfp ${RUNdir}/cgn_cmdfile
 
 export err=$?; err_chk
 
-datetime=`date -u`
-echo "Ending download at $datetime UTC" 
+echo "Ending download at $($MDATE) UTC" 
 echo "Processing complete" 
 echo "Exiting..." 
 exit 0

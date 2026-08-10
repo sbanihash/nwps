@@ -168,7 +168,10 @@ sub windInputProcessing{
 	Logs::bug("ERROR - Cannot create file ${windlogfname}",6);
     }
     print WINDLOG "Starting wind input pre-processing routine\n";
-    system("date +%s > ${VARdir}/wind_start_secs.txt");
+    open(my $fh, '>', "$ENV{VARdir}/wind_start_secs.txt")
+	    or die "Could not open file: $!";
+    print $fh time();
+    close($fh);
     my $windflag = $ENV{'WINDS'};
     print "In WindInputProcessing:  WindFlag: $windflag \n";
     if( $windflag eq "GFS" ) {
@@ -258,16 +261,19 @@ sub windInputProcessing{
     print WINDLOG"DATE:$date\nINPUTGRID:$inpGrid\nFILENAME:$filename\n";
     
     &mvFiles("${RUNdir}/",$filename);
-    
+
     if(${DEBUGGING} ne 'TRUE') {
 	print WINDLOG "Cleaning raw wind processing directory\n";
 	&removeFiles('txt$',"${INPUTdir}/wind");
 	&removeFiles('bin$',"${INPUTdir}/wind");
     }
-    system("date +%s > ${VARdir}/wind_end_secs.txt");
+    open(my $fh, '>', "$ENV{VARdir}/wind_end_secs.txt")
+            or die "Could not open file: $!";
+    print $fh time();
+    close($fh);
     print WINDLOG "Wind input pre-processing complete\n";
     close(WINDLOG);
-    
+
     Logs::bug("end windInputProcessing",1);
     return ($date,$inpGrid,$filename);
 }

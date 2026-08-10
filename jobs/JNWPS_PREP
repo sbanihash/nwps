@@ -11,7 +11,7 @@ rm -rf $DATA
 mkdir $DATA
 cd $DATA
 
-curhour=$(date -u +%H)
+curhour=$($MDATE | cut -c 9-10)
 if [ $curhour -lt 12 ]; then CYCLE="00"; fi
 if [ $curhour -ge 12 ] && [ $curhour -lt 18 ]; then CYCLE="06"; fi
 if [ $curhour -ge 18 ] && [ $curhour -lt 22 ]; then CYCLE="12"; fi

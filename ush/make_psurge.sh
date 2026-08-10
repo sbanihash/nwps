@@ -122,13 +122,13 @@ mv /tmp/wfo_cmdfile /tmp/wfo_cmdfile.orig ${RUNdir}
 
 export CFP_VERBOSE=1
 cmd="mpiexec -np 24 --cpu-bind verbose,core cfp ${RUNdir}/wfo_cmdfile"
-echo "${0}: info: before ${cmd} at `date`"
+echo "${0}: info: before ${cmd} at $($NDATE)"
 t0=$SECONDS
 # eval ${cmd}
 mpiexec -np 24 --cpu-bind verbose,core cfp ${RUNdir}/wfo_cmdfile
 export err=$?; err_chk
 t1=$SECONDS
-echo "${0}: info: after ${cmd} at `date`"
+echo "${0}: info: after ${cmd} at $($NDATE)"
 echo "${0}: info: '${cmd}' took $(( ( t1 - t0 ) + 1 )) wallclock seconds."
 unset CFP_VERBOSE
 

@@ -310,9 +310,17 @@ sub runWaveModel (%){
     if ( ($MODELCORE eq "SWAN") || ($MODELCORE eq "UNSWAN") ) {
        # Start the SWAN.EXE here
        Logs::run("Begin SWAN model run for CG".$CG{CGNUM}.".");
-       system("date +%s > ${VARdir}/modelrun_start_secs.txt");
+       open(my $fh, '>', "$ENV{VARdir}/partition_start_secs.txt") 
+	       or die "Could not open file: $!";
+
+       print $fh time();
+       close($fh);
        system("${USHnwps}/swanexe.sh ".$CG{CGNUM}." > swan.log 2> ${LOGdir}/swan_exe_error.log");
-       system("date +%s > ${VARdir}/modelrun_end_secs.txt");
+              open(my $fh, '>', "$ENV{VARdir}/modelrun_end_secs.txt")
+               or die "Could not open file: $!";
+
+       print $fh time();
+       close($fh);
     }
     else {
 	if ($CG{CGNUM} eq $numofGrids) {
@@ -324,10 +332,16 @@ sub runWaveModel (%){
 	    &getWW3Files($archInputFile,%CG);
 	    # Start the WWIII.EXEs here
 	    Logs::run("Begin WWIII model run for CG".$CG{CGNUM}.".");
-	    system("date +%s > ${VARdir}/modelrun_start_secs.txt");
+	    open(my $fh, '>', "$ENV{VARdir}/modelrun_start_secs.txt")
+		    or die "Could not open file: $!";
+	    print $fh time();
+	    close($fh);
 	    system ("${RUNdir}/run_ww3_multi_updated.sh > ww3.log 2> ${LOGdir}/ww3_exe_error.log");
 	    #system ("${HOMEnwps}/ush/bin/run_ww3_multi_updated.sh > ww3.log 2> ${LOGdir}/ww3_exe_error.log");
-	    system("date +%s > ${VARdir}/modelrun_end_secs.txt");
+	    open(my $fh, '>', "$ENV{VARdir}/modelrun_end_secs.txt")
+		    or die "Could not open file: $!";
+	    print $fh time();
+	    close($fh);
 	    Logs::run("END WWIII model run for CG".$CG{CGNUM}.".");
 	    print "Formatting all output files from WW3\n\n";
 	    &formatWW3Fields;

@@ -68,8 +68,8 @@ echo "Copying ${1} fields for SITE: ${siteid}"
 
 if [ $# -eq 1 ]
 then
-  date=`date +%Y%m%d`
-  datey=`date +%Y%m%d --date=yesterday`
+  date=$($NDATE)
+  datey=${PDYm1}
   #RTOFSPATH="ofs.${PDY}/rtofs/${siteid}_output"
   #RTOFSPATHY="ofs.${PDYm1}/rtofs/${siteid}_output"
   #STOFSPATH="ofs.${PDY}/stofs/${siteid}_output"
@@ -86,10 +86,9 @@ fi
 WGETargs="--mirror -nv --tries=5 --no-parent --timeout=60 --no-directories --level=1"
 WGET="/usr/bin/wget"
 
-echo "Downloading NCEP init files for NWPS"
-/bin/date -u
+echo "Downloading NCEP init files for NWPS $($MDATE)"
 
-/bin/mkdir -p ${LDMdir}/rtofs ${LDMdir}/stofs ${LDMdir}/psurge
+mkdir -p ${LDMdir}/rtofs ${LDMdir}/stofs ${LDMdir}/psurge
 
 
 list_zerobyte_files_in_dir () {
@@ -292,9 +291,9 @@ then
       #send inside the next for
       for i in $(ls wave_stofs_uv*.dat)
       do
-         init_time=`echo $i | cut -c23-32`
-         fhour=`echo $i | cut -c47-49`
-         cycle=`echo $i | cut -c43-44`
+         init_time=`echo $i | cut -c15-24`
+         fhour=`echo $i | cut -c39-41`
+         cycle=`echo $i | cut -c35-36`
          echo "Processing $i $init_time $start_time $fhour $cycle"
          if [ $init_time -lt $start_time ]  && [ -e wave_stofs_uv_${start_time}_${cycle}_f144.dat ]
          then
@@ -513,8 +512,7 @@ then
 
 fi
 
-echo "Download script complete"
-/bin/date -u
+echo "Download script complete $($MDATE)"
 
 #exit 0
 # ----------------------------------------------------------- 

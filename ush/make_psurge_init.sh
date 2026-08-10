@@ -87,7 +87,7 @@ then
    CYCLE="$1"
 else
    # Adjust to the correct cycle
-   curhour=$(date -u +%H)
+   curhour=$(${NDATE} | cut -c9-10)
    if [ $curhour -lt 12 ]; then CYCLE="00"; fi
    if [ $curhour -ge 12 ] && [ $curhour -lt 18 ]; then CYCLE="06"; fi
    if [ $curhour -ge 18 ] && [ $curhour -lt 22 ]; then CYCLE="12"; fi
@@ -105,9 +105,9 @@ TIMESTEP="${PSURGETIMESTEP}"
 if [ "$3" != "" ]; then TIMESTEP="$3"; fi
 
 # Set the date stamp using the system Z time
-YYYY=`date +%Y`
-MM=`date +%m`
-DD=`date +%d`
+YYYY=${PDY:0:4}
+MM=${PDY:4:2}
+DD=${PDY:6:2}
 
 # Optional ARGS used to override the default settings
 YYYYMMDD="${YYYY}${MM}${DD}"
@@ -248,7 +248,7 @@ echo "${0}: info: before ${cmd} at `date`"
 t0=$SECONDS
 eval ${cmd}
 t1=$SECONDS
-echo "${0}: info: after ${cmd} at `date`"
+echo "${0}: info: after ${cmd} at $($MDATE)"
 echo "${0}: info: '${cmd}' took $(( ( t1 - t0 ) + 1 )) wallclock seconds."
 
 #Running 24 tasks, 12 per node (on a total of 2 nodes)

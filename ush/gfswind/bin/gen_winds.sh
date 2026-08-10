@@ -73,8 +73,7 @@ cat /dev/null > ${LOGfile}
 
 echo "Generating wind files for NWPS model" | tee -a ${LOGfile}
 
-datetime=`date -u`
-echo "Starting processing at at $datetime UTC" | tee -a ${LOGfile}
+echo "Starting processing at at $($MDATE) UTC" | tee -a ${LOGfile}
 
 myPWD=`pwd`
 if [ ! -e ${INPUTdir}/gfswind_start_time.txt ]
@@ -154,9 +153,6 @@ gfswind_start_time=`cat ${INPUTdir}/gfswind_start_time.txt`
 gfswind_date_str=`echo ${gfswind_start_time} | awk '{ print strftime("%Y%m%d", $1) }'`
 gfswind_model_cycle=`echo ${gfswind_start_time} | awk '{ print strftime("%H", $1) }'`
 
-#AW # Default to our current date
-#AW YYYYMMDDHH=$(date -u +%Y%m%d%H)
-
 if [ "$1" != "" ]; then YYYYMMDDHH=${1}; fi
 if [ "$1" == "--model" ]; then YYYYMMDDHH=$(echo ${gfswind_start_time} | awk '{ print strftime("%Y%m%d%H", $1) }'); fi
 
@@ -171,7 +167,7 @@ NewestWind=$(basename $(ls -t ${VARdir}/gfe_grids_test/NWPSWINDGRID_${siteid}* |
 if [ "$NewestWind" != "" ]; then
    HH=$(echo $NewestWind|cut -c26-27)
 else
-   HH=$(date -u +%H)
+   HH=$( $NDATE | cut -c9-10 )
 fi
 YYYYMMDDHH="${YYYY}${MM}${DD}${HH}"
 #AW

@@ -65,7 +65,7 @@ logfile=${LOGdir}/stopSwan.log
 
 cat /dev/null > ${LOGdir}/stopSwan.log
 echo "Stopping previous NWPS run for site: $SITEID " | tee -a $logfile
-date -u | tee -a $logfile
+echo "$($MDATE)" | tee -a "${logfile}"
 echo "Checking for processing directories" | tee -a $logfile
 if [ ! -e ${TMPdir}/${USERNAME}/nwps ]; then mkdir -vp ${TMPdir}/${USERNAME}/nwps | tee -a $logfile; fi
 if [ ! -e ${RUNdir} ]; then mkdir -vp ${RUNdir} | tee -a $logfile; fi
@@ -143,14 +143,14 @@ done
 
 if [ $has_error -ne 0 ]
 then
-    date -u | tee -a $logfile
+	echo "$($MDATE)" | tee -a "${logfile}"
     echo "ERROR - Stop script could not stop all processed for ${USERNAME} ${SITEID} " | tee -a $logfile
     cd ${DATA}/
     #RemoveLockFile
     export err=1; err_chk
 fi
 
-date -u | tee -a $logfile
+echo "$($MDATE)" | tee -a "${logfile}"
 echo "Stop script complete" | tee -a $logfile
 echo "All processes for ${USERNAME} ${SITEID} have been stopped"
 cd ${DATA}/

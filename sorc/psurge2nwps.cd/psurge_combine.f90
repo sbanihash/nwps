@@ -133,11 +133,11 @@ subroutine interp_combine(ESTOFSDIR,DOMAIN,EXCEED,EPOC_TIME,DATEIN,HHINI,FHOUR, 
   funin1 = 20
   fname1 = 'psurge_waterlevel_domain_'//DOMAIN//'.txt'
   funin2 = 21
-  fname2 = trim(ESTOFSDIR)//'estofs_waterlevel_domain.txt'
+  fname2 = trim(ESTOFSDIR)//'stofs_waterlevel_domain.txt'
   funin3 = 22
   fname3 = 'wave_psurge_waterlevel_'//EPOC_TIME//'_'//DATEIN//'_'//HHINI//'_'//DOMAIN//'_e'//EXCEED//'_f'//FHOUR//'.dat'
   funin4 = 23
-  fname4 = trim(ESTOFSDIR)//'wave_estofs_waterlevel_'//EPOC_TIME2//'_'//DATEIN2//'_'//HHINI2//'_f'//FHOUR2//'.dat'
+  fname4 = trim(ESTOFSDIR)//'wave_stofs_waterlevel_'//EPOC_TIME2//'_'//DATEIN2//'_'//HHINI2//'_f'//FHOUR2//'.dat'
   funin5 = 24
   fname5 = 'wave_combnd_waterlevel_'//EPOC_TIME//'_'//DATEIN//'_'//HHINI//'_'//DOMAIN//'_e'//EXCEED//'_f'//FHOUR//'.dat'
 

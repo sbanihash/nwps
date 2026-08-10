@@ -76,11 +76,6 @@ bcCYCLE="00"
 # Check for command line bcCYCLE
 if [ "$1" != "" ]; then bcCYCLE="$1"; fi
 
-#AW # Set the date stamp using the system Z time
-#AW YYYY=$(echo $PDY|cut -c1-4)
-#AW MM=$(echo $PDY|cut -c5-6)
-#AW DD=$(echo $PDY|cut -c7-8)
-
 windsource=`cat ${RUNdir}/windsource.flag`
 if [ "$windsource" == "FORECASTWINDGRIDS" ]; then
    export model_start_time=`grep Wind_Mag_SFC:validTimes ${INPUTdir}/wind/*WIND.txt | cut -c29-38 | tail -1`
@@ -110,31 +105,24 @@ if [ $windhour -ge 23 ]; then bcCYCLE="18"; fi
 bcYYYYMMDD="${YYYY}${MM}${DD}"
 if [ $windhour -ge 0 ] && [ $windhour -lt 5 ] 
 then 
-  #AW date=`date +%Y%m%d --date=yesterday`
-  #AW YYYYMMDD="$date"
   let model_start_time_m1=$model_start_time-3600*24
   bcYYYYMMDD=$(date -d @$model_start_time_m1 +"%Y%m%d")
   bcCYCLE="18" 
 fi
 
 # Set another date stamp of one cycle (6h) ago, for in case current BC are not available
-#AW curhour=$(date -u +%H)
 if [ $windhour -ge 11 ] && [ $windhour -lt 17 ]; then bcOLDCYCLE="00"; fi
 if [ $windhour -ge 17 ] && [ $windhour -lt 23 ]; then bcOLDCYCLE="06"; fi
 if [ $windhour -ge 23 ]; then bcOLDCYCLE="12"; fi
 bcOLDYYYYMMDD=$bcYYYYMMDD
 if [ $windhour -ge  0 ] && [ $windhour -lt 5 ]
 then
-   #AW date=`date +%Y%m%d --date=yesterday`
-   #AW OLDYYYYMMDD="$date"
    let model_start_time_m1=$model_start_time-3600*24
    bcOLDYYYYMMDD=$(date -d @$model_start_time_m1 +"%Y%m%d")
    bcOLDCYCLE="12" 
 fi
 if [ $windhour -ge  5 ] && [ $windhour -lt 11 ]
 then
-   #AW date=`date +%Y%m%d --date=yesterday`
-   #AW OLDYYYYMMDD="$date"
    let model_start_time_m1=$model_start_time-3600*24
    bcOLDYYYYMMDD=$(date -d @$model_start_time_m1 +"%Y%m%d")
    bcOLDCYCLE="18" 
@@ -167,8 +155,7 @@ mkdir -p ${INGESTdir}
 
 cat /dev/null > ${LOGfile}
 
-datetime=`date -u`
-echo "Starting download at $datetime UTC" | tee -a ${LOGfile}
+echo "Starting download at $($MADTE) UTC" | tee -a ${LOGfile}
 
 # Starting purging here
 echo "Purging any WNA data older than ${WNAPURGEdays} days old" | tee -a ${LOGfile}
@@ -289,7 +276,7 @@ if [ -e "${url}/${bctarfile}" ];then
        # Checking if the file is "old enough" to access it. Otherwise an error 
        # can occur if the file is still being copied by another site run and 
        # this run tries to untar its boundary conditions.
-       time_now=$(date +%s)
+       time_now=$(perl -e 'print time')
        echo "time now: ${time_now}"
        time_bondcond=$(stat -c %Y ${DATABCdir}/${bctarfile} | awk '{printf $1 "\n"}')
        echo "Bound Cond time : ${time_bondcond}"
@@ -388,8 +375,7 @@ else
     export err=1; err_chk
 fi
 
-datetime=`date -u`
-echo "Ending download at $datetime UTC" | tee -a ${LOGfile}
+echo "Ending download at $($MDATE) UTC" | tee -a ${LOGfile}
 
 echo "Processing complete" | tee -a ${LOGfile}
 cd ${myPWD}
